@@ -2,7 +2,9 @@
 
 ## Installation
 
+```
 gem 'the_captain', :git => 'git@github.com:elevatorup/the_captain_api_client.git', :tag => 'v0.1.0'
+```
 
 ## Examples
 
