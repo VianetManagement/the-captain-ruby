@@ -10,6 +10,7 @@ require 'ext/array'
 require 'ext/hash'
 require 'ext/date'
 require 'ext/time'
+require 'ext/string'
 
 require 'the_captain/util'
 require 'the_captain/configuration'
@@ -75,29 +76,15 @@ module TheCaptain
   	def request(method, path, params = {}, opts = {})
   		validate_api_key!
 
-	    # params = Util.objects_to_ids(params)
 	    url = api_url(path, api_base_url)
 	    headers = opts[:headers] || DEFAULT_HEADERS
 	    headers.merge!('X-API-TOKEN' => api_key)
-
-	    case method.to_s.downcase.to_sym
-	    when :get, :head, :delete
-	      # Make params into GET parameters
-	      url += "#{URI.parse(url).query ? '&' : '?'}#{Util.encode_parameters(params)}" if params && params.any?
-	      payload = nil
-	    else
-	      if headers[:content_type] && headers[:content_type] == "multipart/form-data"
-	        payload = params
-	      else
-	        payload = Util.encode_parameters(params)
-	      end
-	    end
 
 	    opts.update(
 	    	headers: request_headers(method).update(headers),
 				method: method,
 				open_timeout: open_timeout,
-				payload: payload,
+				payload: params,
 				url: url,
 				timeout: read_timeout
 			)
@@ -141,7 +128,8 @@ module TheCaptain
 	    begin
 	      r = JSON.parse(response.body)
 	      r = Util.symbolize_names(r)
-	      r[:status] = r[:status].to_i
+	      r[:status] = response.status
+
 	      response = Hashie::Mash.new(r)
 	    rescue JSON::ParserError
 	    	if response.status == 201

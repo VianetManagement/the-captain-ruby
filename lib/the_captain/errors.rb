@@ -5,9 +5,10 @@ module TheCaptain
     attr_reader :response
     attr_reader :params
 
-    def initialize(response, params = {})
+    def initialize(message, request_options, response)
+    	@message = message
       @response = response
-      @params = params
+      @request_options = request_options
       super(response)
     end
 

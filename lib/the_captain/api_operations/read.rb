@@ -18,7 +18,7 @@ module TheCaptain
       #   @param [TheCaptain::BaseModel] id you can pass a model and it will return a refreshed version
       #
       # @return [TheCaptain::BaseModel] the model depends on where you're calling it from (e.g. TheCaptain::Client from TheCaptain::Base#clients)
-      def find(id)
+      def retrieve(id)
         raise ArgumentError.new("id required") unless id
         response = request(:get, path: "#{api_model.api_path}/#{id}")
         api_model.parse(response.parsed_response).first

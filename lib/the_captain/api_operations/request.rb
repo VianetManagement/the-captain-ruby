@@ -9,23 +9,31 @@ module TheCaptain
           response = TheCaptain.request(method, path, params, opts)
           TheCaptain.last_response = response
 
+          request_options = {
+          	method: method,
+          	path: path,
+          	body: request_body,
+          	params: params,
+          	opts: opts
+          }
+
+          error = response.try(:error_message)
+
           case response.status
 	        when 200..204
 	          response
 	        when 400
-	          raise TheCaptain::BadRequest.new(error, response, error_obj)
+	          raise TheCaptain::BadRequest.new(error, request_options, response)
 	        when 401
-	          raise TheCaptain::AuthenticationFailed.new(response, params)
+	          raise TheCaptain::AuthenticationFailed.new(error, request_options, response)
 	        when 404
-	          raise TheCaptain::NotFound.new(response, params)
-	        when 422
-	          raise TheCaptain::UnprocessibleEntity.new(response, params)
+	          raise TheCaptain::NotFound.new(error, request_options, response)
 	        when 500
-	          raise TheCaptain::ServerError.new(response, params)
+	          raise TheCaptain::ServerError.new(error, request_options, response)
 	        when 502
-	          raise TheCaptain::Unavailable.new(response, params)
+	          raise TheCaptain::Unavailable.new(error, request_options, response)
 	        else
-	          raise TheCaptain::InformTheCaptain.new(response, params)
+	          raise TheCaptain::InformTheCaptain.new(error, request_options, response)
 	        end
 
           response

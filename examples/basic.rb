@@ -18,4 +18,4 @@ TheCaptain::Event.create('user.signup', {
 })
 
 ## Retrieve an IP
-TheCaptain::Ip.retrieve
+ip = TheCaptain::Ip.retrieve('127.0.0.1')
