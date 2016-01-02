@@ -1,5 +1,17 @@
 module TheCaptain
 	module Util
+		SUPPORTED_QUERY_OPTIONS = [
+			:event_name,
+			:before,
+			:after,
+			:filters
+		].freeze
+
+		SUPPORTED_QUERY_FILTERS = [
+			:ne,
+			:eq
+		].freeze
+
 		def self.symbolize_names(object)
       case object
       when Hash
@@ -16,6 +28,20 @@ module TheCaptain
       end
     end
 
+    def self.parse_query(query)
+    	safe_query = {}
+
+    	 query.each_pair do |key, value|
+    		safe_query[key] = value if SUPPORTED_QUERY_OPTIONS.include(key)
+
+    		if key == :filters
+    			safe_query[:filters] = value.keep_if{ |key, _| SUPPORTED_SUPPORTED_QUERY_FILTERS.include(key) }
+    		end
+    	end
+
+    	safe_query
+    end
+
     def self.objects_to_ids(h)
       case h
       when APIResource
@@ -29,48 +55,6 @@ module TheCaptain
       else
         h
       end
-    end
-
-    # Encodes a hash of parameters in a way that's suitable for use as query
-    # parameters in a URI or as form parameters in a request body. This mainly
-    # involves escaping special characters from parameter keys and values (e.g.
-    # `&`).
-    def self.encode_parameters(params)
-      Util.flatten_params(params).
-        map { |k,v| "#{url_encode(k)}=#{url_encode(v)}" }.join('&')
-    end
-
-    def self.flatten_params(params, parent_key=nil)
-      result = []
-
-      # do not sort the final output because arrays (and arrays of hashes
-      # especially) can be order sensitive, but do sort incoming parameters
-      params.sort_by { |(k, v)| k.to_s }.each do |key, value|
-        calculated_key = parent_key ? "#{parent_key}[#{key}]" : "#{key}"
-        if value.is_a?(Hash)
-          result += flatten_params(value, calculated_key)
-        elsif value.is_a?(Array)
-          result += flatten_params_array(value, calculated_key)
-        else
-          result << [calculated_key, value]
-        end
-      end
-
-      result
-    end
-
-    def self.flatten_params_array(value, calculated_key)
-      result = []
-      value.each do |elem|
-        if elem.is_a?(Hash)
-          result += flatten_params(elem, "#{calculated_key}[]")
-        elsif elem.is_a?(Array)
-          result += flatten_params_array(elem, calculated_key)
-        else
-          result << ["#{calculated_key}[]", elem]
-        end
-      end
-      result
     end
 	end
 end

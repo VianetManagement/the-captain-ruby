@@ -75,16 +75,6 @@ module TheCaptain
         id == other.id
       end
 
-      def impersonated_user_id
-        if respond_to?(:of_user) && respond_to?(:user_id)
-          of_user || user_id
-        elsif !respond_to?(:of_user) && respond_to?(:user_id)
-          user_id
-        elsif respond_to?(:of_user)
-          of_user
-        end
-      end
-
       def json_root
         self.class.json_root
       end

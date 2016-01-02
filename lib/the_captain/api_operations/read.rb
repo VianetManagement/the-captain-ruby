@@ -1,12 +1,11 @@
 module TheCaptain
-  module Behavior
+  module APIOperations
     module Read
       # Retrieves all items
       # @return [Array<TheCaptain::BaseModel>] an array of models depending on where you're calling it from (e.g. [TheCaptain::Client] from TheCaptain::Base#clients)
-      def all(query_options = {})
-        query = query_options
-        response = request(:get, credentials, api_model.api_path, :query => query)
-        api_model.parse(response.parsed_response)
+      def self.all(params = {})
+        response = request(method: :get, path: api_model.api_path, params: params, opts: {})
+        parse(response)
       end
 
       # Retrieves an item by id
@@ -18,7 +17,7 @@ module TheCaptain
       #   @param [TheCaptain::BaseModel] id you can pass a model and it will return a refreshed version
       #
       # @return [TheCaptain::BaseModel] the model depends on where you're calling it from (e.g. TheCaptain::Client from TheCaptain::Base#clients)
-      def retrieve(id)
+      def self.retrieve(id)
         raise ArgumentError.new("id required") unless id
         response = request(:get, path: "#{api_model.api_path}/#{id}")
         api_model.parse(response.parsed_response).first

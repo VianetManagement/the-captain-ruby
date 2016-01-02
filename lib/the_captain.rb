@@ -1,3 +1,6 @@
+require 'dotenv'
+Dotenv.load
+
 require 'faraday'
 require 'typhoeus/adapters/faraday'
 require 'hashie'
@@ -18,6 +21,7 @@ require 'the_captain/errors'
 require 'the_captain/api_operations/request'
 require 'the_captain/api_operations/create'
 require 'the_captain/api_operations/read'
+require 'the_captain/api_operations/query'
 
 %w(model api_resource ip event).each {|a| require "the_captain/#{a}"}
 
