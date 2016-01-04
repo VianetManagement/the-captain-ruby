@@ -2,6 +2,7 @@ module TheCaptain
 	module Util
 		SUPPORTED_QUERY_OPTIONS = [
 			:event_name,
+			:user_id,
 			:before,
 			:after,
 			:filters
@@ -28,18 +29,35 @@ module TheCaptain
       end
     end
 
-    def self.parse_query(query)
+    def self.parse_query_options(options)
     	safe_query = {}
 
-    	 query.each_pair do |key, value|
-    		safe_query[key] = value if SUPPORTED_QUERY_OPTIONS.include(key)
+    	 options.each_pair do |key, value|
+    		safe_query[key] = value if SUPPORTED_QUERY_OPTIONS.include?(key)
 
     		if key == :filters
-    			safe_query[:filters] = value.keep_if{ |key, _| SUPPORTED_SUPPORTED_QUERY_FILTERS.include(key) }
+    			safe_query[:filters] = value.keep_if{ |key, _| SUPPORTED_QUERY_FILTERS.include?(key) }
     		end
     	end
 
     	safe_query
+    end
+
+    def self.mashify(hash)
+    	new_hash = {}
+
+			hash.keys.each do |key|
+      	if hash[key].is_a?(Array)
+      		items = hash.delete(key)
+      		new_hash[key] = items.map{ |item| Hashie::Mash.new(item) }
+      	elsif hash[key].is_a?(Hash)
+      		new_hash[key] = Hashie::Mash.new(hash.delete(key))
+      	else
+      		new_hash[key] = hash[key]
+      	end
+      end
+
+      Hashie::Mash.new(new_hash)
     end
 
     def self.objects_to_ids(h)

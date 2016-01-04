@@ -7,6 +7,7 @@ VCR.configure do |c|
     record: ENV['TRAVIS'] ? :none : :once
   }
   c.hook_into :webmock
+  c.ignore_hosts 'codeclimate.com'
 end
 
 RSpec.configure do |c|

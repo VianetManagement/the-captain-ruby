@@ -1,6 +1,3 @@
-require 'dotenv'
-Dotenv.load
-
 require 'faraday'
 require 'typhoeus/adapters/faraday'
 require 'hashie'
@@ -9,20 +6,14 @@ require 'time'
 require 'set'
 require 'socket'
 
-require 'ext/array'
 require 'ext/hash'
-require 'ext/date'
-require 'ext/time'
 require 'ext/string'
 
 require 'the_captain/util'
 require 'the_captain/configuration'
 require 'the_captain/errors'
-require 'the_captain/api_operations/request'
-require 'the_captain/api_operations/create'
-require 'the_captain/api_operations/read'
-require 'the_captain/api_operations/query'
 
+%w(request create read query).each {|a| require "the_captain/api_operations/#{a}"}
 %w(model api_resource ip event).each {|a| require "the_captain/#{a}"}
 
 module TheCaptain
@@ -133,9 +124,9 @@ module TheCaptain
 	      r = JSON.parse(response.body)
 	      r = Util.symbolize_names(r)
 	      r[:status] = response.status
-
-	      response = Hashie::Mash.new(r)
+	      mash = Util.mashify(r)
 	    rescue JSON::ParserError
+	    	# The Captain responds with an empty body when creating events.
 	    	if response.status == 201
 	    		response
 	    	else

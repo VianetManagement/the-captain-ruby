@@ -17,7 +17,7 @@ module TheCaptain
           	opts: opts
           }
 
-          error = response.try(:error_message)
+          error = response.respond_to?(:error_message) ? response.error_message : nil
 
           case response.status
 	        when 200..204

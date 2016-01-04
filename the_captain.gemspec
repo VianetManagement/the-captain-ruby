@@ -28,6 +28,7 @@ spec = Gem::Specification.new do |s|
   s.add_development_dependency('faker')
   s.add_development_dependency('factory_girl')
   s.add_development_dependency('byebug')
+  s.add_development_dependency('timecop')
 
 
   s.files = `git ls-files`.split("\n")

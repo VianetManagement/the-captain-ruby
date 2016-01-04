@@ -1,15 +1,18 @@
 module TheCaptain
   module ApiOperations
     module Create
-      # Creates an item
-      # @param [TheCaptain::BaseModel] model the item you want to create
-      def create(model)
-        model = api_model.wrap(model)
-        opts = { body: model.to_json }
-        response = request(method: :post, path: "#{api_model.api_path}", opts: opts)
-        id = api_model.parse(response.parsed_response).first.id
-        find(id)
-      end
+    	module ClassMethods
+	      # Creates an item
+	      # @param [TheCaptain::BaseModel] model the item you want to create
+	      def create(model)
+	        response = request(method: :post, path: "#{api_model.api_path}", opts: { body: model })
+	        retrieve(response.id)
+	      end
+	    end
+
+	    def self.included(base)
+  			base.extend(ClassMethods)
+  		end
     end
   end
 end

@@ -3,19 +3,19 @@
 ## Installation
 
 ```
-gem 'the_captain', :git => 'git@github.com:elevatorup/the_captain_api_client.git', :tag => 'v0.1.0'
+gem 'the_captain', :git => 'git@github.com:elevatorup/the_captain_api_client.git', :tag => 'v0.2.0'
 ```
 
 ## Examples
-
-You can find more examples in `/examples` and in the documentation for TheCaptain::Base
+You can find more examples in `/examples` and at [our documentation site](https://captain.readme.io/docs)
 
 ## Ruby support
-
 The Captain's tests are currently passing for 2.2.3
 
 ## Links
-* [Source Code for The Captain](http://github.com/elevatorup/the_captain_api_client)
+* [Source Code for The Captain](http://github.com/BeatnikBranding/the_captain_api_client)
+* [Documenation for The Captain](https://captain.readme.io/docs)
+* [Continuous Integration - Travis]()
 
 ## TODO
 

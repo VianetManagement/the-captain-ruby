@@ -5,3 +5,4 @@
 *sublime-*
 .env.development
 .env.test
+coverage/
