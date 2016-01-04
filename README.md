@@ -1,4 +1,4 @@
-# The Captain: A Ruby Wrapper for the The Captain API
+# The Captain Ruby Bindings
 
 ## Installation
 
@@ -13,9 +13,10 @@ You can find more examples in `/examples` and at [our documentation site](https:
 The Captain's tests are currently passing for 2.2.3
 
 ## Links
-* [Source Code for The Captain](http://github.com/BeatnikBranding/the_captain_api_client)
+* [Source Code for The Captain](http://github.com/BeatnikBranding/the-captain-ruby)
 * [Documenation for The Captain](https://captain.readme.io/docs)
-* [Continuous Integration - Travis]()
+* [Continuous Integration - Travis](https://travis-ci.com/BeatnikBranding/the-captain-ruby)
+*
 
 ## TODO
 
