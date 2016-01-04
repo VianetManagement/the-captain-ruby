@@ -9,12 +9,30 @@ require 'socket'
 require 'ext/hash'
 require 'ext/string'
 
+require 'the_captain/version'
+
+# Api Operations
+require 'the_captain/api_operations/request'
+require 'the_captain/api_operations/create'
+require 'the_captain/api_operations/read'
+require 'the_captain/api_operations/query'
+
+# Resources
 require 'the_captain/util'
 require 'the_captain/configuration'
-require 'the_captain/errors'
 
-%w(request create read query).each {|a| require "the_captain/api_operations/#{a}"}
-%w(model api_resource ip event).each {|a| require "the_captain/#{a}"}
+require 'the_captain/model'
+require 'the_captain/api_resource'
+require 'the_captain/ip'
+require 'the_captain/event'
+
+# Errors
+require 'the_captain/errors/the_captain_error'
+require 'the_captain/errors/api_error'
+require 'the_captain/errors/api_connection_error'
+require 'the_captain/errors/invalid_request_error'
+require 'the_captain/errors/authentication_error'
+require 'the_captain/errors/rate_limit_error'
 
 module TheCaptain
 	DEFAULT_HEADERS = {
@@ -130,30 +148,48 @@ module TheCaptain
 	    	if response.status == 201
 	    		response
 	    	else
-	    		raise "JSON parse error"
+	    		raise APIError.new("Invalid response object from API: #{response.body.inspect} " +
+                 "(HTTP response code was #{response.status})")
 	    	end
-	      # raise general_api_error(response.code, response.body)
 	    end
 	  end
 
 	  protected
 
+	  def handle_api_error(response)
+	  	error = response.respond_to?(:error_message) ? response.error_message : nil
+
+	    case response.status
+      when 200..204
+        response
+      when 400
+        raise TheCaptain::InvalidRequestError.new(error, response, opts)
+      when 401
+        raise TheCaptain::AuthenticationError.new(error, response, opts)
+      when 404
+        raise TheCaptain::InvalidRequestError.new(error, response, opts)
+      when 500
+        raise TheCaptain::APIError.new(error, response, opts)
+      when 502
+        raise TheCaptain::APIConnectionError.new(error, response, opts)
+      else
+        raise TheCaptain::TheCaptainError.new(error, response, opts)
+      end
+	  end
+
 	  def execute_request_with_rescues(method, params, opts, path)
 	    begin
-	      response = execute_request(method, params, opts, path)
-	    rescue SocketError => e
-	    	raise e
-	      # response = handle_restclient_error(e, request_opts, retry_count, path)
+	    	response = execute_request(method, params, opts, path)
+	    rescue Exception => e
+	    	raise APIError.new("It looks like our client raised an #{e.class.name} error with message:  #{e.message}")
 	    end
-
-	    response
 	  end
 
 	  def validate_api_key!
 	  	unless api_key
 	      raise AuthenticationError.new('No API key provided. ' \
 	        'Set your API key using "TheCaptain.api_key = <API-KEY>". ' \
-	        'See https://thecaptain.elevatorup.com/ for details, or ' \
+	        'See https://thecaptain.elevatorup.com for details, or ' \
 	        'email support@thecaptain.elevatorup.com if you have any questions.')
 	    end
 
@@ -170,7 +206,6 @@ module TheCaptain
   			req.headers = opts[:headers]
   			req.params = params
   			req.body = opts[:body].to_json if [:post, :patch, :put]
-  			#req.options.open_timeout = open_timeout
   		end
 		end
 

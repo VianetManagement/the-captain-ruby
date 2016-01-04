@@ -17,25 +17,6 @@ module TheCaptain
           	opts: opts
           }
 
-          error = response.respond_to?(:error_message) ? response.error_message : nil
-
-          case response.status
-	        when 200..204
-	          response
-	        when 400
-	          raise TheCaptain::BadRequest.new(error, request_options, response)
-	        when 401
-	          raise TheCaptain::AuthenticationFailed.new(error, request_options, response)
-	        when 404
-	          raise TheCaptain::NotFound.new(error, request_options, response)
-	        when 500
-	          raise TheCaptain::ServerError.new(error, request_options, response)
-	        when 502
-	          raise TheCaptain::Unavailable.new(error, request_options, response)
-	        else
-	          raise TheCaptain::InformTheCaptain.new(error, request_options, response)
-	        end
-
           response
         end
       end
