@@ -1,6 +1,7 @@
 # The Captain Ruby Bindings
 [![Code Climate](https://codeclimate.com/repos/568743721dd3e5010a0078f9/badges/9a334fb9d689f37653bf/gpa.svg)](https://codeclimate.com/repos/568743721dd3e5010a0078f9/feed)
 [![Test Coverage](https://codeclimate.com/repos/568743721dd3e5010a0078f9/badges/9a334fb9d689f37653bf/coverage.svg)](https://codeclimate.com/repos/568743721dd3e5010a0078f9/coverage)
+[![Build Status](https://travis-ci.com/BeatnikBranding/the-captain-ruby.svg?token=n786VooY27Eqom8MTsFY)](https://travis-ci.com/BeatnikBranding/the-captain-ruby)
 
 ## Installation
 
