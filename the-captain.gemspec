@@ -3,14 +3,14 @@ $:.unshift(File.join(File.dirname(__FILE__), 'lib'))
 require 'the_captain/version'
 
 spec = Gem::Specification.new do |s|
-  s.name = 'the_captain'
+  s.name = 'the-captain'
   s.version = TheCaptain::VERSION
   s.required_ruby_version = '>= 2.0.0'
   s.summary = 'Ruby bindings for the The Captain API'
   s.description = 'The Captain will tell, talk, and taddle on those pesky fraudulent scalliwags.'
   s.authors = ['Casey Provost']
   s.email = ['casey@elevatorup.com']
-  s.homepage = 'https://thecaptain.elevatorup.com/'
+  s.homepage = 'https://thecaptain.elevatorup.com'
   s.license = 'MIT'
 
   s.add_dependency('faraday', '~> 0.9.2')
@@ -32,7 +32,7 @@ spec = Gem::Specification.new do |s|
 
 
   s.files = `git ls-files`.split("\n")
-  s.test_files    = `git ls-files -- rspec/*`.split("\n")
+  s.test_files    = `git ls-files -- spec/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ['lib']
 end

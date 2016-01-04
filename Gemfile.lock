@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    the_captain (0.1.0)
+    the-captain (0.2.0)
       faraday (~> 0.9.2)
       hashie (~> 3.4.3)
       json (~> 1.8.3)
@@ -86,7 +86,7 @@ DEPENDENCIES
   rake
   redcarpet
   rspec (~> 3.4.0)
-  the_captain!
+  the-captain!
   timecop
   vcr (~> 3.0.1)
   webmock (~> 1.22.3)
