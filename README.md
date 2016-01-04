@@ -16,10 +16,8 @@ The Captain's tests are currently passing for 2.2.3
 * [Source Code for The Captain](http://github.com/BeatnikBranding/the-captain-ruby)
 * [Documenation for The Captain](https://captain.readme.io/docs)
 * [Continuous Integration - Travis](https://travis-ci.com/BeatnikBranding/the-captain-ruby)
-*
 
 ## TODO
-
-* Write Documentation
+* Write More Documentation
 * Add Retry mechanism
-* Add logging
+* Add logging mechanims/hooks
