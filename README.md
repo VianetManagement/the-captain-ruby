@@ -3,7 +3,7 @@
 ## Installation
 
 ```
-gem 'the_captain', :git => 'git@github.com:elevatorup/the_captain_api_client.git', :tag => 'v0.2.0'
+gem 'the_captain', :git => 'git@github.com:elevatorup/the_captain_api_client.git', :tag => 'v0.3.0'
 ```
 
 ## Examples
