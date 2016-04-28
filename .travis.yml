@@ -7,7 +7,9 @@ rvm:
 branches:
   only:
     - master
+
 cache: bundler
+
 sudo: false
 
 notifications:
@@ -16,5 +18,3 @@ notifications:
 addons:
   code_climate:
     repo_token: 70bb855d43fd2084977765ba11cac1df593df4bc4085fcb9bf39a2d321a20cde
-
-sudo: false

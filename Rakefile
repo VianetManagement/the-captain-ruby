@@ -1,7 +1,8 @@
-require 'rake/testtask'
+begin
+	require 'rspec/core/rake_task'
 
-task :default => [:test]
+	RSpec::Core::RakeTask.new(:spec)
 
-Rake::TestTask.new do |t|
-  t.pattern = './spec/**/*_spec.rb'
+	task :default => :spec
+rescue LoadError
 end
