@@ -10,7 +10,7 @@ require 'timecop'
 
 ENV['RAILS_ENV'] = 'test'
 ENV['API_VERSION'] = 'v1'
-ENV['BASE_URL'] = 'https://api.thecaptain.elevatorup.com'
+ENV['BASE_URL'] = 'https://thecaptain.elevatorup.com'
 
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each{ |f| require File.expand_path(f) }
 

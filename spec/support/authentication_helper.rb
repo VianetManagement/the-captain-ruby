@@ -1,7 +1,7 @@
 module AuthenticationHelper
 	def authenticate!
 		TheCaptain.configure do |config|
-		  config.server_api_token = 'gJSTIXixI2GTWzVd6ALuWg'
+		  config.server_api_token = "O5gDlIzw6Hlo1X7O8W1_XQ"
 		end
 	end
 
