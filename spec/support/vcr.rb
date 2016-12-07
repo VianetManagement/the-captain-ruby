@@ -4,10 +4,10 @@ VCR.configure do |c|
     serialize_with: :json,
     preserve_exact_body_bytes: true,
     decode_compressed_response: true,
-    record: ENV['TRAVIS'] ? :none : :once
+    record: ENV["TRAVIS"] ? :none : :once,
   }
   c.hook_into :webmock
-  c.ignore_hosts 'codeclimate.com'
+  c.ignore_hosts "codeclimate.com"
 end
 
 RSpec.configure do |c|

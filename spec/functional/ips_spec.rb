@@ -1,14 +1,14 @@
-require File.expand_path('../../spec_helper', __FILE__)
+require File.expand_path("../../spec_helper", __FILE__)
 
-RSpec.describe 'Ips' do
-	describe 'retrieve', :vcr do
-		before{ authenticate! }
+RSpec.describe "Ips" do
+  describe "retrieve", :vcr do
+    before { authenticate! }
 
-		it 'can retrieve an ip' do
-			ip = TheCaptain::Ip.retrieve('126.100.200.44')
-			expect(ip.ip_address).to eq('126.100.200.44')
-			expect(ip.latitude).to be_present
-			expect(ip.longitude).to be_present
-		end
-	end
+    it "can retrieve an ip" do
+      ip = TheCaptain::Ip.retrieve("126.100.200.44")
+      expect(ip.ip_address).to eq("126.100.200.44")
+      expect(ip.latitude).to be_present
+      expect(ip.longitude).to be_present
+    end
+  end
 end

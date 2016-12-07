@@ -1,0 +1,17 @@
+engines:
+  rubocop:
+    enabled: true
+  brakeman:
+    enabled: true
+  duplication:
+    enabled: true
+    config:
+      languages:
+        ruby:
+          mass_threshold: 60
+ratings:
+  paths:
+    - app/**
+    - "**.rb"
+exclude_paths:
+  - spec/**/*

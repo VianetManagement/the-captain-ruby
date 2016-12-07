@@ -13,8 +13,8 @@ module TheCaptain
       end
 
       def parse(response)
-		   TheCaptain.parse(response)
-		  end
+        TheCaptain.parse(response)
+      end
 
       def delegate_methods(options)
         raise "no methods given" if options.empty?
@@ -29,7 +29,9 @@ module TheCaptain
     end # ClassMethods
 
     module InstanceMethods
-      def to_i; id; end
+      def to_i;
+        id;
+      end
 
       def ==(other)
         id == other.id

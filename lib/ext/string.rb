@@ -1,11 +1,11 @@
 unless String.respond_to?(:blank?)
   class String
     def blank?
-    	self == nil || self.length == 0
+      nil? || empty?
     end
 
     def present?
-    	!blank?
+      !blank?
     end
   end
 end
