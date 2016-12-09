@@ -1,4 +1,4 @@
-require File.expand_path("../../spec_helper", __FILE__)
+require "spec_helper"
 
 RSpec.describe "Ips" do
   describe "retrieve", :vcr do
