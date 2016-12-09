@@ -35,11 +35,6 @@ require "the_captain/errors/authentication_error"
 require "the_captain/errors/rate_limit_error"
 
 module TheCaptain
-  DEFAULT_HEADERS = Hash.new(
-    "Accept" 			 => "application/json",
-    "Content-Type" => "application/json",
-  )
-
   @open_timeout = 30
   @read_timeout = 80
 
@@ -78,23 +73,20 @@ module TheCaptain
       @api_base_url ||= "#{base_url}/#{api_version}"
     end
 
-    def api_url(url = "", api_base_url = nil)
-      "#{api_base_url}/#{url}"
+    def api_url(url = "")
+      "#{api_base_url}#{url}"
     end
 
     def request(method, path, params = {}, opts = {})
       validate_api_key!
-
-      url = api_url(path, api_base_url)
-      headers = opts[:headers] || DEFAULT_HEADERS
-      headers.merge!("X-API-TOKEN" => api_key)
+      headers = prepare_api_headers(opts).merge!("X-API-TOKEN" => api_key)
 
       opts.update(
         headers: request_headers(method).update(headers),
         method: method,
         open_timeout: open_timeout,
         payload: params,
-        url: url,
+        url: api_url(path),
         timeout: read_timeout,
       )
 
@@ -104,7 +96,7 @@ module TheCaptain
 
     def request_headers(_method)
       user_agent_string = "TheCaptain/v1 RubyBindings/#{TheCaptain::VERSION}"
-      headers = DEFAULT_HEADERS.merge(
+      headers = prepare_api_headers.merge(
         user_agent: user_agent_string,
       )
 
@@ -147,6 +139,14 @@ module TheCaptain
 
     protected
 
+    def prepare_api_headers(opts = {})
+      return opts[:headers] if opts[:headers]
+      {
+        "Accept" 			 => "application/json",
+        "Content-Type" => "application/json",
+      }
+    end
+
     def handle_api_error(response, opts = {})
       error = response.respond_to?(:error_message) ? response.error_message : nil
 
@@ -171,7 +171,7 @@ module TheCaptain
     def execute_request_with_rescues(method, params, opts, path)
       execute_request(method, params, opts, path)
     rescue e
-      raise APIError("It looks like our client raised an #{e.class.name} error with message:  #{e.message}")
+      raise APIError, "It looks like our client raised an #{e.class.name} error with message:  #{e.message}"
     end
 
     def validate_api_key!
@@ -191,7 +191,7 @@ module TheCaptain
 
     def execute_request(method, params, opts, path)
       connection.send(method) do |req|
-        req.url("#{api_version}/#{path}")
+        req.url(api_url(path))
         req.headers = opts[:headers]
         req.params = params
         req.body = opts[:body].to_json if [:post, :patch, :put].include?(method)
