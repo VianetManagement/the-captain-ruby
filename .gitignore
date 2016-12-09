@@ -1,8 +1,18 @@
+## MISC Blocks
 .idea
 .yardoc
 /log/*
 *.DS_Store
 *sublime-*
+
+## Ignore bundler config
+/.bundle
+
+## Environment configs
 .env.development
 .env.test
+
 coverage/
+*.gem
+
+.rvmrc
