@@ -4,6 +4,7 @@ AllCops:
     Enabled: true
   Exclude:
     - 'db/schema.rb'
+    - 'the-captain.gemspec'
 
 #################
 # [i] Overrides #
@@ -53,6 +54,9 @@ Metrics/CyclomaticComplexity:
   Enabled: false
 
 Metrics/MethodLength:
+  Enabled: false
+
+Metrics/ModuleLength:
   Enabled: false
 
 Style/ClassAndModuleChildren:
