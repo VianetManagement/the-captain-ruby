@@ -40,7 +40,7 @@ module TheCaptain
         safe_query[key] = value if SUPPORTED_QUERY_OPTIONS.include?(key)
 
         if key == :filters
-          safe_query[:filters] = value.keep_if { |key, _| SUPPORTED_QUERY_FILTERS.include?(key) }
+          safe_query[:filters] = value.keep_if { |key_value, _| SUPPORTED_QUERY_FILTERS.include?(key_value) }
         end
       end
 

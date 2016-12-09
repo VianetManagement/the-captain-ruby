@@ -10,13 +10,13 @@ module TheCaptain
     attr_reader :user_agent
 
     def initialize(message, response, request_options = {})
-      @message 			= message
-      @http_status  = response.status
-      @http_body 		= response.body
+      @message	= message
+      @http_status = response.status
+      @http_body	= response.body
       @http_headers = request_options[:headers] || {}
       @json_body 		= request_options[:body]
-      @request_id 	= response.headers['X-Request-Id']
-      @user_agent 	= response.headers['User-Agent']
+      @request_id 	= response.headers["X-Request-Id"]
+      @user_agent 	= response.headers["User-Agent"]
     end
 
     def to_s

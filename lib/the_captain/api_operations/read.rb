@@ -18,7 +18,7 @@ module TheCaptain
         #
         # @return [TheCaptain::BaseModel] the model depends on where you're calling it from (e.g. TheCaptain::Client from TheCaptain::Base#clients)
         def retrieve(id)
-          raise ArgumentError.new("id required") unless id
+          raise ArgumentError, "id required" unless id
           request(:get, path: "#{api_model.api_path}/#{id}")
         end
       end
