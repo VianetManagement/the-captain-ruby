@@ -33,6 +33,8 @@ require "the_captain/errors/invalid_request_error"
 require "the_captain/errors/authentication_error"
 require "the_captain/errors/rate_limit_error"
 
+require "the_captain"
+
 module TheCaptain
   @open_timeout = 30
   @read_timeout = 80
