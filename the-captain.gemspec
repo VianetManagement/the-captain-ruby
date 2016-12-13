@@ -8,8 +8,8 @@ spec = Gem::Specification.new do |s|
   s.required_ruby_version = ">= 2.0.0"
   s.summary = "Ruby bindings for the The Captain API"
   s.description = "The Captain will tell, talk, and taddle on those pesky fraudulent scalliwags."
-  s.authors = ["Casey Provost"]
-  s.email = ["casey@elevatorup.com"]
+  s.authors = ["Casey Provost", "George Karaszi"]
+  s.email = ["casey@elevatorup.com", "george@elevatorup.com"]
   s.homepage = "https://thecaptain.elevatorup.com"
   s.license = "MIT"
 
