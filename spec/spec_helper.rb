@@ -10,9 +10,10 @@ require "timecop"
 
 ENV["RAILS_ENV"] = "test"
 ENV["API_VERSION"] = "v1"
-ENV["BASE_URL"] = "https://thecaptain.elevatorup.com"
+ENV["BASE_URL"] = "http://thecaptain.elevatorup.com"
 
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require File.expand_path(f) }
+Dir["#{File.dirname(__FILE__)}/**/*examples.rb"].each { |f| require f }
 
 FactoryGirl.find_definitions
 WebMock.disable_net_connect!(allow: "codeclimate.com")

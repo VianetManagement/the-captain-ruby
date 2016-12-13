@@ -24,7 +24,6 @@ require "the_captain/configuration"
 require "the_captain/model"
 require "the_captain/api_resource"
 require "the_captain/ip"
-require "the_captain/event"
 
 # Errors
 require "the_captain/errors/the_captain_error"
@@ -102,7 +101,7 @@ module TheCaptain
 
       begin
         headers.update(x_the_captain_client_user_agent: JSON.generate(user_agent))
-      rescue => e
+      rescue StandardError => e
         headers.update(
           x_the_captain_client_raw_user_agent: user_agent.inspect,
           error: "#{e} (#{e.class})",
@@ -170,7 +169,7 @@ module TheCaptain
 
     def execute_request_with_rescues(method, params, opts, path)
       execute_request(method, params, opts, path)
-    rescue e
+    rescue => e
       raise APIError, "It looks like our client raised an #{e.class.name} error with message:  #{e.message}"
     end
 
@@ -208,7 +207,7 @@ module TheCaptain
 
       @connection.options.timeout = 30
       @connection.options.open_timeout = 50
-      @connection.ssl.verify           = false
+      @connection.ssl.verify = false
       @connection
     end
   end

@@ -1,18 +1,22 @@
-module TheCaptain
-  module ApiOperations
-    module Create
-      module ClassMethods
-        # Creates an item
-        # @param [TheCaptain::BaseModel] model the item you want to create
-        def create(model)
-          response = request(method: :post, path: api_model.api_path.to_s, opts: { body: model })
-          retrieve(response.id)
-        end
+module TheCaptain::APIOperations
+  module Create
+    module ClassMethods
+      # Creates an item
+      # @param [TheCaptain::BaseModel] model the item you want to create
+      def create(model)
+        response = request(method: :post, path: api_path, opts: { body: model })
+        retrieve(response.id)
       end
 
-      def self.included(base)
-        base.extend(ClassMethods)
+      def event(identifier, event_data = {})
+        raise ArgumentError("identifier required") unless identifier
+        opts = { body: { value: identifier }.merge!(event_data) }
+        request(method: :post, path: api_path, opts: opts)
       end
+    end
+
+    def self.included(base)
+      base.extend(ClassMethods)
     end
   end
 end
