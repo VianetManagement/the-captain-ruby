@@ -23,7 +23,7 @@ require "the_captain/configuration"
 
 require "the_captain/model"
 require "the_captain/api_resource"
-require "the_captain/ip"
+require "the_captain/ip_address"
 
 # Errors
 require "the_captain/errors/the_captain_error"
@@ -127,7 +127,7 @@ module TheCaptain
       r = JSON.parse(response.body)
       r = Util.symbolize_names(r)
       r[:status] = response.status
-      Util.mashify(r)
+      handle_api_error(Util.mashify(r))
     rescue JSON::ParserError
       # The Captain responds with an empty body when creating events.
       if response.status == 201
@@ -149,8 +149,8 @@ module TheCaptain
     end
 
     def handle_api_error(response, opts = {})
-      error = response.respond_to?(:error_message) ? response.error_message : nil
-
+      error = response.respond_to?(:error) ? response.error_message : nil
+      error ||= response.status.respond_to?(:error) ? response.status.error : nil
       case response.status
       when 200..204
         response

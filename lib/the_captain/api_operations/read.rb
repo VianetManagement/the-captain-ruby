@@ -17,9 +17,9 @@ module TheCaptain
         #   @param [TheCaptain::BaseModel] id you can pass a model and it will return a refreshed version
         #
         # @return [TheCaptain::BaseModel] the model depends on where you're calling it from (e.g. TheCaptain::Client from TheCaptain::Base#clients)
-        def retrieve(identifier)
+        def retrieve(identifier, options = {})
           raise ArgumentError("identifier required") unless identifier
-          request(method: :get, path: api_path, params: { value: identifier }, opts: {})
+          request(method: :get, path: api_path, params: { value: identifier }.merge!(options), opts: {})
         end
       end
 

@@ -1,4 +1,4 @@
 FactoryGirl.define do
-  factory :ip, class: TheCaptain::Ip do
+  factory :ip_address, class: TheCaptain::IpAddress do
   end
 end
