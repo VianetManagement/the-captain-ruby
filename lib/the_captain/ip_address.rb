@@ -3,8 +3,8 @@ module TheCaptain
     api_path "/ip"
 
     CONDITION_OPTIONS = {
-      visit: "user.visit",
-      signup: "user.signup",
+      visit: "user:visit",
+      signup: "user:signup",
     }.freeze
 
     def self.submit(ip, options = {})

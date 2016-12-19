@@ -2,7 +2,7 @@ require "spec_helper"
 
 RSpec.describe "IpAddress", :vcr do
   before { authenticate! }
-  let!(:core_identifiers) { ["216.234.117.132", "216.233.117.131"] }
+  let!(:core_identifiers) { ["1.1.1.1", "1.1.1.2"] }
   let!(:users) { [88, 77] }
 
   describe ".submit" do
@@ -24,7 +24,7 @@ RSpec.describe "IpAddress", :vcr do
       it "should return an array of users from a given ip" do
         response = TheCaptain::IpAddress.retrieve(core_identifiers.first)
         expect(response.status).to eq(200)
-        expect(response.ip_address.count).to eq(2)
+        expect(response.ip_address.count).to be > 1
       end
 
       it "should return an array of users who have visited" do
