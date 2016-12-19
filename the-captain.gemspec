@@ -3,7 +3,7 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), "lib"))
 require "the_captain/version"
 
 spec = Gem::Specification.new do |s|
-  s.name = "the-captain"
+  s.name = "the_captain"
   s.version = TheCaptain::VERSION
   s.required_ruby_version = ">= 2.0.0"
   s.summary = "Ruby bindings for the The Captain API"

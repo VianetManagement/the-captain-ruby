@@ -1,6 +1,6 @@
 module TheCaptain::ModelAdapters
-  class Railtie < Rails::Railtie
-    config.after_initialize do
+  class Railtie < ::Rails::Railtie #:nodoc:
+    initializer "the_captain" do
       require "the_captain"
     end
   end
