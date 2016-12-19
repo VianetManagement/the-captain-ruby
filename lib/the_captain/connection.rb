@@ -24,6 +24,7 @@ module TheCaptain::Connection
 
     private
 
+    # @private
     def validate_api_key!
       raise TheCaptain::AuthenticationError.no_key_provided unless api_key
       raise TheCaptain::AuthenticationError.invalid_key_provided if api_key =~ /\s/
@@ -37,6 +38,7 @@ module TheCaptain::Connection
       }
     end
 
+    # @private
     def user_agent
       {
         bindings_version: TheCaptain::VERSION,
@@ -49,6 +51,7 @@ module TheCaptain::Connection
       }
     end
 
+    # @private
     def request_headers(opts)
       user_agent_string = "TheCaptain/v1 RubyBindings/#{TheCaptain::VERSION}"
       headers = prepare_api_headers(opts).merge(user_agent: user_agent_string)
@@ -65,12 +68,14 @@ module TheCaptain::Connection
 
     protected
 
+    # @protected
     def execute_request_with_rescues(method, params, opts, path)
       execute_request(method, params, opts, path)
     rescue => e
       raise TheCaptain::APIError.client_error(e.class.name, e.message)
     end
 
+    # @protected
     def execute_request(method, params, opts, path)
       connection.send(method) do |req|
         req.url(api_url(path))
@@ -80,6 +85,7 @@ module TheCaptain::Connection
       end
     end
 
+    # @protected
     def connection
       return @connection if @connection
       @connection = Faraday.new(url: base_url) { |faraday| faraday.adapter :typhoeus }
