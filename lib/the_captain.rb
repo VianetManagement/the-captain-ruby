@@ -48,9 +48,7 @@ module TheCaptain
   @read_timeout = 80
 
   class << self
-    attr_accessor :open_timeout, :read_timeout
-
-    attr_writer :last_response
+    attr_accessor :open_timeout, :read_timeout, :last_response
 
     def configuration
       @configuration ||= Configuration.new

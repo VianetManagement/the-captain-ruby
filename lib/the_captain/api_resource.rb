@@ -9,5 +9,10 @@ module TheCaptain
     def self.class_name
       name.split("::")[-1]
     end
+
+    def self.pagination_options(options)
+      return options unless options[:per]
+      options.merge!(limit: options.delete(:per))
+    end
   end
 end

@@ -5,6 +5,7 @@ module TheCaptain
     CONDITION_OPTIONS = {
       visit: "user:visit",
       signup: "user:signup",
+      import: "user:import",
     }.freeze
 
     def self.submit(ip, options = {})
@@ -14,6 +15,7 @@ module TheCaptain
 
     def self.retrieve(ip, options = {})
       options = merge_options(options)
+      options = pagination_options(options)
       super
     end
 

@@ -7,11 +7,11 @@ TheCaptain.configure do |config|
   config.base_url = "http://thecaptain.elevatorup.com"
 end
 
-puts "Submit for signup:"
-puts JSON.pretty_generate(TheCaptain::IpAddress.submit("216.234.127.132", user_id: 4, condition: :signup))
-
-puts "submit for visit"
-puts JSON.pretty_generate(TheCaptain::IpAddress.submit("216.234.127.132", user_id: 5, condition: :visit))
+# puts "Submit for signup:"
+# puts JSON.pretty_generate(TheCaptain::IpAddress.submit("216.234.127.132", user_id: 4, condition: :signup))
+#
+# puts "submit for visit"
+# puts JSON.pretty_generate(TheCaptain::IpAddress.submit("216.234.127.132", user_id: 5, condition: :visit))
 
 puts "query just IP:"
 puts JSON.pretty_generate(TheCaptain::IpAddress.retrieve("216.234.127.132"))
@@ -21,3 +21,6 @@ puts JSON.pretty_generate(TheCaptain::IpAddress.retrieve("216.234.127.132", cond
 
 puts "Query with user_id:"
 puts JSON.pretty_generate(TheCaptain::IpAddress.retrieve("216.234.127.132", user_id: 4))
+
+puts "Query with limit"
+puts JSON.pretty_generate(TheCaptain::IpAddress.retrieve("216.234.127.132", per: 10))
