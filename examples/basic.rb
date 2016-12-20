@@ -22,5 +22,8 @@ puts JSON.pretty_generate(TheCaptain::IpAddress.retrieve("216.234.127.132", cond
 puts "Query with user_id:"
 puts JSON.pretty_generate(TheCaptain::IpAddress.retrieve("216.234.127.132", user_id: 4))
 
-puts "Query with limit"
-puts JSON.pretty_generate(TheCaptain::IpAddress.retrieve("216.234.127.132", per: 10))
+puts "Query with pagination"
+puts JSON.pretty_generate(TheCaptain::IpAddress.retrieve("216.234.127.132", per: 2, page: 2))
+
+puts "Query pagination alternative"
+puts JSON.pretty_generate(TheCaptain::IpAddress.retrieve("216.234.127.132", limit: 2, skip: 2))

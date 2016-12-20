@@ -10,9 +10,11 @@ module TheCaptain
       name.split("::")[-1]
     end
 
+    # Convert kasmair pagination into geo4 params
     def self.pagination_options(options)
-      return options unless options[:per]
-      options.merge!(limit: options.delete(:per))
+      options[:limit] = options.delete(:per) if options[:per]
+      options[:skip] = options.delete(:page) if options[:page]
+      options
     end
   end
 end
