@@ -13,7 +13,7 @@ end
 # puts "submit for visit"
 # puts JSON.pretty_generate(TheCaptain::IpAddress.submit("216.234.127.132", user_id: 5, condition: :visit))
 
-puts "query just IP:"
+puts "Query just IP:"
 puts JSON.pretty_generate(TheCaptain::IpAddress.retrieve("216.234.127.132"))
 
 puts "Query with signup:"
@@ -22,8 +22,19 @@ puts JSON.pretty_generate(TheCaptain::IpAddress.retrieve("216.234.127.132", cond
 puts "Query with user_id:"
 puts JSON.pretty_generate(TheCaptain::IpAddress.retrieve("216.234.127.132", user_id: 4))
 
-puts "Query with pagination"
+puts "Query with pagination (apply's to all retrieve queries)"
 puts JSON.pretty_generate(TheCaptain::IpAddress.retrieve("216.234.127.132", per: 2, page: 2))
 
-puts "Query pagination alternative"
+puts "Query pagination alternative (apply's to all retrieve queries)"
 puts JSON.pretty_generate(TheCaptain::IpAddress.retrieve("216.234.127.132", limit: 2, skip: 2))
+
+
+# If you have a User model, you can submit: user: user
+puts "Submit an email"
+puts JSON.pretty_generate(TheCaptain::Email.submit("user@example.com", user_id: 1))
+puts JSON.pretty_generate(TheCaptain::Email.submit("user@example.com", user: 2))
+
+
+puts "Query email by user"
+puts JSON.pretty_generate(TheCaptain::Email.retrieve("user@example.com", user: 1))
+puts JSON.pretty_generate(TheCaptain::Email.retrieve("user@example.com", user: 2))

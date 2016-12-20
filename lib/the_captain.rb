@@ -25,6 +25,7 @@ require "the_captain/configuration"
 require "the_captain/model"
 require "the_captain/api_resource"
 require "the_captain/ip_address"
+require "the_captain/email"
 
 # Errors
 require "the_captain/errors/the_captain_error"

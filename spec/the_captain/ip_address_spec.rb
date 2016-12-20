@@ -8,13 +8,13 @@ RSpec.describe "IpAddress", :vcr do
   describe ".submit" do
     %i(88 77).each do |id|
       it "Should return a status success for user: #{id}" do
-        response = TheCaptain::IpAddress.submit(core_identifiers.first, user_id: id, condition: :signup)
+        response = TheCaptain::IpAddress.submit(core_identifiers.first, user: id, condition: :signup)
         expect(response.status).to eq(200)
       end
     end
 
     it "should accept adding an existing user to a new ip" do
-      response = TheCaptain::IpAddress.submit(core_identifiers.last, user_id: users.last, condition: :visit)
+      response = TheCaptain::IpAddress.submit(core_identifiers.last, user: users.last, condition: :visit)
       expect(response.status).to eq(200)
     end
   end
@@ -38,7 +38,7 @@ RSpec.describe "IpAddress", :vcr do
 
     context "IP and user" do
       it "should return specific information about an ip" do
-        response = TheCaptain::IpAddress.retrieve(core_identifiers.first, user_id: users.first)
+        response = TheCaptain::IpAddress.retrieve(core_identifiers.first, user: users.first)
         expect(response.status).to eq(200)
 
         expect(response.ip_address.first.value).to be_present

@@ -8,14 +8,14 @@ module TheCaptain
       import: "user:import",
     }.freeze
 
-    def self.submit(ip, options = {})
+    def self.retrieve(identifier, options = {})
       options = merge_options(options)
       super
     end
 
-    def self.retrieve(ip, options = {})
+    def self.submit(ip, options = {})
       options = merge_options(options)
-      options = pagination_options(options)
+      options = user_id_options(options)
       super
     end
 
