@@ -19,7 +19,7 @@ module TheCaptain
     def self.user_id_options(options)
       return options unless options[:user]
       user = options.delete(:user)
-      options.merge!(user_id: user !~ /\D/ ? user : user.id)
+      options.merge!(user_id: user.is_a?(Numeric) ? user : user.id)
     end
 
     # Convert kasmair pagination into geo4 params
