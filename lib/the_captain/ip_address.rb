@@ -2,7 +2,7 @@ module TheCaptain
   class IpAddress < ApiResource
     api_path "/ip"
 
-    CONDITION_OPTIONS = {
+    EVENT_OPTIONS = {
       visit: "user:visit",
       signup: "user:signup",
       import: "user:import",
@@ -21,7 +21,7 @@ module TheCaptain
 
     def self.merge_options(options = {})
       return options unless options[:condition]
-      options.merge!(condition: (CONDITION_OPTIONS[options[:condition]] || options[:condition]))
+      options.merge!(event: (EVENT_OPTIONS[options[:event]] || options[:event]))
     end
   end
 end
