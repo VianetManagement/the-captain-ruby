@@ -47,7 +47,7 @@ RSpec.describe "IpAddress", :vcr do
 
         expect(response.ip_address.count).to eq(1)
         expect(response.ip_address.first.user_id).to eq(users.last.to_s)
-        expect(response.ip_address.first.event).to eq("visit")
+        expect(response.ip_address.first.event).to eq(TheCaptain::IpAddress::EVENT_OPTIONS[:visit])
       end
     end
 

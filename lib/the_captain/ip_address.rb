@@ -20,7 +20,7 @@ module TheCaptain
     end
 
     def self.merge_options(options = {})
-      return options unless options[:condition]
+      return options unless options[:event]
       options.merge!(event: (EVENT_OPTIONS[options[:event]] || options[:event]))
     end
   end
