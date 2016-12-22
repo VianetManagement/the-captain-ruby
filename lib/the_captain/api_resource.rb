@@ -19,6 +19,7 @@ module TheCaptain
     def self.user_id_options(options)
       return options unless options[:user]
       user = options.delete(:user)
+      return options if user.blank?
       user_is_id = user.is_a?(Numeric) || user.is_a?(Symbol)
       options.merge!(user_id: user_is_id ? user : user.id)
     end
