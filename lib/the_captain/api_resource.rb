@@ -17,13 +17,9 @@ module TheCaptain
     end
 
     def self.user_id_options(options)
-      return options unless options[:user]
       user = options.delete(:user)
-      user_is_id = user.is_a?(Numeric) || user.is_a?(Symbol)
-      return options if !user_is_id && user.blank?
-
-      user_is_id = user_is_id || user.is_a?(String)
-      options.merge!(user_id: user_is_id ? user : user.id)
+      return options if user.blank?
+      options.merge!(user_id: user_id_extract(user))
     end
 
     # Convert kasmair pagination into geo4 params
@@ -31,6 +27,10 @@ module TheCaptain
       options[:limit] = options.delete(:per) if options[:per]
       options[:skip] = options.delete(:page) if options[:page]
       options
+    end
+
+    def self.user_id_extract(user)
+      user.respond_to?(:id) ? user.id : user
     end
   end
 end

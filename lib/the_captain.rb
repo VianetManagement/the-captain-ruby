@@ -5,6 +5,8 @@ require "json"
 require "time"
 require "set"
 require "socket"
+require 'active_support'
+require 'active_support/core_ext'
 
 require "ext/hash"
 require "ext/string"
@@ -26,6 +28,7 @@ require "the_captain/model"
 require "the_captain/api_resource"
 require "the_captain/ip_address"
 require "the_captain/email"
+require "the_captain/credit_card"
 
 # Errors
 require "the_captain/errors/the_captain_error"

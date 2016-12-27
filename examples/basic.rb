@@ -14,7 +14,7 @@ end
 # # puts JSON.pretty_generate(TheCaptain::IpAddress.submit("216.234.127.132", user_id: 5, event: :visit))
 #
 # puts "Query just IP:"
-# puts JSON.pretty_generate(TheCaptain::IpAddress.retrieve("216.234.127.132"))
+puts JSON.pretty_generate(TheCaptain::IpAddress.retrieve("216.234.127.132"))
 #
 # puts "Query with signup:"
 # puts JSON.pretty_generate(TheCaptain::IpAddress.retrieve("216.234.127.132", event: :signup))
