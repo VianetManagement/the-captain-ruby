@@ -3,10 +3,10 @@ module TheCaptain
     api_path "/content"
 
     EVENT_OPTIONS = {
-        bio: "user:bio",
-        message: "user:message",
-        message_sent: "user:message:sent",
-        message_received: "user:message:received",
+      bio: "user:bio",
+      message: "user:message",
+      message_sent: "user:message:sent",
+      message_received: "user:message:received",
     }.freeze
 
     def self.retrieve(identifier, options = {})

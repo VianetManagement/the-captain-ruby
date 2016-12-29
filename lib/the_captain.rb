@@ -5,8 +5,8 @@ require "json"
 require "time"
 require "set"
 require "socket"
-require 'active_support'
-require 'active_support/core_ext'
+require "active_support"
+require "active_support/core_ext"
 
 require "ext/hash"
 require "ext/string"

@@ -31,9 +31,8 @@ module TheCaptain
       options
     end
 
-
     def self.validate_options(options)
-      %i(ip_address email credit_card content).each do | key |
+      %i(ip_address email credit_card content).each do |key|
         next unless options[key]
         raise TheCaptain::ValidationError.key_missing(class_name, key, :value) unless options[key].key?(:value)
       end

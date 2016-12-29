@@ -43,7 +43,7 @@ end
 
 puts "Submit user data"
 puts JSON.pretty_generate(TheCaptain::User.submit(22,
-                                                  ip_address:{ value: "216.234.127.132", event: :import },
-                                                  content:{ value: "THIS IS BY BLOG POST", event: :bio },
+                                                  ip_address: { value: "216.234.127.132", event: :import },
+                                                  content: { value: "THIS IS BY BLOG POST", event: :bio },
                                                   credit_card: { value: "such_a_good_fingerprint", event: :import }))
 puts JSON.pretty_generate(TheCaptain::User.retrieve(22))

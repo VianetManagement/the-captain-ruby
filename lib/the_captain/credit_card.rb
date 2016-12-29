@@ -3,10 +3,10 @@ module TheCaptain
     api_path "/creditcard"
 
     EVENT_OPTIONS = {
-        purchased: "user:purchased",
-        failed: "user:purchased:failed",
-        success: "user:purchased:success",
-        import: "user:credit:import"
+      purchased: "user:purchased",
+      failed: "user:purchased:failed",
+      success: "user:purchased:success",
+      import: "user:credit:import",
     }.freeze
 
     def self.retrieve(identifier, options = {})

@@ -4,7 +4,7 @@ module TheCaptain::Response
   end
 
   module ClassMethods
-    def parse(response, opts={})
+    def parse(response, opts = {})
       r = JSON.parse(response.body)
       r = TheCaptain::Util.symbolize_names(r)
       r[:status] = response.status
