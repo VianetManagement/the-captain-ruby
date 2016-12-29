@@ -41,9 +41,10 @@ end
 # puts JSON.pretty_generate(TheCaptain::Email.retrieve("user@example.com", user: 1))
 # puts JSON.pretty_generate(TheCaptain::Email.retrieve("user@example.com", user: 2))
 
-puts "Submit user data"
+# puts "Submit user data"
+
 puts JSON.pretty_generate(TheCaptain::User.submit(22,
                                                   ip_address: { value: "216.234.127.132", event: :import },
                                                   content: { value: "THIS IS BY BLOG POST", event: :bio },
                                                   credit_card: { value: "such_a_good_fingerprint", event: :import }))
-puts JSON.pretty_generate(TheCaptain::User.retrieve(22))
+# puts JSON.pretty_generate(TheCaptain::User.retrieve(22))
