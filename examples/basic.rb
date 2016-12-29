@@ -14,7 +14,7 @@ end
 # # puts JSON.pretty_generate(TheCaptain::IpAddress.submit("216.234.127.132", user_id: 5, event: :visit))
 #
 # puts "Query just IP:"
-puts JSON.pretty_generate(TheCaptain::IpAddress.retrieve("216.234.127.132"))
+# puts JSON.pretty_generate(TheCaptain::IpAddress.retrieve("216.234.127.132"))
 #
 # puts "Query with signup:"
 # puts JSON.pretty_generate(TheCaptain::IpAddress.retrieve("216.234.127.132", event: :signup))
@@ -27,16 +27,23 @@ puts JSON.pretty_generate(TheCaptain::IpAddress.retrieve("216.234.127.132"))
 #
 # puts "Query pagination alternative (apply's to all retrieve queries)"
 # puts JSON.pretty_generate(TheCaptain::IpAddress.retrieve("216.234.127.132", limit: 2, skip: 2))
+#
+# # If you have a User model, you can submit: user: user
+# puts "Submit an email"
+# puts JSON.pretty_generate(TheCaptain::Email.submit("user@example.com", user_id: 1))
+# puts JSON.pretty_generate(TheCaptain::Email.submit("user@example.com", user: 2))
+#
+#
+# puts "Query email, get lastest usage"
+# puts JSON.pretty_generate(TheCaptain::Email.retrieve("user@example.com"))
+#
+# puts "Query email by user"
+# puts JSON.pretty_generate(TheCaptain::Email.retrieve("user@example.com", user: 1))
+# puts JSON.pretty_generate(TheCaptain::Email.retrieve("user@example.com", user: 2))
 
-# If you have a User model, you can submit: user: user
-puts "Submit an email"
-puts JSON.pretty_generate(TheCaptain::Email.submit("user@example.com", user_id: 1))
-puts JSON.pretty_generate(TheCaptain::Email.submit("user@example.com", user: 2))
-
-
-puts "Query email, get lastest usage"
-puts JSON.pretty_generate(TheCaptain::Email.retrieve("user@example.com"))
-
-puts "Query email by user"
-puts JSON.pretty_generate(TheCaptain::Email.retrieve("user@example.com", user: 1))
-puts JSON.pretty_generate(TheCaptain::Email.retrieve("user@example.com", user: 2))
+puts "Submit user data"
+puts JSON.pretty_generate(TheCaptain::User.submit(22,
+                                                  ip_address:{ value: "216.234.127.132", event: :import },
+                                                  content:{ value: "THIS IS BY BLOG POST", event: :bio },
+                                                  credit_card: { value: "such_a_good_fingerprint", event: :import }))
+puts JSON.pretty_generate(TheCaptain::User.retrieve(22))

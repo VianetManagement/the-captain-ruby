@@ -19,7 +19,7 @@ module TheCaptain::Connection
       )
 
       response = execute_request_with_rescues(method, params, opts, path)
-      parse(response) # TheCaptain::Response.parse
+      parse(response, opts) # TheCaptain::Response.parse
     end
 
     private

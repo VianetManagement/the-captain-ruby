@@ -7,5 +7,10 @@ module TheCaptain
       raise ArgumentError("user is required") unless options[:user_id]
       super
     end
+
+    # Stub
+    def merge_options(options)
+      options
+    end
   end
 end
