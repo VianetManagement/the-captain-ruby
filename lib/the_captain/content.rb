@@ -1,12 +1,12 @@
 module TheCaptain
-  class CreditCard < ApiResource
-    api_path "/creditcard"
+  class Content < ApiResource
+    api_path "/content"
 
     EVENT_OPTIONS = {
-      purchased: "user:purchased",
-      failed: "user:purchased:failed",
-      success: "user:purchased:success",
-      import: "user:credit:import",
+      bio: "user:bio",
+      message: "user:message",
+      message_sent: "user:message:sent",
+      message_received: "user:message:received",
     }.freeze
 
     def self.retrieve(identifier, options = {})
@@ -14,10 +14,10 @@ module TheCaptain
       super
     end
 
-    def self.submit(cc_fingerprint, options = {})
+    def self.submit(content_message, options = {})
       options = merge_options(options)
       options = user_id_options(options)
-      raise ArgumentError("user or user_id required") unless options[:user_id]
+      raise ArgumentError("user or user_id is required") unless options[:user_id]
       super
     end
 

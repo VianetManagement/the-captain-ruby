@@ -4,8 +4,8 @@ CodeClimate::TestReporter.start
 require "the_captain"
 require "webmock/rspec"
 require "vcr"
-require "factory_girl"
 require "faker"
+require "factory_girl"
 require "timecop"
 
 ENV["RAILS_ENV"] = "test"

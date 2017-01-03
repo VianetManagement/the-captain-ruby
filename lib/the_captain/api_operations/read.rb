@@ -18,7 +18,7 @@ module TheCaptain
         #
         # @return [TheCaptain::BaseModel] the model depends on where you're calling it from (e.g. TheCaptain::Client from TheCaptain::Base#clients)
         def retrieve(identifier, options = {})
-          raise ArgumentError("identifier required") unless identifier
+          raise ArgumentError, "value identifier required" unless identifier
           request(method: :get, path: api_path, params: { value: identifier }.merge!(options), opts: {})
         end
       end

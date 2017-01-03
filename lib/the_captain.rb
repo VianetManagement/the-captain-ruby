@@ -5,8 +5,8 @@ require "json"
 require "time"
 require "set"
 require "socket"
-require 'active_support'
-require 'active_support/core_ext'
+require "active_support"
+require "active_support/core_ext"
 
 require "ext/hash"
 require "ext/string"
@@ -26,9 +26,13 @@ require "the_captain/configuration"
 
 require "the_captain/model"
 require "the_captain/api_resource"
+
+# Core Captain models
 require "the_captain/ip_address"
-require "the_captain/email"
+require "the_captain/email_address"
 require "the_captain/credit_card"
+require "the_captain/content"
+require "the_captain/user"
 
 # Errors
 require "the_captain/errors/the_captain_error"
@@ -37,6 +41,7 @@ require "the_captain/errors/api_connection_error"
 require "the_captain/errors/invalid_request_error"
 require "the_captain/errors/authentication_error"
 require "the_captain/errors/rate_limit_error"
+require "the_captain/errors/validation_error"
 
 # Requests and Responses
 require "the_captain/response"
