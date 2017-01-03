@@ -29,7 +29,7 @@ require "the_captain/api_resource"
 
 # Core Captain models
 require "the_captain/ip_address"
-require "the_captain/email"
+require "the_captain/email_address"
 require "the_captain/credit_card"
 require "the_captain/content"
 require "the_captain/user"
