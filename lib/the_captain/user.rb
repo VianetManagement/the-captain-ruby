@@ -9,8 +9,7 @@ module TheCaptain
     end
 
     def self.submit(*args)
-      identifier = args.first unless args.first.is_a?(Hash)
-      identifier ||= args.first[:value]
+      identifier = user_id_extract(extract_args_identifier(args))
       options = merge_options(args.last)
       super(identifier, options)
     end
