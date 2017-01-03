@@ -2,9 +2,10 @@ module TheCaptain
   class User < ApiResource
     api_path "/user"
 
-    def self.retrieve(identifier, options = {})
-      identifier = user_id_extract(identifier)
-      super
+    def self.retrieve(*args)
+      identifier = user_id_extract(extract_args_identifier(args))
+      options = args.last.is_a?(Hash) ? args.last : {}
+      super(identifier, options)
     end
 
     def self.submit(*args)
