@@ -7,6 +7,7 @@ module TheCaptain
       message: "user:message",
       message_sent: "user:message:sent",
       message_received: "user:message:received",
+      import: "content:import",
     }.freeze
 
     def self.retrieve(identifier, options = {})

@@ -10,7 +10,7 @@ module TheCaptain
 
     def self.submit(*args)
       identifier = user_id_extract(extract_args_identifier(args))
-      options = merge_options(args.last)
+      options = merge_options(args.last) unless args.last.blank? || !args.last.is_a?(Hash)
       super(identifier, options)
     end
 

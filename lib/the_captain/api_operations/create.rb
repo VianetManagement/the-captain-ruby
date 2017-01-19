@@ -10,7 +10,8 @@ module TheCaptain::APIOperations
 
       def submit(identifier, event_data = {})
         raise ArgumentError, "value identifier required" unless identifier
-        opts = { body: { value: identifier }.merge!(event_data) }
+        opts = { body: { value: identifier } }
+        opts[:body].merge!(event_data) unless event_data.blank?
         request(method: :post, path: api_path, opts: opts)
       end
     end
