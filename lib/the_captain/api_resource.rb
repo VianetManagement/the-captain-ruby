@@ -13,6 +13,7 @@ module TheCaptain
     def self.retrieve(identifier, options = {})
       options = pagination_options(options)
       options = user_id_options(options)
+      options = time_options(options)
       super
     end
 
@@ -31,6 +32,16 @@ module TheCaptain
 
     def self.user_id_extract(user)
       user.respond_to?(:id) ? user.id : user
+    end
+
+    def self.time_options(options)
+      options[:from] = milliseconds(options[:from]) if options[:from]
+      options[:to] = milliseconds(options[:to]) if options[:to]
+      options
+    end
+
+    def self.milliseconds(time)
+      (time.to_f * 1000).to_i
     end
   end
 end
