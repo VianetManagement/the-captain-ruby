@@ -10,6 +10,7 @@ end
 user1 = Faker::Number.number(12)
 user2 = Faker::Number.number(12)
 user3 = Faker::Number.number(12)
+cc_fingerprint = SecureRandom.hex(16)
 
 puts "Submit for signup:"
 puts JSON.pretty_generate(TheCaptain::IpAddress.submit("216.234.127.132", user_id: user1, event: :signup))
@@ -56,3 +57,13 @@ puts JSON.pretty_generate(TheCaptain::User.submit(user3,
                                                   flag: { type: "random flag", status: "open" }))
 
 puts JSON.pretty_generate(TheCaptain::User.retrieve(user3))
+
+
+puts "CreditCard submit:"
+puts JSON.pretty_generate(TheCaptain::CreditCard.submit(cc_fingerprint, ip_address: "216.234.127.132", user_id: user1, event: :success))
+
+puts "CreditCard query:"
+puts JSON.pretty_generate(TheCaptain::CreditCard.retrieve(cc_fingerprint))
+
+puts "CreditCard query event:"
+puts JSON.pretty_generate(TheCaptain::CreditCard.retrieve(cc_fingerprint, event: :success))
