@@ -6,7 +6,7 @@ module TheCaptain
       bounce_soft: "email:bounce:soft",
       bounce_hard: "email:bounce:hard",
       import: "email:import",
-    }.freeze
+    }.with_indifferent_access.freeze
 
     def self.submit(email, options = {})
       options = user_id_options(options)

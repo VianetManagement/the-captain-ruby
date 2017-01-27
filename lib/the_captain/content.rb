@@ -4,11 +4,12 @@ module TheCaptain
 
     EVENT_OPTIONS = {
       bio: "user:bio",
+      description: "user:description",
       message: "user:message",
       message_sent: "user:message:sent",
       message_received: "user:message:received",
       import: "content:import",
-    }.freeze
+    }.with_indifferent_access.freeze
 
     def self.retrieve(identifier, options = {})
       options = merge_options(options)

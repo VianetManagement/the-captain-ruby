@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    the_captain (0.8.1)
+    the_captain (0.8.2)
       activesupport (~> 4.2)
       faraday (~> 0.9)
       hashie (~> 3.4)

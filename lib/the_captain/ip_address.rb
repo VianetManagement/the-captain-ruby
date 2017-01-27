@@ -6,7 +6,7 @@ module TheCaptain
       visit: "user:visit",
       signup: "user:signup",
       import: "user:import",
-    }.freeze
+    }.with_indifferent_access.freeze
 
     def self.retrieve(identifier, options = {})
       options = merge_options(options)

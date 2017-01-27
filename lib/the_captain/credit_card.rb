@@ -7,7 +7,7 @@ module TheCaptain
       failed: "user:purchased:failed",
       success: "user:purchased:success",
       import: "user:credit:import",
-    }.freeze
+    }.with_indifferent_access.freeze
 
     def self.retrieve(identifier, options = {})
       options = merge_options(options)
