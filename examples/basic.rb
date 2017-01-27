@@ -67,3 +67,16 @@ puts JSON.pretty_generate(TheCaptain::CreditCard.retrieve(cc_fingerprint))
 
 puts "CreditCard query event:"
 puts JSON.pretty_generate(TheCaptain::CreditCard.retrieve(cc_fingerprint, event: :success))
+
+
+puts "Content submit:"
+puts JSON.pretty_generate(TheCaptain::Content.submit("Hello World", user_id: user1, event: :description))
+
+puts "Content query:"
+puts JSON.pretty_generate(TheCaptain::Content.retrieve("Hello World"))
+
+puts "Content query event:"
+puts JSON.pretty_generate(TheCaptain::Content.retrieve("Hello World", event: :description))
+
+puts "Content query User:"
+puts JSON.pretty_generate(TheCaptain::Content.retrieve("Hello World", user_id: user1))
