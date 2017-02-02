@@ -21,8 +21,8 @@ require "the_captain/api_operations/read"
 require "the_captain/api_operations/query"
 
 # Resources
-require "the_captain/util"
-require "the_captain/configuration"
+require "the_captain/utility/util"
+require "the_captain/utility/configuration"
 
 require "the_captain/model"
 require "the_captain/api_resource"
@@ -44,14 +44,14 @@ require "the_captain/errors/rate_limit_error"
 require "the_captain/errors/validation_error"
 
 # Requests and Responses
-require "the_captain/response"
-require "the_captain/connection"
+require "the_captain/communication/response"
+require "the_captain/communication/connection"
 
 require "the_captain"
 
 module TheCaptain
-  include TheCaptain::Connection
-  include TheCaptain::Response
+  include TheCaptain::Communication::Connection
+  include TheCaptain::Communication::Response
 
   @open_timeout = 30
   @read_timeout = 80
@@ -60,7 +60,7 @@ module TheCaptain
     attr_accessor :open_timeout, :read_timeout, :last_response
 
     def configuration
-      @configuration ||= Configuration.new
+      @configuration ||= Utility::Configuration.new
     end
 
     def api_key

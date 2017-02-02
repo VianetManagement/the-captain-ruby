@@ -1,4 +1,4 @@
 require "spec_helper"
 
-describe TheCaptain::Util do
+describe TheCaptain::Utility::Util do
 end

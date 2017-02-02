@@ -1,7 +1,7 @@
 require "the_captain"
 require "faker"
 TheCaptain.configure do |config|
-  config.server_api_token = "gJSTIXixI2GTWzVd6ALuWg"
+  config.server_api_token = "qznc1NGHZqy5Sh9CN9p2mTS6ne19IqgXIq81dRNe1LTLplSpeHJEVREUpnIX5HIh"
   config.site_id = "1"
   config.api_version = "v1"
   config.base_url = "http://thecaptain.elevatorup.com"
@@ -13,25 +13,25 @@ user3 = Faker::Number.number(12)
 cc_fingerprint = SecureRandom.hex(16)
 
 puts "Submit for signup:"
-puts JSON.pretty_generate(TheCaptain::IpAddress.submit("216.234.127.132", user_id: user1, event: :signup))
+puts JSON.pretty_generate(TheCaptain::IpAddress.submit("206.181.8.242", user_id: user1, event: :user_signup))
 
 puts "submit for visit"
-puts JSON.pretty_generate(TheCaptain::IpAddress.submit("216.234.127.132", user_id: user2, event: :visit))
+puts JSON.pretty_generate(TheCaptain::IpAddress.submit("206.181.8.242", user_id: user2, event: :visit))
 
 puts "Query just IP:"
-puts JSON.pretty_generate(TheCaptain::IpAddress.retrieve("216.234.127.132"))
+puts JSON.pretty_generate(TheCaptain::IpAddress.retrieve("206.181.8.242"))
 
 puts "Query with signup:"
-puts JSON.pretty_generate(TheCaptain::IpAddress.retrieve("216.234.127.132", event: :signup))
+puts JSON.pretty_generate(TheCaptain::IpAddress.retrieve("206.181.8.242", event: :user_signup))
 
 puts "Query with user_id:"
-puts JSON.pretty_generate(TheCaptain::IpAddress.retrieve("216.234.127.132", user_id: user2))
+puts JSON.pretty_generate(TheCaptain::IpAddress.retrieve("206.181.8.242", user_id: user1))
 
 puts "Query with pagination (apply's to all retrieve queries)"
-puts JSON.pretty_generate(TheCaptain::IpAddress.retrieve("216.234.127.132", per: 2, page: 2))
+puts JSON.pretty_generate(TheCaptain::IpAddress.retrieve("206.181.8.242", per: 2, page: 2))
 
 puts "Query pagination alternative (apply's to all retrieve queries)"
-puts JSON.pretty_generate(TheCaptain::IpAddress.retrieve("216.234.127.132", limit: 2, skip: 2))
+puts JSON.pretty_generate(TheCaptain::IpAddress.retrieve("206.181.8.242", limit: 2, skip: 2))
 
 # If you have a User model, you can submit: user: user
 puts "Submit an email"
@@ -60,7 +60,7 @@ puts JSON.pretty_generate(TheCaptain::User.retrieve(user3))
 
 
 puts "CreditCard submit:"
-puts JSON.pretty_generate(TheCaptain::CreditCard.submit(cc_fingerprint, ip_address: "216.234.127.132", user_id: user1, event: :success))
+puts JSON.pretty_generate(TheCaptain::CreditCard.submit(cc_fingerprint, ip_address: "206.181.8.242", user_id: user1, event: :success))
 
 puts "CreditCard query:"
 puts JSON.pretty_generate(TheCaptain::CreditCard.retrieve(cc_fingerprint))

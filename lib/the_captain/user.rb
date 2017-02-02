@@ -14,11 +14,12 @@ module TheCaptain
       super(identifier, options)
     end
 
+    # Convert all nested attributes to their event type
     def self.merge_options(options)
       %i(ip_address email_address credit_card content).each do |key|
         next unless options[key]
         raise TheCaptain::ValidationError.key_missing(class_name, key, :value) unless options[key].key?(:value)
-        options[key] = "TheCaptain::#{key.to_s.classify}".constantize.merge_options(options[key])
+        options[key] = event_options(options[key])
       end
       options
     end

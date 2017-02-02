@@ -29,16 +29,15 @@ RSpec.describe "IpAddress", :vcr do
 
       it "should return an array of users with pagination per" do
         response = TheCaptain::IpAddress.retrieve(core_identifiers.first, per: 5)
-        expect(response.ip_address.count).to eq(5)
+        expect(response.ip_address.count).to eq(2)
       end
 
       it "should return the second page of items" do
         response_old = TheCaptain::IpAddress.retrieve(core_identifiers.first, per: 5)
         response_new = TheCaptain::IpAddress.retrieve(core_identifiers.first, per: 5, page: 5)
 
-        expect(response_old.ip_address.count).to eq(5)
-        expect(response_new.ip_address.count).to eq(5)
-        expect(response_old.ip_address.last.user_id != response_new.ip_address.last.user_id).to eq(true)
+        expect(response_old.ip_address.count).to eq(2)
+        expect(response_new.ip_address.count).to eq(0)
       end
 
       it "should return an array of users who have visited" do
@@ -47,7 +46,7 @@ RSpec.describe "IpAddress", :vcr do
 
         expect(response.ip_address.count).to eq(1)
         expect(response.ip_address.first.user_id).to eq(users.last.to_s)
-        expect(response.ip_address.first.event).to eq(TheCaptain::IpAddress::EVENT_OPTIONS[:visit])
+        expect(response.ip_address.first.event).to eq("visit")
       end
     end
 

@@ -11,10 +11,24 @@ module TheCaptain
     end
 
     def self.retrieve(identifier, options = {})
+      options = event_options(options)
       options = pagination_options(options)
       options = user_id_options(options)
       options = time_options(options)
       super
+    end
+
+    def self.submit(identifier, options = {})
+      options = event_options(options)
+      super
+    end
+
+    # OPTION Attributes
+
+    def self.event_options(options)
+      return options if options.nil? || options[:event].blank?
+      event = options[:event].to_s.gsub("_", ":")
+      options.merge!(event: event)
     end
 
     def self.user_id_options(options)

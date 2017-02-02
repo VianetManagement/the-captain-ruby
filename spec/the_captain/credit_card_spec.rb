@@ -47,7 +47,7 @@ RSpec.describe "CreditCard", :vcr do
 
         expect(response.credit_card.count).to eq(1)
         expect(response.credit_card.first.user_id).to eq(users.last.to_s)
-        expect(response.credit_card.first.event).to eq(TheCaptain::CreditCard::EVENT_OPTIONS[:failed])
+        expect(response.credit_card.first.event).to eq("failed")
       end
     end
 
