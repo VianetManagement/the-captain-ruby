@@ -23,8 +23,7 @@ module TheCaptain
         end
 
         def handle_api_error(response, opts = {})
-          error = response.respond_to?(:error) ? response.error_message : nil
-          error ||= response.status.respond_to?(:error) ? response.status.error : nil
+          error = response.respond_to?(:errors) ? response.errors.first : nil
           case response.status
           when 200..204
             response

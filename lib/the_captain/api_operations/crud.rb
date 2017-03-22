@@ -2,9 +2,6 @@ module TheCaptain
   module APIOperations
     module Crud
       module ClassMethods
-        def self.included(base)
-          base.extend(ClassMethods)
-        end
 
         def request(method:, path:, params: {}, opts: {})
           response = TheCaptain.request(method, path, params, opts)
@@ -24,6 +21,11 @@ module TheCaptain
 
           request(method: :post, path: api_path, opts: opts)
         end
+      end
+
+      # Extend the ClassMethods to the included model. This creating *super* call chain
+      def self.included(base)
+        base.extend(ClassMethods)
       end
     end
   end

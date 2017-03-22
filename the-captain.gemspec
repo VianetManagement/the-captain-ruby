@@ -20,6 +20,7 @@ spec = Gem::Specification.new do |s|
   s.add_dependency("typhoeus")
   s.add_dependency("activesupport", "~> 4.2")
 
+  s.add_development_dependency("dotenv")
   s.add_development_dependency("rspec", "~> 3.4")
   s.add_development_dependency("webmock", "~> 1.22")
   s.add_development_dependency("vcr", "~> 3.0")
