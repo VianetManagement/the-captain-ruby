@@ -15,10 +15,7 @@ require "the_captain/version"
 require "the_captain/model_adapters/railtie" if defined?(Rails)
 
 # Api Operations
-require "the_captain/api_operations/request"
-require "the_captain/api_operations/create"
-require "the_captain/api_operations/read"
-require "the_captain/api_operations/query"
+require "the_captain/api_operations/crud"
 
 # Resources
 require "the_captain/utility/util"

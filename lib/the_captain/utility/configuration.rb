@@ -17,4 +17,3 @@ module TheCaptain
     end
   end
 end
-

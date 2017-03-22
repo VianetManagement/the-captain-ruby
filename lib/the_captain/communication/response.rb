@@ -7,10 +7,13 @@ module TheCaptain
 
       module ClassMethods
         def parse(response, opts = {})
-          r = JSON.parse(response.body)
-          r = TheCaptain::Utility::Util.symbolize_names(r)
-          r[:status] = response.status
-          handle_api_error(TheCaptain::Utility::Util.mashify(r), opts)
+          hashed_body = JSON.parse(response.body).tap do |body|
+            body[:status] = response.status
+          end
+
+          parsed_response = Utility::Util.mashify(hashed_body)
+
+          handle_api_error(parsed_response, opts)
         rescue JSON::ParserError
           # The Captain responds with an empty body when creating events.
           unless response.status == 201
@@ -43,4 +46,3 @@ module TheCaptain
     end
   end
 end
-
