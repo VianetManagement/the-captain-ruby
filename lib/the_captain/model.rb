@@ -1,7 +1,6 @@
 module TheCaptain
   module Model
     def self.included(base)
-      base.send(:include, InstanceMethods)
       base.send(:extend, ClassMethods)
     end
 
@@ -13,7 +12,7 @@ module TheCaptain
       end
 
       def parse(response)
-        TheCaptain.parse(response)
+        TheCaptain.review_response(response)
       end
 
       def delegate_methods(options)
@@ -27,15 +26,5 @@ module TheCaptain
         end
       end
     end # ClassMethods
-
-    module InstanceMethods
-      def to_i;
-        id;
-      end
-
-      def ==(other)
-        id == other.id
-      end
-    end # InstanceMethods
   end
 end

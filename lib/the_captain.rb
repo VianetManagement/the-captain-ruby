@@ -18,7 +18,6 @@ require "the_captain/model_adapters/railtie" if defined?(Rails)
 require "the_captain/api_operations/crud"
 
 # Resources
-require "the_captain/utility/util"
 require "the_captain/utility/configuration"
 
 require "the_captain/model"
