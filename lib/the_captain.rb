@@ -15,13 +15,9 @@ require "the_captain/version"
 require "the_captain/model_adapters/railtie" if defined?(Rails)
 
 # Api Operations
-require "the_captain/api_operations/request"
-require "the_captain/api_operations/create"
-require "the_captain/api_operations/read"
-require "the_captain/api_operations/query"
+require "the_captain/api_operations/crud"
 
 # Resources
-require "the_captain/utility/util"
 require "the_captain/utility/configuration"
 
 require "the_captain/model"
@@ -33,6 +29,7 @@ require "the_captain/email_address"
 require "the_captain/credit_card"
 require "the_captain/content"
 require "the_captain/user"
+require "the_captain/list"
 
 # Errors
 require "the_captain/errors/the_captain_error"
@@ -53,7 +50,7 @@ module TheCaptain
   include TheCaptain::Communication::Connection
   include TheCaptain::Communication::Response
 
-  @open_timeout = 30
+  @open_timeout = 50
   @read_timeout = 80
 
   class << self
@@ -68,7 +65,7 @@ module TheCaptain
     end
 
     def api_version
-      @api_version ||= configuration.api_version
+      @api_version ||= configuration.api_version || "v1"
     end
 
     def base_url

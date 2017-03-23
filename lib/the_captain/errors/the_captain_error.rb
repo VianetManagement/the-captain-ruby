@@ -11,13 +11,13 @@ module TheCaptain
     attr_reader :user_agent
 
     def initialize(message, response = nil, request_options = {})
-      @message	= message
+      @message = message
       @http_headers = request_options[:headers] || {}
-      @json_body	= request_options[:body]
+      @json_body = request_options[:body]
 
       if response
         @http_status = response.status
-        @http_body	= response.body
+        @http_body = response.body
         @http_errors = response.errors
       end
     end

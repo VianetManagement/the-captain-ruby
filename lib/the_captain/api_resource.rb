@@ -1,15 +1,13 @@
 module TheCaptain
   class ApiResource < Hashie::Mash
     include TheCaptain::Model
-    include TheCaptain::APIOperations::Request
-    include TheCaptain::APIOperations::Read
-    include TheCaptain::APIOperations::Query
-    include TheCaptain::APIOperations::Create
+    include TheCaptain::APIOperations::Crud
 
     def self.class_name
       name.split("::")[-1]
     end
 
+    # Subset of CRUD method retrieve
     def self.retrieve(identifier, options = {})
       options = event_options(options)
       options = pagination_options(options)
@@ -18,6 +16,7 @@ module TheCaptain
       super
     end
 
+    # Subset of CRUD method submit
     def self.submit(identifier, options = {})
       options = event_options(options)
       super
@@ -27,7 +26,7 @@ module TheCaptain
 
     def self.event_options(options)
       return options if options.nil? || options[:event].blank?
-      event = options[:event].to_s.gsub("_", ":")
+      event = options[:event].to_s.tr("_", ":")
       options.merge!(event: event)
     end
 

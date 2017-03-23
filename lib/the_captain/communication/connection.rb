@@ -12,7 +12,7 @@ module TheCaptain
           validate_api_key!
 
           opts.update(
-            headers: request_headers(opts).merge!("X-API-KEY" => api_key),
+            headers: prepare_api_headers,
             method: method,
             open_timeout: open_timeout,
             payload: params,
@@ -21,7 +21,7 @@ module TheCaptain
           )
 
           response = execute_request_with_rescues(method, params, opts, path)
-          parse(response, opts) # TheCaptain::Communication::Response.parse
+          review_response(response, opts) # TheCaptain::Communication::Response.review_response
         end
 
         private
@@ -37,35 +37,8 @@ module TheCaptain
           {
             "Accept" 			 => "application/json",
             "Content-Type" => "application/json",
+            "X-API-KEY"    => api_key,
           }
-        end
-
-        # @private
-        def user_agent
-          {
-            bindings_version: TheCaptain::VERSION,
-            lang: "ruby",
-            lang_version: "2.2.3",
-            engine: defined?(RUBY_ENGINE) ? RUBY_ENGINE : "",
-            publisher: "The Captain",
-            uname: @uname,
-            hostname: Socket.gethostname,
-          }
-        end
-
-        # @private
-        def request_headers(opts)
-          user_agent_string = "TheCaptain/v1 RubyBindings/#{TheCaptain::VERSION}"
-          headers = prepare_api_headers(opts).merge(user_agent: user_agent_string)
-
-          begin
-            headers.update(x_the_captain_client_user_agent: JSON.generate(user_agent))
-          rescue StandardError => e
-            headers.update(
-              x_the_captain_client_raw_user_agent: user_agent.inspect,
-              error: "#{e} (#{e.class})",
-            )
-          end
         end
 
         protected
@@ -82,22 +55,22 @@ module TheCaptain
           connection.send(method) do |req|
             req.url(api_url(path))
             req.headers = opts[:headers]
-            req.params = params
-            req.body = opts[:body].to_json if [:post, :patch, :put].include?(method)
+            req.params  = params
+            req.body    = opts[:body].to_json if [:post, :patch, :put].include?(method)
           end
         end
 
         # @protected
         def connection
           return @connection if @connection
-          @connection = Faraday.new(url: base_url) { |faraday| faraday.adapter :typhoeus }
-          @connection.options.timeout = 30
-          @connection.options.open_timeout = 50
-          @connection.ssl.verify = false
-          @connection
+          @connection = Faraday.new(url: base_url) do |faraday|
+            faraday.adapter :typhoeus
+            faraday.options.timeout      = read_timeout
+            faraday.options.open_timeout = open_timeout
+            faraday.ssl.verify           = ssl?
+          end
         end
       end # ClassMethods
     end
   end
 end
-
