@@ -10,14 +10,12 @@ puts "Submit for signup:"
 puts JSON.pretty_generate(TheCaptain::IpAddress.submit(ip_address1, user_id: user1, event: :user_signup))
 puts JSON.pretty_generate(TheCaptain::IpAddress.submit(ip_address2, user_id: user1, event: :user_signup))
 
-
 puts "Query multiple IP's at once:"
 puts JSON.pretty_generate(TheCaptain::IpAddress.retrieve([ip_address1, ip_address2], event: :user_signup))
 
-
-# puts "submit for visit"
+puts "submit for visit"
 puts JSON.pretty_generate(TheCaptain::IpAddress.submit(ip_address1, user_id: user2, event: :visit))
-#
+
 puts "Query just IP:"
 puts JSON.pretty_generate(TheCaptain::IpAddress.retrieve(ip_address1))
 

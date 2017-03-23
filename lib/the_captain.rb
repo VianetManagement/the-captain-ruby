@@ -29,6 +29,7 @@ require "the_captain/email_address"
 require "the_captain/credit_card"
 require "the_captain/content"
 require "the_captain/user"
+require "the_captain/list"
 
 # Errors
 require "the_captain/errors/the_captain_error"

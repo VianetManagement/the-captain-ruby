@@ -27,7 +27,7 @@ module TheCaptain
         private
 
         def resolve_identifier(identifier)
-          identifier.kind_of?(Array) ? { values: identifier } : { value: identifier }
+          identifier.is_a?(Array) ? { values: identifier } : { value: identifier }
         end
       end
     end
