@@ -16,7 +16,7 @@ spec = Gem::Specification.new do |s|
   s.add_dependency("faraday", "~> 0.9")
   s.add_dependency("json", "~> 1.8")
   s.add_dependency("oj", "~> 2.18")
-  s.add_dependency("hashie", "~> 3.4")
+  s.add_dependency("hashie", "~> 3.5")
   s.add_dependency("typhoeus")
   s.add_dependency("activesupport", "~> 4.2")
 
