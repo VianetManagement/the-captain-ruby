@@ -1,5 +1,5 @@
 # The Captain Ruby Bindings
-[![Build Status](https://travis-ci.com/BeatnikBranding/the-captain-ruby.svg?token=HrNaBvyMMhTA1FpCeAJF&branch=master)](https://travis-ci.com/BeatnikBranding/the-captain-ruby)
+[![Build Status](https://travis-ci.com/VianetManagement/the-captain-ruby.svg?token=HrNaBvyMMhTA1FpCeAJF&branch=master)](https://travis-ci.com/VianetManagement/the-captain-ruby)
 [![Code Climate](https://codeclimate.com/github/BeatnikBranding/the-captain-ruby/badges/gpa.svg)](https://codeclimate.com/github/BeatnikBranding/the-captain-ruby)
 
 ## Installation
