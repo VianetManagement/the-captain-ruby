@@ -38,6 +38,5 @@ FactoryGirl.define do
       email_address { build(:email_address, user: value, event: event) }
       credit_card { build(:credit_card, user: value, event: event) }
     end
-
   end
 end

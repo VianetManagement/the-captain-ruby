@@ -11,22 +11,22 @@ module TheCaptain
     attr_reader :user_agent
 
     def initialize(message, response = nil, request_options = {})
-      @message	     = message
-      @http_headers  = request_options[:headers] || {}
-      @json_body	   = request_options[:body]
+      @message = message
+      @http_headers = request_options[:headers] || {}
+      @json_body = request_options[:body]
 
       if response
         @http_status = response.status
-        @http_body	 = response.body
+        @http_body = response.body
         @http_errors = response.errors
       end
     end
 
     def to_s
-      out_message     = http_status.nil? ? "" : "(Status #{http_status})\n"
-      out_message     += @json_body.nil? ? "" : "Raw request body: #{json_body}\n"
+      out_message = http_status.nil? ? "" : "(Status #{http_status})\n"
+      out_message += @json_body.nil? ? "" : "Raw request body: #{json_body}\n"
       unless @http_errors.nil?
-        out_message   += "Response Message Error/s:\n"
+        out_message += "Response Message Error/s:\n"
         @http_errors.each do |error|
           out_message += "Missing field `#{error.field}`: " if error[:field].present?
           out_message += "#{error.message}\n"

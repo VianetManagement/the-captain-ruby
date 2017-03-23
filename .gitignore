@@ -17,4 +17,4 @@ coverage/
 
 .rvmrc
 
-examples/*.env
+development.env

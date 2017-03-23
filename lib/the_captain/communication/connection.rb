@@ -21,7 +21,7 @@ module TheCaptain
           )
 
           response = execute_request_with_rescues(method, params, opts, path)
-          parse(response, opts) # TheCaptain::Communication::Response.parse
+          review_response(response, opts) # TheCaptain::Communication::Response.review_response
         end
 
         private
@@ -65,8 +65,8 @@ module TheCaptain
           return @connection if @connection
           @connection = Faraday.new(url: base_url) do |faraday|
             faraday.adapter :typhoeus
-            faraday.options.timeout      = 30
-            faraday.options.open_timeout = 50
+            faraday.options.timeout      = read_timeout
+            faraday.options.open_timeout = open_timeout
             faraday.ssl.verify           = ssl?
           end
         end

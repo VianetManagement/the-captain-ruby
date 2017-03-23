@@ -50,7 +50,7 @@ module TheCaptain
   include TheCaptain::Communication::Connection
   include TheCaptain::Communication::Response
 
-  @open_timeout = 30
+  @open_timeout = 50
   @read_timeout = 80
 
   class << self
@@ -65,7 +65,7 @@ module TheCaptain
     end
 
     def api_version
-      @api_version ||= configuration.api_version
+      @api_version ||= configuration.api_version || "v1"
     end
 
     def base_url

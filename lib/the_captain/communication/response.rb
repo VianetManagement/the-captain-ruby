@@ -6,7 +6,7 @@ module TheCaptain
       end
 
       module ClassMethods
-        def parse(response, opts = {})
+        def review_response(response, opts = {})
           hashed_body = JSON.parse(response.body).tap do |body|
             body[:status] = response.status
           end
@@ -15,11 +15,7 @@ module TheCaptain
 
           handle_api_error(parsed_response, opts)
         rescue JSON::ParserError
-          # The Captain responds with an empty body when creating events.
-          unless response.status == 201
-            raise TheCaptain::APIError.invalid_response(response.body.inspect, response.status)
-          end
-          response
+          raise TheCaptain::APIError.invalid_response(response.body.inspect, response.status)
         end
 
         def handle_api_error(response, opts = {})
