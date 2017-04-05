@@ -5,7 +5,7 @@
 ## Installation
 
 ```
-gem 'the_captain', :git => 'git@github.com:VianetManagement/the-captain-ruby.git', :tag => 'v0.12.0'
+gem 'the_captain', :git => 'git@github.com:VianetManagement/the-captain-ruby.git', :tag => 'v0.12.5.2'
 ```
 
 ## Examples
