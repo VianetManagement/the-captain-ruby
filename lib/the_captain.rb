@@ -57,19 +57,23 @@ module TheCaptain
     attr_accessor :open_timeout, :read_timeout, :last_response
 
     def configuration
-      @configuration ||= Utility::Configuration.new
+      @configuration  ||= Utility::Configuration.new
     end
 
     def api_key
-      @api_key ||= configuration.server_api_token
+      @api_key        ||= configuration.server_api_token
     end
 
     def api_version
-      @api_version ||= configuration.api_version || "v1"
+      @api_version    ||= configuration.api_version || "v1"
     end
 
     def base_url
-      @base_url ||= configuration.base_url
+      @base_url       ||= configuration.base_url&.chomp("/")
+    end
+
+    def retry_attempts
+      @retry_attempts ||= configuration.retry_attempts
     end
 
     attr_reader :last_response
