@@ -20,11 +20,32 @@ module TheCaptain
             timeout: read_timeout,
           )
 
-          response = execute_request_with_rescues(method, params, opts, path)
-          review_response(response, opts) # TheCaptain::Communication::Response.review_response
+          with_retry do
+            response = execute_request_with_rescues(method, params, opts, path)
+            review_response(response, opts) # TheCaptain::Communication::Response.review_response
+          end
         end
 
         private
+
+        def with_retry
+          return unless block_given?
+
+          retry_attempts   = TheCaptain.retry_attempts || 0
+          retry_attempts   = retry_attempts > 1 ? retry_attempts - 1 : retry_attempts
+          results          = false
+
+          retry_attempts.times do
+            begin
+              results = yield
+              break
+            rescue
+              next
+            end
+          end
+
+          results ? results : yield
+        end
 
         # @private
         def validate_api_key!
