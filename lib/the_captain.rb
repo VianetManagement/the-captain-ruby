@@ -69,11 +69,11 @@ module TheCaptain
     end
 
     def base_url
-      @base_url       ||= configuration.base_url&.chomp("/")
+      @base_url       ||= configuration.base_url.chomp("/")
     end
 
     def retry_attempts
-      @retry_attempts ||= configuration.retry_attempts&.to_i
+      @retry_attempts ||= configuration.retry_attempts.to_i
     end
 
     attr_reader :last_response
