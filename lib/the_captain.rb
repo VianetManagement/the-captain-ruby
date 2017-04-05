@@ -73,7 +73,7 @@ module TheCaptain
     end
 
     def retry_attempts
-      @retry_attempts ||= configuration.retry_attempts
+      @retry_attempts ||= configuration.retry_attempts&.to_i
     end
 
     attr_reader :last_response
