@@ -5,7 +5,6 @@ module TheCaptain
     def delete(*_)
       raise TheCaptain.client_error(class_name, "Cannot delete a list")
     end
-
   end
 
   class Lists < ApiResource
@@ -23,7 +22,6 @@ module TheCaptain
       super("")
     end
   end
-
 
   class ListItem
     ApiResource.api_path "/listitem"
