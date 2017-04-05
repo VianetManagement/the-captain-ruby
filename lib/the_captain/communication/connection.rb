@@ -56,7 +56,7 @@ module TheCaptain
             req.url(api_url(path))
             req.headers = opts[:headers]
             req.params  = params
-            req.body    = opts[:body].to_json if [:post, :patch, :put].include?(method)
+            req.body    = opts[:body].to_json unless [:get].include?(method)
           end
         end
 

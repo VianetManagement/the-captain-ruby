@@ -24,6 +24,14 @@ module TheCaptain
           request(method: :post, path: api_path, opts: opts)
         end
 
+        def delete(identifier, options = {})
+          raise ArgumentError, "value identifier required" unless identifier
+          opts = { body: resolve_identifier(identifier) }
+          opts[:body].merge!(options) unless options.blank?
+
+          request(method: :delete, path: api_path, opts: opts)
+        end
+
         private
 
         def resolve_identifier(identifier)
