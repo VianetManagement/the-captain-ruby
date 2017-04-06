@@ -14,6 +14,10 @@ module TheCaptain
       super(identifier, options)
     end
 
+    def self.delete(*_)
+      raise TheCaptain.client_error(class_name, "Cannot delete a users")
+    end
+
     # Convert all nested attributes to their event type
     def self.merge_options(options)
       %i(ip_address email_address credit_card content).each do |key|

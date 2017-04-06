@@ -62,4 +62,10 @@ RSpec.describe "IpAddress", :vcr do
       end
     end
   end
+
+  describe ".delete" do
+    it "should raise a No Method exception" do
+      expect { TheCaptain::IpAddress.delete(users.first) }.to raise_exception(NoMethodError)
+    end
+  end
 end

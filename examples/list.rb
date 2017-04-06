@@ -19,3 +19,9 @@ puts JSON.pretty_generate(TheCaptain::ListItem.delete(list1, items: items.first)
 
 puts "New items list after remove { #{items.first} } from it"
 puts JSON.pretty_generate(TheCaptain::List.retrieve(list1))
+
+puts "Remove a list"
+puts JSON.pretty_generate(TheCaptain::List.delete(list1))
+
+puts "All lists after removal"
+puts JSON.pretty_generate(TheCaptain::Lists.retrieve)

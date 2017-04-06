@@ -7,5 +7,9 @@ module TheCaptain
       raise ArgumentError("user or user_id required") unless options[:user_id]
       super
     end
+
+    def self.delete(*_)
+      raise TheCaptain.client_error(class_name, "Cannot delete a credit cards")
+    end
   end
 end

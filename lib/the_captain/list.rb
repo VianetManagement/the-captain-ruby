@@ -1,34 +1,38 @@
 module TheCaptain
   class List < ApiResource
     api_path "/list"
-
-    def delete(*_)
-      raise TheCaptain.client_error(class_name, "Cannot delete a list")
-    end
   end
 
   class Lists < ApiResource
     api_path "/lists"
 
+    def self.retrieve(*_)
+      super("")
+    end
+
     def self.submit(*_)
       raise TheCaptain.client_error(class_name, "Cannot submit multiple lists")
     end
 
-    def delete(*_)
+    def self.delete(*_)
       raise TheCaptain.client_error(class_name, "Cannot delete lists")
-    end
-
-    def self.retrieve(*_)
-      super("")
     end
   end
 
-  class ListItem
-    ApiResource.api_path "/listitem"
+  class ListItem < ApiResource
+    api_path "/listitem"
+
+    def self.retrieve(*_)
+      raise TheCaptain.client_error(class_name, "Cannot retrieve an item from a list, use TheCaptain::List")
+    end
+
+    def self.submit(*_)
+      raise TheCaptain.client_error(class_name, "Cannot submit a list item through this path, use TheCaptain::List")
+    end
 
     def self.delete(name, options = {})
       options = resolve_items(options)
-      ApiResource.delete(name, options)
+      super
     end
 
     def self.resolve_items(options)
