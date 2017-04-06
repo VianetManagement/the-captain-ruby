@@ -51,5 +51,11 @@ module TheCaptain
         expect { User.retrieve(user) }.to raise_error(ArgumentError, "value identifier required")
       end
     end
+
+    describe ".delete" do
+      it "should raise a No Method exception" do
+        expect { User.delete(1) }.to raise_exception(NoMethodError)
+      end
+    end
   end
 end

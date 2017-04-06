@@ -62,4 +62,12 @@ RSpec.describe "CreditCard", :vcr do
       end
     end
   end
+
+  describe ".delete" do
+    let(:email) { build(:email_address) }
+
+    it "should raise a No Method exception" do
+      expect { TheCaptain::CreditCard.delete(core_identifiers.first) }.to raise_exception(NoMethodError)
+    end
+  end
 end

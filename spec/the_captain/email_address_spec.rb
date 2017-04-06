@@ -21,5 +21,13 @@ module TheCaptain
         end
       end
     end
+
+    describe ".delete" do
+      let(:email) { build(:email_address) }
+
+      it "should raise a No Method exception" do
+        expect { EmailAddress.delete(email.value) }.to raise_exception(NoMethodError)
+      end
+    end
   end
 end

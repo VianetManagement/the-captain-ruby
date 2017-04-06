@@ -6,5 +6,9 @@ module TheCaptain
       options = user_id_options(options)
       super
     end
+
+    def self.delete(*_)
+      raise TheCaptain.client_error(class_name, "Cannot delete a ip addresses")
+    end
   end
 end
