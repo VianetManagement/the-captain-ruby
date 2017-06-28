@@ -12,12 +12,12 @@ module TheCaptain
           validate_api_key!
 
           opts.update(
-            headers: prepare_api_headers,
-            method: method,
+            method:       method,
+            url:          api_url(path),
+            headers:      prepare_api_headers,
+            payload:      params,
+            timeout:      read_timeout,
             open_timeout: open_timeout,
-            payload: params,
-            url: api_url(path),
-            timeout: read_timeout,
           )
 
           with_retry do
@@ -28,6 +28,7 @@ module TheCaptain
 
         private
 
+        # Retry's the same request after a failure or exception is risen
         def with_retry
           return unless block_given?
 

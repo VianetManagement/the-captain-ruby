@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    the_captain (0.13.0)
+    the_captain (0.20.0)
       activesupport (~> 4.2)
       faraday (~> 0.9)
       hashie (~> 3.5)
@@ -71,7 +71,6 @@ GEM
       ethon (>= 0.9.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    vcr (3.0.3)
     webmock (1.22.3)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
@@ -93,7 +92,6 @@ DEPENDENCIES
   rspec (~> 3.4)
   the_captain!
   timecop
-  vcr (~> 3.0)
   webmock (~> 1.22)
   yard
 
