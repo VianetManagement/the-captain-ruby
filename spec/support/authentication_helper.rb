@@ -1,7 +1,11 @@
+
 module AuthenticationHelper
   def authenticate!
     TheCaptain.configure do |config|
-      config.server_api_token = "qznc1NGHZqy5Sh9CN9p2mTS6ne19IqgXIq81dRNe1LTLplSpeHJEVREUpnIX5HIh"
+      config.server_api_token = ENV["CAPTAIN_API_KEY"]
+      config.base_url         = ENV["CAPTAIN_URL"]
+      config.api_version      = "v2"
+      config.retry_attempts   = 2
     end
   end
 

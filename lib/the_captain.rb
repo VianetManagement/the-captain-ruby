@@ -19,17 +19,17 @@ require "the_captain/api_operations/crud"
 
 # Resources
 require "the_captain/utility/configuration"
-
 require "the_captain/model"
 require "the_captain/api_resource"
 
 # Core Captain models
-require "the_captain/ip_address"
-require "the_captain/email_address"
-require "the_captain/credit_card"
-require "the_captain/content"
-require "the_captain/user"
+require "the_captain/submit"
+require "the_captain/info"
 require "the_captain/list"
+require "the_captain/event"
+require "the_captain/stats"
+require "the_captain/usage"
+require "the_captain/user"
 
 # Errors
 require "the_captain/errors/the_captain_error"
@@ -65,7 +65,7 @@ module TheCaptain
     end
 
     def api_version
-      @api_version    ||= configuration.api_version || "v1"
+      @api_version    ||= configuration.api_version || "v2"
     end
 
     def base_url

@@ -1,60 +1,36 @@
 require "spec_helper"
 
-module TheCaptain
-  RSpec.describe "User" do
-    before { authenticate! }
+RSpec.describe "TheCaptain::User/s" do
+  before { authenticate! }
+  let(:ip_address)  { "206.181.8.242" }
+  let(:user)        { 999_999_999_999_999 }
+  let(:email)       { "user@example.com" }
+  let(:credit_card) { "abc1234567" }
+  let(:content)     { "Hello World!" }
 
-    describe ".merge_options" do
-      let(:user) { build(:user, :global_event, event: :import_pick) }
-      let(:event_results) { "import:pick" }
+  describe ".call" do
+    context "Success" do
+      it "should return information about a given user" do
+        results = TheCaptain::User.call(user)
+        expect(results.status).to eq(200)
+        expect(results.value).to eq(user.to_s)
+      end
 
-      subject(:merge_options) { User.merge_options(user) }
-
-      it "should resolve each event type" do
-        options = merge_options
-        expect(options.ip_address.event).to eq(event_results)
-        expect(options.credit_card.event).to eq(event_results)
-        expect(options.content.event).to eq(event_results)
+      it "should return all users that have a matching ip" do
+        results = TheCaptain::Users.call(ip_address: ip_address)
+        expect(results.status).to eq(200)
+        expect(results.ip_address).to_not be_nil
+        expect(results.ip_address.users).to_not be_nil
       end
     end
 
-    describe ".submit" do
-      context "validation" do
-        let(:user) { build(:user) }
-        before { allow(::TheCaptain).to receive(:request).and_return(true) }
-        subject(:user_submission) { User.submit(user) }
-
-        it { is_expected.to be_truthy }
-
-        it "should rise an exception if no uid is found" do
-          user.delete(:value)
-          expect { user_submission }.to raise_error(ArgumentError, "value identifier required")
-        end
-      end
-    end
-
-    describe ".retrieve" do
-      let(:user) { build(:user, value: 22) }
-      before { allow(::TheCaptain).to receive(:request).and_return(true) }
-
-      it " allows user to be a hashed value" do
-        expect(User.retrieve(user)).to be_truthy
+    context "failure" do
+      it "should fail if a content type is blank" do
+        expect { TheCaptain::User.call("") }.to raise_exception(TheCaptain::APIError)
       end
 
-      it " allows user to be a set variable" do
-        user.delete(:value)
-        expect(User.retrieve(22, user)).to be_truthy
-      end
-
-      it "should raise an error if no ID is found" do
-        user.delete(:value)
-        expect { User.retrieve(user) }.to raise_error(ArgumentError, "value identifier required")
-      end
-    end
-
-    describe ".delete" do
-      it "should raise a No Method exception" do
-        expect { User.delete(1) }.to raise_exception(NoMethodError)
+      it "should fail if content type is missing" do
+        expect { TheCaptain::Users.call }.to raise_exception(TheCaptain::APIError)
       end
     end
   end
