@@ -1,11 +1,16 @@
 language: ruby
 rvm:
-  - 2.2.1
-  - 2.2.3
-
-cache: bundler
+  - 2.2.7
+  - 2.3.4
 
 sudo: false
+
+cache:
+  - bundler
+
+branches:
+  only:
+    - master
 
 notifications:
   slack: elevatorup:hmhUg4Td6NqIGGBW18JltQ79

@@ -5,10 +5,10 @@ require "the_captain/version"
 Gem::Specification.new do |s|
   s.name = "the_captain"
   s.version = TheCaptain::VERSION
-  s.required_ruby_version = ">= 2.0.0"
+  s.required_ruby_version = [">= 2.2.0", "< 2.4.0"]
   s.summary = "Ruby bindings for the The Captain API"
   s.description = "The Captain will tell, talk, and taddle on those pesky fraudulent scalliwags."
-  s.authors = ["George Karaszi"]
+  s.authors = ["George Protacio-Karaszi"]
   s.email = ["george@elevatorup.com"]
   s.homepage = "https://thecaptain.elevatorup.com"
   s.license = "MIT"
@@ -27,7 +27,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency("redcarpet")
   s.add_development_dependency("rake")
   s.add_development_dependency("faker")
-  s.add_development_dependency("factory_girl")
   s.add_development_dependency("byebug")
   s.add_development_dependency("timecop")
   s.add_development_dependency("multi_json")
