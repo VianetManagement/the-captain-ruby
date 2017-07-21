@@ -8,9 +8,6 @@ require "socket"
 require "active_support"
 require "active_support/core_ext"
 
-require "ext/hash"
-require "ext/string"
-
 require "the_captain/version"
 require "the_captain/model_adapters/railtie" if defined?(Rails)
 
@@ -52,9 +49,10 @@ module TheCaptain
 
   @open_timeout = 50
   @read_timeout = 80
+  @enabled      = true
 
   class << self
-    attr_accessor :open_timeout, :read_timeout, :last_response
+    attr_accessor :open_timeout, :read_timeout, :last_response, :enabled
 
     def configuration
       @configuration  ||= Utility::Configuration.new
@@ -76,10 +74,12 @@ module TheCaptain
       @retry_attempts ||= configuration.retry_attempts.to_i
     end
 
-    attr_reader :last_response
-
     def configure
       yield configuration
+    end
+
+    def enabled?
+      @enabled
     end
 
     def ssl?

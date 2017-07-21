@@ -20,8 +20,6 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.4.0)
     byebug (8.2.1)
-    codeclimate-test-reporter (0.4.8)
-      simplecov (>= 0.7.1, < 1.0.0)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     diff-lcs (1.2.5)
@@ -82,7 +80,6 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
-  codeclimate-test-reporter
   dotenv
   factory_girl
   faker
@@ -90,6 +87,7 @@ DEPENDENCIES
   rake
   redcarpet
   rspec (~> 3.4)
+  simplecov
   the_captain!
   timecop
   webmock (~> 1.22)

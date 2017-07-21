@@ -1,59 +1,29 @@
 require "spec_helper"
 
-describe TheCaptain::ApiResource do
-  subject { described_class }
+describe TheCaptain do
+  let(:user) { 999_999_999_999_999 }
 
-  let(:options) do
-    {
-      event: "hello_world",
-      per: 1,
-      page: 3,
-      from: 1.hour.ago,
-      to: 1.hour.from_now,
-      items: "item1",
-      user: 1,
-    }
-  end
-
-  describe ".event_options" do
-    it "should replace underscores with collins" do
-      opts = subject.event_options(options)
-      expect(opts[:event]).to eq("hello:world")
+  describe ".enabled" do
+    context "disabled" do
+      it "Should return a hashed error stating it is disabled" do
+        allow(TheCaptain).to receive(:enabled?).and_return(false)
+        results = TheCaptain::User.call(user)
+        expect(results.disabled).to be_truthy
+      end
     end
   end
 
-  describe ".pagination_options" do
-    it "should replace underscores with collins" do
-      opts = subject.pagination_options(options)
-      expect(opts[:limit]).to eq(1)
-      expect(opts[:skip]).to eq(3)
-    end
-  end
-
-  describe ".user_id_options" do
-    let(:user_record) { double("User", id: 99) }
-    it "should replace underscores with collins" do
-      opts = subject.user_id_options(options)
-      expect(opts[:user_id]).to eq(1)
-      expect(opts[:user]).to be_nil
+  describe "#AuthenticationError" do
+    it "Should raise an exception if no API key is provided" do
+      allow(TheCaptain).to receive(:api_key).and_return(nil)
+      expect(TheCaptain::AuthenticationError).to receive(:no_key_provided).and_call_original
+      expect { TheCaptain::User.call(user) }.to raise_error(StandardError)
     end
 
-    it "should extract the id from the id field" do
-      opts = subject.user_id_options(user: user_record)
-      expect(opts[:user_id]).to eq(user_record.id)
-      expect(opts[:user]).to be_nil
-    end
-  end
-
-  describe ".items_options" do
-    it "should convert single item to an array of items" do
-      opts = subject.items_options(options)
-      expect(opts[:items]).to match_array(["item1"])
-    end
-
-    it "shouldn't change anything if items is already an array" do
-      opts = subject.items_options(items: ["item1"])
-      expect(opts[:items]).to match_array(["item1"])
+    it "Should raise an exception if an invalid key is provided" do
+      allow(TheCaptain).to receive(:api_key).and_return(12_345)
+      expect(TheCaptain::AuthenticationError).to receive(:invalid_key_provided).and_call_original
+      expect { TheCaptain::User.call(user) }.to raise_error(StandardError)
     end
   end
 end
