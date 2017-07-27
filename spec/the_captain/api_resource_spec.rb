@@ -23,7 +23,7 @@ describe TheCaptain::ApiResource do
   end
 
   describe ".pagination_options" do
-    it "should replace underscores with collins" do
+    it "should replace pre and page with limit and skip" do
       opts = subject.pagination_options(options)
       expect(opts[:limit]).to eq(1)
       expect(opts[:skip]).to eq(3)
@@ -32,7 +32,7 @@ describe TheCaptain::ApiResource do
 
   describe ".user_id_options" do
     let(:user_record) { double("User", id: 99) }
-    it "should replace underscores with collins" do
+    it "should return the variable itself if option is not an object" do
       opts = subject.user_id_options(options)
       expect(opts[:user_id]).to eq(1)
       expect(opts[:user]).to be_nil
