@@ -2,14 +2,14 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), "lib"))
 
 require "the_captain/version"
 
-spec = Gem::Specification.new do |s|
+Gem::Specification.new do |s|
   s.name = "the_captain"
   s.version = TheCaptain::VERSION
-  s.required_ruby_version = ">= 2.0.0"
+  s.required_ruby_version = [">= 2.2.0", "< 2.4.0"]
   s.summary = "Ruby bindings for the The Captain API"
   s.description = "The Captain will tell, talk, and taddle on those pesky fraudulent scalliwags."
-  s.authors = ["Casey Provost", "George Karaszi"]
-  s.email = ["casey@elevatorup.com", "george@elevatorup.com"]
+  s.authors = ["George Protacio-Karaszi"]
+  s.email = ["george@elevatorup.com"]
   s.homepage = "https://thecaptain.elevatorup.com"
   s.license = "MIT"
 
@@ -23,12 +23,10 @@ spec = Gem::Specification.new do |s|
   s.add_development_dependency("dotenv")
   s.add_development_dependency("rspec", "~> 3.4")
   s.add_development_dependency("webmock", "~> 1.22")
-  s.add_development_dependency("vcr", "~> 3.0")
   s.add_development_dependency("yard")
   s.add_development_dependency("redcarpet")
   s.add_development_dependency("rake")
   s.add_development_dependency("faker")
-  s.add_development_dependency("factory_girl")
   s.add_development_dependency("byebug")
   s.add_development_dependency("timecop")
   s.add_development_dependency("multi_json")

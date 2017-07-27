@@ -11,31 +11,18 @@ module TheCaptain
           TheCaptain.last_response = TheCaptain.request(method, path, params, opts)
         end
 
-        def retrieve(identifier, options = {})
-          raise ArgumentError, "value identifier required" unless identifier
-          request(method: :get, path: api_path, params: resolve_identifier(identifier).merge!(options), opts: {})
+        def retrieve(options = {})
+          request(method: :get, path: api_path, params: options, opts: {})
         end
 
-        def submit(identifier, event_data = {})
-          raise ArgumentError, "value identifier required" unless identifier
-          opts = { body: resolve_identifier(identifier) }
-          opts[:body].merge!(event_data) unless event_data.blank?
-
+        def submit(options = {})
+          opts = { body: options }
           request(method: :post, path: api_path, opts: opts)
         end
 
-        def delete(identifier, options = {})
-          raise ArgumentError, "value identifier required" unless identifier
-          opts = { body: resolve_identifier(identifier) }
-          opts[:body].merge!(options) unless options.blank?
-
+        def delete(options = {})
+          opts = { body: options }
           request(method: :delete, path: api_path, opts: opts)
-        end
-
-        private
-
-        def resolve_identifier(identifier)
-          identifier.is_a?(Array) ? { values: identifier } : { value: identifier }
         end
       end
     end

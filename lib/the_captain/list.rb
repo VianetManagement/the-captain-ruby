@@ -1,48 +1,39 @@
 module TheCaptain
   class List < ApiResource
     api_path "/list"
-  end
 
-  class Lists < ApiResource
-    api_path "/lists"
-
-    def self.retrieve(*_)
-      super("")
+    def self.call(name)
+      retrieve(value: name) # TheCaptain::APIOperations::Crud.retrieve
     end
 
-    def self.submit(*_)
-      raise TheCaptain.client_error(class_name, "Cannot submit multiple lists")
+    def self.data(options = {})
+      contains_required_list?(options)
+      submit options_formatter(options)   # TheCaptain::APIOperations::Crud.submit
     end
 
-    def self.delete(*_)
-      raise TheCaptain.client_error(class_name, "Cannot delete lists")
+    def self.remove_list(name)
+      delete(value: name)                 # TheCaptain::APIOperations::Crud.delete
+    end
+
+    def self.remove_item(options = {})
+      ListItem.remove_item(options)
     end
   end
 
   class ListItem < ApiResource
     api_path "/listitem"
 
-    def self.retrieve(*_)
-      raise TheCaptain.client_error(class_name, "Cannot retrieve an item from a list, use TheCaptain::List")
+    def self.remove_item(options = {})
+      contains_required_list?(options)
+      delete(options_formatter(options))   # TheCaptain::APIOperations::Crud.delete
     end
+  end
 
-    def self.submit(*_)
-      raise TheCaptain.client_error(class_name, "Cannot submit a list item through this path, use TheCaptain::List")
-    end
+  class Lists < ApiResource
+    api_path "/lists"
 
-    def self.delete(name, options = {})
-      options = resolve_items(options)
-      super
-    end
-
-    def self.resolve_items(options)
-      if options[:items].blank? && options[:item].blank?
-        raise ArgumentError, "You must submit an array of items containing at least 1 element"
-      end
-
-      items = options.delete(:items)
-      items ||= options.delete(:item)
-      options.merge!(items: items.is_a?(Array) ? items : [items])
+    def self.call(options = {})
+      retrieve options_formatter(options)  # TheCaptain::APIOperations::Crud.retrieve
     end
   end
 end

@@ -8,9 +8,6 @@ require "socket"
 require "active_support"
 require "active_support/core_ext"
 
-require "ext/hash"
-require "ext/string"
-
 require "the_captain/version"
 require "the_captain/model_adapters/railtie" if defined?(Rails)
 
@@ -19,17 +16,17 @@ require "the_captain/api_operations/crud"
 
 # Resources
 require "the_captain/utility/configuration"
-
 require "the_captain/model"
 require "the_captain/api_resource"
 
 # Core Captain models
-require "the_captain/ip_address"
-require "the_captain/email_address"
-require "the_captain/credit_card"
-require "the_captain/content"
-require "the_captain/user"
+require "the_captain/submit"
+require "the_captain/info"
 require "the_captain/list"
+require "the_captain/event"
+require "the_captain/stats"
+require "the_captain/usage"
+require "the_captain/user"
 
 # Errors
 require "the_captain/errors/the_captain_error"
@@ -52,9 +49,10 @@ module TheCaptain
 
   @open_timeout = 50
   @read_timeout = 80
+  @enabled      = true
 
   class << self
-    attr_accessor :open_timeout, :read_timeout, :last_response
+    attr_accessor :open_timeout, :read_timeout, :last_response, :enabled
 
     def configuration
       @configuration  ||= Utility::Configuration.new
@@ -65,7 +63,7 @@ module TheCaptain
     end
 
     def api_version
-      @api_version    ||= configuration.api_version || "v1"
+      @api_version    ||= configuration.api_version || "v2"
     end
 
     def base_url
@@ -76,10 +74,12 @@ module TheCaptain
       @retry_attempts ||= configuration.retry_attempts.to_i
     end
 
-    attr_reader :last_response
-
     def configure
       yield configuration
+    end
+
+    def enabled?
+      @enabled
     end
 
     def ssl?

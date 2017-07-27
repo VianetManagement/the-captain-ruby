@@ -9,8 +9,8 @@ module TheCaptain
       end
 
       def invalid_key_provided
-        new("Your API key is invalid, as it contains " \
-	        "whitespace. (HINT: You can double-check your API key by emailing us at " \
+        new("Your API key is invalid, as its not of string type." \
+	        "(HINT: You can double-check your API key by emailing us at " \
 	        "support@thecaptain.elevatorup.com if you have any questions.)")
       end
     end

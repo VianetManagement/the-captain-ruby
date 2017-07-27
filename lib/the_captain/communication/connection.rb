@@ -9,15 +9,17 @@ module TheCaptain
 
       module ClassMethods
         def request(method, path, params = {}, opts = {})
+          return captain_disabled! unless TheCaptain.enabled?
+
           validate_api_key!
 
           opts.update(
-            headers: prepare_api_headers,
-            method: method,
+            method:       method,
+            url:          api_url(path),
+            headers:      prepare_api_headers,
+            payload:      params,
+            timeout:      read_timeout,
             open_timeout: open_timeout,
-            payload: params,
-            url: api_url(path),
-            timeout: read_timeout,
           )
 
           with_retry do
@@ -28,6 +30,7 @@ module TheCaptain
 
         private
 
+        # Retry's the same request after a failure or exception is risen
         def with_retry
           return unless block_given?
 
@@ -49,8 +52,15 @@ module TheCaptain
 
         # @private
         def validate_api_key!
-          raise TheCaptain::AuthenticationError.no_key_provided unless api_key
-          raise TheCaptain::AuthenticationError.invalid_key_provided if api_key =~ /\s/
+          raise TheCaptain::AuthenticationError.no_key_provided if api_key.blank?
+          raise TheCaptain::AuthenticationError.invalid_key_provided unless api_key.is_a?(String)
+        end
+
+        def captain_disabled!
+          Hashie::Mash.new(
+            error: "The Captain Gem is disabled! Enable via `TheCaptain.enabled = true`",
+            disabled: !TheCaptain.enabled?,
+          )
         end
 
         def prepare_api_headers(opts = {})

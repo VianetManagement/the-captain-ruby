@@ -11,10 +11,9 @@
 ## Environment configs
 .env.development
 .env.test
+*.env
 
 coverage/
 *.gem
 
 .rvmrc
-
-development.env
