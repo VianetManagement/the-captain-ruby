@@ -74,10 +74,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  byebug (~> 8.2, >= 8.2.1)
-  dotenv (~> 2.2, >= 2.2.0)
-  faker (~> 1.8, >= 1.8.4)
-  multi_json (~> 1.10, >= 1.10.1)
+  byebug (~> 8.2)
+  dotenv (~> 2.2)
+  faker (~> 1.8)
+  multi_json (~> 1.10)
   rake (~> 10.4)
   rspec (~> 3.4)
   simplecov
