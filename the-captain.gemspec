@@ -20,6 +20,8 @@ Gem::Specification.new do |s|
   s.add_dependency("typhoeus", "~> 1.1", ">= 1.1.2")
   s.add_dependency("activesupport", "~> 4.2")
 
+
+  s.add_development_dependency("rake", "~> 10.4")
   s.add_development_dependency("dotenv", "~> 2.2", ">= 2.2.0")
   s.add_development_dependency("rspec", "~> 3.4")
   s.add_development_dependency("webmock", "~> 1.22")
