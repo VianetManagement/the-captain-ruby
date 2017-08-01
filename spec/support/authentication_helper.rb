@@ -4,7 +4,7 @@ module AuthenticationHelper
     TheCaptain.configure do |config|
       config.server_api_token = ENV["CAPTAIN_API_KEY"]
       config.base_url         = ENV["CAPTAIN_URL"]
-      config.api_version      = "v2"
+      config.api_version      = ENV.fetch("CAPTAIN_VERSION", "v2")
       config.retry_attempts   = 2
     end
   end

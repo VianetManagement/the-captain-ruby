@@ -10,26 +10,23 @@ Gem::Specification.new do |s|
   s.description = "The Captain will tell, talk, and taddle on those pesky fraudulent scalliwags."
   s.authors = ["George Protacio-Karaszi"]
   s.email = ["george@elevatorup.com"]
-  s.homepage = "https://thecaptain.elevatorup.com"
+  s.homepage = "https://github.com/VianetManagement/the-captain-ruby"
   s.license = "MIT"
 
   s.add_dependency("faraday", "~> 0.9")
   s.add_dependency("json", "~> 1.8")
   s.add_dependency("oj", "~> 2.18")
   s.add_dependency("hashie", "~> 3.5")
-  s.add_dependency("typhoeus")
+  s.add_dependency("typhoeus", "~> 1.1", ">= 1.1.2")
   s.add_dependency("activesupport", "~> 4.2")
 
-  s.add_development_dependency("dotenv")
+  s.add_development_dependency("dotenv", "~> 2.2", ">= 2.2.0")
   s.add_development_dependency("rspec", "~> 3.4")
   s.add_development_dependency("webmock", "~> 1.22")
-  s.add_development_dependency("yard")
-  s.add_development_dependency("redcarpet")
-  s.add_development_dependency("rake")
-  s.add_development_dependency("faker")
-  s.add_development_dependency("byebug")
-  s.add_development_dependency("timecop")
-  s.add_development_dependency("multi_json")
+  s.add_development_dependency("timecop", "~> 0.8.0")
+  s.add_development_dependency("faker", "~> 1.8", ">= 1.8.4")
+  s.add_development_dependency("byebug", "~> 8.2", ">= 8.2.1")
+  s.add_development_dependency("multi_json", "~> 1.10", ">= 1.10.1")
 
   s.files = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- spec/*`.split("\n")

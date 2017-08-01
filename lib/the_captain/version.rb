@@ -1,3 +1,3 @@
 module TheCaptain
-  VERSION = "0.30.0".freeze
+  VERSION = "1.0.0-rc".freeze
 end
