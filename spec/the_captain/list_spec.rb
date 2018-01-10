@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "spec_helper"
 
 RSpec.describe TheCaptain::List do
@@ -9,7 +11,7 @@ RSpec.describe TheCaptain::List do
   let(:credit_card) { "abc1234567" }
   let(:content)     { "Hello World!" }
   let(:list_name)   { "Testing List" }
-  let(:list_items) { ["abc", "123"] }
+  let(:list_items) { %w[abc 123] }
 
   describe ".data" do
     it "should submit a new list" do

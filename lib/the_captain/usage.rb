@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module TheCaptain
   class Usage < ApiResource
     api_path "/usage"

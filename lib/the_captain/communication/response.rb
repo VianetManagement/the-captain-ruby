@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module TheCaptain
   module Communication
     module Response
@@ -18,7 +20,7 @@ module TheCaptain
           raise TheCaptain::APIError.invalid_response(response.body.inspect, response.status)
         end
 
-        def handle_api_error(response, opts = {})
+        def handle_api_error(response, opts = {}) # rubocop:disable Metrics/AbcSize
           case response.status
           when 200..204
             response
@@ -36,7 +38,8 @@ module TheCaptain
             raise TheCaptain::TheCaptainError.new(response.errors, response, opts)
           end
         end
-      end # ClassMethods
+      end
+      # ClassMethods
     end
   end
 end

@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 module TheCaptain
   class ApiResource < Hashie::Mash
     include TheCaptain::Model
     include TheCaptain::APIOperations::Crud
 
-    REQUIRED_CONTENT      = %i(ip_address email_address credit_card content).freeze
-    REQUIRED_USER         = %i(user user_id session_id).freeze
-    REQUIRED_LIST_FIELDS  = %i(value items).freeze
+    REQUIRED_CONTENT      = %i[ip_address email_address credit_card content].freeze
+    REQUIRED_USER         = %i[user user_id session_id].freeze
+    REQUIRED_LIST_FIELDS  = %i[value items].freeze
     COMBINED_REQUIREMENTS = (REQUIRED_CONTENT + REQUIRED_USER).freeze
 
     class << self

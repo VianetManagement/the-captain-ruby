@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative "base"
 
 user1 = Faker::Number.number(12)
@@ -26,7 +28,7 @@ pretty_json("Get Ip Address events(network)", TheCaptain::Event.call(ip_address:
 pretty_json("Get IP statuses", TheCaptain::Stats.call(ip_address: [ip_address1, ip_address2]))
 pretty_json("Get IP Usage/s", TheCaptain::Usage.call(ip_address: [ip_address1, ip_address2]))
 
-pretty_json("Creating a new list", TheCaptain::List.data(value: "Test List", items: ["abc", "123"], metadata: { value: "here?" }))
+pretty_json("Creating a new list", TheCaptain::List.data(value: "Test List", items: %w[abc 123], metadata: { value: "here?" }))
 pretty_json("Get the list", TheCaptain::List.call("Test List"))
 
 pretty_json("Delete Item from list", TheCaptain::List.remove_item(value: "Test List", items: ["123"]))
