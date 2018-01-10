@@ -13,6 +13,9 @@ branches:
   only:
     - master
 
+before_install:
+  - gem update --system
+
 notifications:
   slack: elevatorup:hmhUg4Td6NqIGGBW18JltQ79
 
