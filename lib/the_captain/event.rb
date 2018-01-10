@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module TheCaptain
   class Event < ApiResource
     api_path "/events"

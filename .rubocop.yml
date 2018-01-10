@@ -1,10 +1,7 @@
 AllCops:
   TargetRubyVersion: 2.3
-  Rails:
-    Enabled: true
-  Exclude:
-    - 'db/schema.rb'
-    - 'the-captain.gemspec'
+  DisplayStyleGuide: true
+  DisplayCopNames: true
 
 #################
 # [i] Overrides #
@@ -24,19 +21,12 @@ CollectionMethods:
 
 # Align ends correctly.
 EndAlignment:
-  AlignWith: variable
-
-IfUnlessModifier:
-  MaxLineLength: 75
+  EnforcedStyleAlignWith: variable
 
 LineLength:
-  Max: 200
-
-SignalException:
-  EnforcedStyle: only_raise
-
-SpaceInsideBlockBraces:
-  SpaceBeforeBlockParameters: true
+  Max: 120
+  Exclude:
+    - examples/**/*
 
 BracesAroundHashParameters:
   EnforcedStyle: context_dependent
@@ -56,8 +46,9 @@ Metrics/CyclomaticComplexity:
 Metrics/MethodLength:
   Enabled: false
 
-Metrics/ModuleLength:
-  Enabled: false
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*
 
 Style/ClassAndModuleChildren:
   Enabled: false
@@ -65,22 +56,10 @@ Style/ClassAndModuleChildren:
 Style/Documentation:
   Enabled: false
 
-Style/EachWithObject:
-  Enabled: false
-
-Style/FormatString:
-  Enabled: false
-
 Style/Lambda:
   Enabled: false
 
-Style/NegatedIf:
-  Enabled: false
-
-Style/Semicolon:
-  Enabled: false
-
-Style/SingleLineBlockParams:
+Style/IfUnlessModifier:
   Enabled: false
 
 Style/TrailingCommaInLiteral:
@@ -91,19 +70,14 @@ Style/TrailingCommaInArguments:
   Enabled: true
   EnforcedStyleForMultiline: comma
 
-Style/WordArray:
-  Enabled: false
-
 Style/GuardClause:
   Enabled: false
 
-Style/FrozenStringLiteralComment:
-  Enabled: false
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - spec/**/*
 
-# HABTM still has a place.
-# http://collectiveidea.com/blog/archives/2014/08/11/has_and_belongs_to_many-isnt-dead/
-Rails/HasAndBelongsToMany:
-  Enabled: false
-
-Performance/RedundantMerge:
-  Enabled: false
+# Increase minsize to prevent rubocop throwing warning on ActiveRecord/ActiveController Callbacks
+# Ex after_action :some_action, on: [:update, :create]
+Style/SymbolArray:
+  MinSize: 4

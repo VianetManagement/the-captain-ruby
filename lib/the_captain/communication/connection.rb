@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "the_captain/communication/response"
 
 module TheCaptain
@@ -42,7 +44,7 @@ module TheCaptain
             begin
               results = yield
               break
-            rescue
+            rescue StandardError
               next
             end
           end
@@ -77,7 +79,7 @@ module TheCaptain
         # @protected
         def execute_request_with_rescues(method, params, opts, path)
           execute_request(method, params, opts, path)
-        rescue => e
+        rescue StandardError => e
           raise TheCaptain::APIError.client_error(e.class.name, e.message)
         end
 
@@ -101,7 +103,8 @@ module TheCaptain
             faraday.ssl.verify           = ssl?
           end
         end
-      end # ClassMethods
+      end
+      # ClassMethods
     end
   end
 end

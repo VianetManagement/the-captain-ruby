@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module TheCaptain
   module Model
     def self.included(base)
@@ -18,13 +20,14 @@ module TheCaptain
       def delegate_methods(options)
         raise "no methods given" if options.empty?
         options.each do |source, dest|
-          class_eval <<-EOV
+          class_eval <<-EVAL, __FILE__, __LINE__ + 1
             def #{source}
               #{dest}
             end
-          EOV
+          EVAL
         end
       end
-    end # ClassMethods
+    end
+    # ClassMethods
   end
 end

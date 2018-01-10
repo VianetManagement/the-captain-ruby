@@ -1,4 +1,6 @@
 
+# frozen_string_literal: true
+
 module AuthenticationHelper
   def authenticate!
     TheCaptain.configure do |config|

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "spec_helper"
 
 RSpec.describe "TheCaptain::User/s" do
@@ -13,7 +15,7 @@ RSpec.describe "TheCaptain::User/s" do
       it "should return information about a given user" do
         results = TheCaptain::User.call(user)
         expect(results.status).to eq(200)
-        expect(results.value).to eq(user.to_s)
+        expect(results.value).to eq(user)
       end
 
       it "should return all users that have a matching ip" do
