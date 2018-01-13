@@ -18,13 +18,13 @@ describe TheCaptain do
   describe "#AuthenticationError" do
     it "Should raise an exception if no API key is provided" do
       allow(TheCaptain).to receive(:api_key).and_return(nil)
-      expect(TheCaptain::AuthenticationError).to receive(:no_key_provided).and_call_original
+      expect(TheCaptain::Error::AuthenticationError).to receive(:no_key_provided).and_call_original
       expect { TheCaptain::User.call(user) }.to raise_error(StandardError)
     end
 
     it "Should raise an exception if an invalid key is provided" do
       allow(TheCaptain).to receive(:api_key).and_return(12_345)
-      expect(TheCaptain::AuthenticationError).to receive(:invalid_key_provided).and_call_original
+      expect(TheCaptain::Error::AuthenticationError).to receive(:invalid_key_provided).and_call_original
       expect { TheCaptain::User.call(user) }.to raise_error(StandardError)
     end
   end

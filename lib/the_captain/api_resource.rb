@@ -26,7 +26,7 @@ module TheCaptain
 
       # Replace any underscores to a collin format ex: user_signup => user:signup
       def event_options(options)
-        return options if options.nil? || options[:event].blank?
+        return options if options.blank? || options[:event].blank?
         event = options[:event].to_s.tr("_", ":")
         options.merge!(event: event)
       end
@@ -102,7 +102,7 @@ module TheCaptain
       end
 
       def raise_argument_error!(fields)
-        raise TheCaptain::APIError.client_error(
+        raise TheCaptain::Error::APIError.client_error(
           class_name,
           "You are required to submit one of the following fields: #{fields.join(', ')}",
         )

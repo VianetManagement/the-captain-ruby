@@ -28,11 +28,11 @@ RSpec.describe "TheCaptain::User/s" do
 
     context "failure" do
       it "should fail if a content type is blank" do
-        expect { TheCaptain::User.call("") }.to raise_exception(TheCaptain::APIError)
+        expect { TheCaptain::User.call("") }.to raise_exception(TheCaptain::Error::APIError)
       end
 
       it "should fail if content type is missing" do
-        expect { TheCaptain::Users.call }.to raise_exception(TheCaptain::APIError)
+        expect { TheCaptain::Users.call }.to raise_exception(TheCaptain::Error::APIError)
       end
     end
   end

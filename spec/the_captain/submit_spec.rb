@@ -39,11 +39,11 @@ RSpec.describe "TheCaptain::Submit" do
 
     context "failure" do
       it "should fail if a content type is missing" do
-        expect { TheCaptain::Submit.data(user: user) }.to raise_exception(TheCaptain::APIError)
+        expect { TheCaptain::Submit.data(user: user) }.to raise_exception(TheCaptain::Error::APIError)
       end
 
       it "should fail if a user/session id is missing" do
-        expect { TheCaptain::Submit.data(ip_address: ip_address) }.to raise_exception(TheCaptain::APIError)
+        expect { TheCaptain::Submit.data(ip_address: ip_address) }.to raise_exception(TheCaptain::Error::APIError)
       end
     end
   end

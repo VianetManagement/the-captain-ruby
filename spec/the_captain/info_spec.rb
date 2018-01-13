@@ -40,7 +40,7 @@ RSpec.describe "TheCaptain::Info" do
 
     context "failure" do
       it "should raise an error if none of the required parameters are present" do
-        expect { TheCaptain::Info.call }.to raise_exception(TheCaptain::APIError)
+        expect { TheCaptain::Info.call }.to raise_exception(TheCaptain::Error::APIError)
       end
     end
   end

@@ -2,50 +2,53 @@
 
 require "faraday"
 require "typhoeus/adapters/faraday"
+require "oj"
 require "hashie"
-require "json"
 require "time"
 require "set"
 require "socket"
-require "active_support"
-require "active_support/core_ext"
+require "active_support/core_ext/object/blank"
 
+# Gem Version
 require "the_captain/version"
-require "the_captain/model_adapters/railtie" if defined?(Rails)
-
-# Api Operations
-require "the_captain/api_operations/crud"
-
-# Resources
-require "the_captain/utility/configuration"
-require "the_captain/model"
-require "the_captain/api_resource"
-
-# Core Captain models
-require "the_captain/submit"
-require "the_captain/info"
-require "the_captain/list"
-require "the_captain/event"
-require "the_captain/stats"
-require "the_captain/usage"
-require "the_captain/user"
-
-# Errors
-require "the_captain/errors/the_captain_error"
-require "the_captain/errors/api_error"
-require "the_captain/errors/api_connection_error"
-require "the_captain/errors/invalid_request_error"
-require "the_captain/errors/authentication_error"
-require "the_captain/errors/rate_limit_error"
-require "the_captain/errors/validation_error"
-
-# Requests and Responses
-require "the_captain/communication/response"
-require "the_captain/communication/connection"
-
-require "the_captain"
 
 module TheCaptain
+  autoload :ApiResource,           "the_captain/api_resource"
+  autoload :Model,                 "the_captain/model"
+  autoload :Submit,                "the_captain/submit"
+  autoload :List,                  "the_captain/list"
+  autoload :Lists,                 "the_captain/lists"
+  autoload :ListItem,              "the_captain/list_item"
+  autoload :Info,                  "the_captain/info"
+  autoload :Submit,                "the_captain/list"
+  autoload :Event,                 "the_captain/event"
+  autoload :Stats,                 "the_captain/stats"
+  autoload :Usage,                 "the_captain/usage"
+  autoload :User,                  "the_captain/user"
+
+  module Utility
+    autoload :Configuration,       "the_captain/utility/configuration"
+  end
+
+  module Communication
+    autoload :Response,            "the_captain/communication/response"
+    autoload :Connection,          "the_captain/communication/connection"
+  end
+
+  module APIOperations
+    autoload :Crud,                "the_captain/api_operations/crud"
+  end
+
+  module Error
+    autoload :StandardException,   "the_captain/error/standard_exception"
+    autoload :APIError,            "the_captain/error/api_error"
+    autoload :APIConnectionError,  "the_captain/error/api_connection_error"
+    autoload :InvalidRequestError, "the_captain/error/invalid_request_error"
+    autoload :AuthenticationError, "the_captain/error/authentication_error"
+    autoload :RateLimitError,      "the_captain/error/rate_limit_error"
+    autoload :ValidationError,     "the_captain/error/validation_error"
+  end
+
   include TheCaptain::Communication::Connection
   include TheCaptain::Communication::Response
 
@@ -96,4 +99,6 @@ module TheCaptain
       "#{api_base_url}#{url}"
     end
   end
+
+  require "the_captain/model_adapters/railtie" if defined?(Rails)
 end
