@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "faraday"
 require "typhoeus/adapters/faraday"
 require "oj"
 require "hashie"
