@@ -46,13 +46,13 @@ RSpec.describe TheCaptain::List do
 
     context "failure" do
       it "should fail if items are missing" do
-        expect { subject.data(value: list_name) }.to raise_exception(TheCaptain::APIError)
-        expect { subject.remove_item(value: list_name) }.to raise_exception(TheCaptain::APIError)
+        expect { subject.data(value: list_name) }.to raise_exception(TheCaptain::Error::APIError)
+        expect { subject.remove_item(value: list_name) }.to raise_exception(TheCaptain::Error::APIError)
       end
 
       it "should fail if list name is missing" do
-        expect { subject.data(items: list_items) }.to raise_exception(TheCaptain::APIError)
-        expect { subject.remove_item(items: list_items) }.to raise_exception(TheCaptain::APIError)
+        expect { subject.data(items: list_items) }.to raise_exception(TheCaptain::Error::APIError)
+        expect { subject.remove_item(items: list_items) }.to raise_exception(TheCaptain::Error::APIError)
       end
     end
   end

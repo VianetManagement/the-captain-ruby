@@ -18,24 +18,7 @@ module TheCaptain
     end
 
     def self.remove_item(options = {})
-      ListItem.remove_item(options)
-    end
-  end
-
-  class ListItem < ApiResource
-    api_path "/listitem"
-
-    def self.remove_item(options = {})
-      contains_required_list?(options)
-      delete(options_formatter(options))   # TheCaptain::APIOperations::Crud.delete
-    end
-  end
-
-  class Lists < ApiResource
-    api_path "/lists"
-
-    def self.call(options = {})
-      retrieve options_formatter(options)  # TheCaptain::APIOperations::Crud.retrieve
+      TheCaptain::ListItem.remove_item(options)
     end
   end
 end

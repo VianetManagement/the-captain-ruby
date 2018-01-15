@@ -8,34 +8,40 @@ module TheCaptain
       end
 
       module ClassMethods
+        # Parses the response and returns a parsed response with status checking
         def review_response(response, opts = {})
-          hashed_body = JSON.parse(response.body).tap do |body|
-            body[:status] = response.status
-          end
-
-          parsed_response = Hashie::Mash.new(hashed_body)
-
-          handle_api_error(parsed_response, opts)
-        rescue JSON::ParserError
-          raise TheCaptain::APIError.invalid_response(response.body.inspect, response.status)
+          handle_api_error(parse_response(response), opts)
         end
 
+        # Parses the JSON response into a usage Hashie::Mash table
+        def parse_response(response)
+          body = JSON.parse(response.body)
+          Hashie::Mash.new(body.merge(status: response.status))
+        rescue StandardError
+          raise TheCaptain::Error::APIError.invalid_response(response.body.inspect, response.status)
+        end
+
+        # Checks the status of the response
+        #
+        # Returns
+        #  - Success: response
+        #  - Error: Raises Exception TheCaptain::Error::StandardException
         def handle_api_error(response, opts = {}) # rubocop:disable Metrics/AbcSize
           case response.status
           when 200..204
             response
           when 400
-            raise TheCaptain::InvalidRequestError.new(response.errors, response, opts)
+            raise TheCaptain::Error::InvalidRequestError.new(response.errors, response, opts)
           when 401
-            raise TheCaptain::AuthenticationError.new(response.errors, response, opts)
+            raise TheCaptain::Error::AuthenticationError.new(response.errors, response, opts)
           when 404
-            raise TheCaptain::InvalidRequestError.new(response.errors, response, opts)
+            raise TheCaptain::Error::InvalidRequestError.new(response.errors, response, opts)
           when 500
-            raise TheCaptain::APIError.new(response.errors, response, opts)
+            raise TheCaptain::Error::APIError.new(response.errors, response, opts)
           when 502
-            raise TheCaptain::APIConnectionError.new(response.errors, response, opts)
+            raise TheCaptain::Error::APIConnectionError.new(response.errors, response, opts)
           else
-            raise TheCaptain::TheCaptainError.new(response.errors, response, opts)
+            raise TheCaptain::Error::StandardException.new(response.errors, response, opts)
           end
         end
       end

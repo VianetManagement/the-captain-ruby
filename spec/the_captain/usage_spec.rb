@@ -43,7 +43,7 @@ RSpec.describe "TheCaptain::Usage" do
 
     context "failure" do
       it "should fail if a content type is missing" do
-        expect { TheCaptain::Usage.call(user: user) }.to raise_exception(TheCaptain::APIError)
+        expect { TheCaptain::Usage.call(user: user) }.to raise_exception(TheCaptain::Error::APIError)
       end
     end
   end

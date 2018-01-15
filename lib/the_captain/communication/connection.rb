@@ -54,8 +54,8 @@ module TheCaptain
 
         # @private
         def validate_api_key!
-          raise TheCaptain::AuthenticationError.no_key_provided if api_key.blank?
-          raise TheCaptain::AuthenticationError.invalid_key_provided unless api_key.is_a?(String)
+          raise TheCaptain::Error::AuthenticationError.no_key_provided if api_key.blank?
+          raise TheCaptain::Error::AuthenticationError.invalid_key_provided unless api_key.is_a?(String)
         end
 
         def captain_disabled!
@@ -80,7 +80,7 @@ module TheCaptain
         def execute_request_with_rescues(method, params, opts, path)
           execute_request(method, params, opts, path)
         rescue StandardError => e
-          raise TheCaptain::APIError.client_error(e.class.name, e.message)
+          raise TheCaptain::Error::APIError.client_error(e.class.name, e.message)
         end
 
         # @protected
