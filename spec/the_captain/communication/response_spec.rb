@@ -5,7 +5,6 @@ require "spec_helper"
 RSpec.describe "TheCaptain::Communication::Response" do
   before { authenticate! }
 
-
   describe ".handle_api_error" do
     subject { TheCaptain.handle_api_error(response) }
     let(:response) { double("JSON", body: "My Input", status: status, errors: "This is an error") }

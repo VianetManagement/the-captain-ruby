@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe "TheCaptain::Submit" do
+RSpec.describe TheCaptain::Submit do
   before { authenticate! }
   let(:ip_address)  { "206.181.8.242" }
   let(:user)        { 999_999_999_999_999 }

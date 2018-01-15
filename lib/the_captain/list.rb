@@ -18,7 +18,7 @@ module TheCaptain
     end
 
     def self.remove_item(options = {})
-      ListItem.remove_item(options)
+      TheCaptain::ListItem.remove_item(options)
     end
   end
 end

@@ -19,7 +19,7 @@ RSpec.describe "TheCaptain::User/s" do
       end
 
       it "should return all users that have a matching ip" do
-        results = TheCaptain::Users.call(ip_address: ip_address)
+        results = TheCaptain::UserCollection.call(ip_address: ip_address)
         expect(results.status).to eq(200)
         expect(results.ip_address).to_not be_nil
         expect(results.ip_address.users).to_not be_nil
@@ -32,7 +32,7 @@ RSpec.describe "TheCaptain::User/s" do
       end
 
       it "should fail if content type is missing" do
-        expect { TheCaptain::Users.call }.to raise_exception(TheCaptain::Error::APIError)
+        expect { TheCaptain::UserCollection.call }.to raise_exception(TheCaptain::Error::APIError)
       end
     end
   end

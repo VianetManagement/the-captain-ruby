@@ -15,10 +15,8 @@ module TheCaptain
 
         # Parses the JSON response into a usage Hashie::Mash table
         def parse_response(response)
-          JSON.parse(response.body).tap do |body|
-            body          = Hashie::Mash.new(body)
-            body.status   = response.status
-          end
+          body = JSON.parse(response.body)
+          Hashie::Mash.new(body.merge(status: response.status))
         rescue StandardError
           raise TheCaptain::Error::APIError.invalid_response(response.body.inspect, response.status)
         end

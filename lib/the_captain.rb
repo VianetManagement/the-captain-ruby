@@ -16,14 +16,14 @@ module TheCaptain
   autoload :Model,                 "the_captain/model"
   autoload :Submit,                "the_captain/submit"
   autoload :List,                  "the_captain/list"
-  autoload :Lists,                 "the_captain/lists"
+  autoload :ListCollection,        "the_captain/list_collection"
   autoload :ListItem,              "the_captain/list_item"
   autoload :Info,                  "the_captain/info"
-  autoload :Submit,                "the_captain/list"
   autoload :Event,                 "the_captain/event"
   autoload :Stats,                 "the_captain/stats"
   autoload :Usage,                 "the_captain/usage"
   autoload :User,                  "the_captain/user"
+  autoload :UserCollection,        "the_captain/user_collection"
 
   module Utility
     autoload :Configuration,       "the_captain/utility/configuration"
