@@ -3,6 +3,7 @@
 require "dotenv/load"
 require "the_captain"
 require "faker"
+require "pp"
 
 Dotenv.load!("../development.env")
 
@@ -14,9 +15,9 @@ TheCaptain.configure do |config|
 end
 
 def pretty_json(label, data)
-  puts label
-  puts JSON.pretty_generate(data)
-  puts ""
-  puts "-----------------------------------"
-  puts ""
+  pp label
+  pp data
+  pp ""
+  pp "-----------------------------------"
+  pp ""
 end
