@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
-require "typhoeus/adapters/faraday"
-require "oj"
+require "faraday"
 require "hashie"
-require "time"
-require "set"
+require "json"
 require "socket"
 require "active_support/core_ext/object/blank"
 
@@ -59,23 +57,27 @@ module TheCaptain
     attr_accessor :open_timeout, :read_timeout, :last_response, :enabled
 
     def configuration
-      @configuration  ||= Utility::Configuration.new
+      @configuration      ||= Utility::Configuration.new
     end
 
     def api_key
-      @api_key        ||= configuration.server_api_token
+      @api_key            ||= configuration.server_api_token
     end
 
     def api_version
-      @api_version    ||= configuration.api_version || "v2"
+      @api_version        ||= configuration.api_version
     end
 
     def base_url
-      @base_url       ||= configuration.base_url.chomp("/")
+      @base_url           ||= configuration.base_url.chomp("/")
+    end
+
+    def connection_adapter
+      @connection_adapter ||= configuration.connection_adapter
     end
 
     def retry_attempts
-      @retry_attempts ||= configuration.retry_attempts.to_i
+      @retry_attempts     ||= configuration.retry_attempts.to_i
     end
 
     def configure

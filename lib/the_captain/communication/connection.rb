@@ -10,7 +10,7 @@ module TheCaptain
       end
 
       module ClassMethods
-        def request(method, path, params = {}, opts = {})
+        def process_request(method, path, params = {}, opts = {})
           return captain_disabled! unless TheCaptain.enabled?
 
           validate_api_key!
@@ -87,8 +87,8 @@ module TheCaptain
         def execute_request(method, params, opts, path)
           connection.send(method) do |req|
             req.url(api_url(path))
-            req.headers = opts[:headers]
             req.params  = params
+            req.headers = opts[:headers]
             req.body    = opts[:body].to_json unless [:get].include?(method)
           end
         end
@@ -97,7 +97,7 @@ module TheCaptain
         def connection
           return @connection if @connection
           @connection = Faraday.new(url: base_url) do |faraday|
-            faraday.adapter :typhoeus
+            faraday.adapter TheCaptain.connection_adapter
             faraday.options.timeout      = read_timeout
             faraday.options.open_timeout = open_timeout
             faraday.ssl.verify           = ssl?

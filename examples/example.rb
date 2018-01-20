@@ -17,7 +17,7 @@ pretty_json("Retrieve User 2 content info", TheCaptain::Info.call(content: "This
 pretty_json("Submit for signup", TheCaptain::Submit.data(content: "This is a cool message user2@gmail.com", user: user2, event: :maybe_something))
 pretty_json("Get Ip Address events", TheCaptain::Event.call(credit_card: "12345678", event: :purchase_failed))
 pretty_json("Submit for visit", TheCaptain::Submit.data(ip_address: ip_address1, user: user2, event: :visit))
-pretty_json("Retrieve IP information", TheCaptain::Info.call(content: "This is a cool message user2@gmail.com", user: user2))
+pretty_json("Retrieve IP information", TheCaptain::Info.call(ip_address: ip_address1, user: user2))
 
 pretty_json("Retrieve User information", TheCaptain::User.call(user1))
 pretty_json("Retrieve All users that have used the same IP", TheCaptain::Users.call(ip_address: ip_address1))

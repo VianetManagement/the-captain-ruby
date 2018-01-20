@@ -10,7 +10,7 @@ module TheCaptain
 
       module ClassMethods
         def request(method:, path:, params: {}, opts: {})
-          TheCaptain.last_response = TheCaptain.request(method, path, params, opts)
+          TheCaptain.last_response = TheCaptain.process_request(method, path, params, opts)
         end
 
         def retrieve(options = {})
