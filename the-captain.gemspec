@@ -20,9 +20,9 @@ Gem::Specification.new do |spec|
   spec.executables   = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
+  spec.add_dependency("hashie", ">= 3.5")
   spec.add_dependency("http", "~> 3.0")
   spec.add_dependency("oj", "~> 3.0")
-  spec.add_dependency("hashie", ">= 3.5")
 
   spec.add_development_dependency("rspec", "~> 3.4")
 end

@@ -42,14 +42,14 @@ module TheCaptain
 
           retry_attempts.times do
             begin
-              results = yield
+              results = yield(retry_attempts)
               break
             rescue StandardError
               next
             end
           end
 
-          results ? results : yield
+          results || yield
         end
 
         # @private
