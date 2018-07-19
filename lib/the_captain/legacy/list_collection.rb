@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
 module TheCaptain
-  class Event < ApiResource
-    api_path "/events"
+  class ListCollection < ApiResource
+    api_path "/lists"
 
     def self.call(options = {})
-      contains_any_required_fields?(options)
       retrieve options_formatter(options) # TheCaptain::APIOperations::Crud.retrieve
     end
   end
