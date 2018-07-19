@@ -17,3 +17,5 @@ coverage/
 *.gem
 
 .rvmrc
+
+/legacy
