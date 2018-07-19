@@ -1,60 +1,25 @@
 # frozen_string_literal: true
 
-require "faraday"
+require "http"
+require "oj"
 require "hashie"
-require "json"
-require "socket"
-require "active_support/core_ext/object/blank"
 
 # Gem Version
 require "the_captain/version"
 
+require "the_captain/error/exceptions"
+
+require "the_captain/utility/validation"
+require "the_captain/utility/configuration"
+
 module TheCaptain
-  autoload :ApiResource,           "the_captain/api_resource"
-  autoload :Model,                 "the_captain/model"
-  autoload :Submit,                "the_captain/submit"
-  autoload :List,                  "the_captain/list"
-  autoload :ListCollection,        "the_captain/list_collection"
-  autoload :ListItem,              "the_captain/list_item"
-  autoload :Info,                  "the_captain/info"
-  autoload :Event,                 "the_captain/event"
-  autoload :Stats,                 "the_captain/stats"
-  autoload :Usage,                 "the_captain/usage"
-  autoload :User,                  "the_captain/user"
-  autoload :UserCollection,        "the_captain/user_collection"
-
-  module Utility
-    autoload :Configuration,       "the_captain/utility/configuration"
-  end
-
-  module Communication
-    autoload :Response,            "the_captain/communication/response"
-    autoload :Connection,          "the_captain/communication/connection"
-  end
-
-  module APIOperations
-    autoload :Crud,                "the_captain/api_operations/crud"
-  end
-
-  module Error
-    autoload :StandardException,   "the_captain/error/standard_exception"
-    autoload :APIError,            "the_captain/error/api_error"
-    autoload :APIConnectionError,  "the_captain/error/api_connection_error"
-    autoload :InvalidRequestError, "the_captain/error/invalid_request_error"
-    autoload :AuthenticationError, "the_captain/error/authentication_error"
-    autoload :RateLimitError,      "the_captain/error/rate_limit_error"
-    autoload :ValidationError,     "the_captain/error/validation_error"
-  end
-
-  include TheCaptain::Communication::Connection
-  include TheCaptain::Communication::Response
-
-  @open_timeout = 50
-  @read_timeout = 80
-  @enabled      = true
+  @enabled            = true
+  @write_timeout      = 5
+  @read_timeout       = 5
+  @connection_timeout = 5
 
   class << self
-    attr_accessor :open_timeout, :read_timeout, :last_response, :enabled
+    attr_accessor :write_timeout, :read_timeout, :connection_timeout, :last_response, :enabled
 
     def configuration
       @configuration      ||= Utility::Configuration.new
