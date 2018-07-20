@@ -3,8 +3,9 @@
 module TheCaptain
   class CaptainClient
     attr_accessor :conn
+    attr_reader   :response
 
-    REQUEST_METHODS = [:get, :post, :patch].freeze
+    REQUEST_METHODS = %i[get post patch].freeze
 
     def self.active_client
       Thread.current[:captain_client] || default_client
@@ -28,13 +29,29 @@ module TheCaptain
 
     def initialize(conn = nil)
       @conn        = conn || self.class.default_conn
-      @captain_url = TheCaptain.base_url
+      @captain_url = TheCaptain.api_base_url
     end
 
     def request(verb_method, path, params = {})
       verify_api_key_header!
       verify_request_method!(verb_method)
-      send(verb_method.to_sym, destination_url(path), params)
+      capture_response! { send(verb_method.to_sym, destination_url(path), params) }
+      self
+    end
+
+    def decode_response
+      raise Error::MissingClientResponse.no_response unless @response
+      Response::CaptainContainer.new(@response)
+    end
+
+    protected
+
+    def capture_response!(retry_count = TheCaptain.retry_attempts)
+      @response = begin
+        yield
+      rescue StandardError
+        (retry_count -= 1).positive? ? retry : raise
+      end
     end
 
     def get(url, params = {})
@@ -62,7 +79,7 @@ module TheCaptain
     end
 
     def destination_url(path)
-      path = path.begin_with?("/") ? path : "/#{path}"
+      path = path.start_with?("/") ? path : "/#{path}"
       "#{@captain_url}#{path}"
     end
   end

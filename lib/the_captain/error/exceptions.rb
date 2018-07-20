@@ -4,9 +4,17 @@ require "the_captain/error/standard_exception"
 
 module TheCaptain
   module Error
+    class InvalidResourceError < StandardError; end
     class APIConnectionError < StandardException; end
     class InvalidRequestError < StandardException; end
     class RateLimitError < StandardException; end
+
+    class MissingClientResponse < StandardError
+      def self.no_response
+        new("No response was provided prior to decoding."\
+            "Ensure that you make a request before attempting to decode the returning messages.")
+      end
+    end
 
     class APIError < StandardError
       def self.client_error(class_name, message)

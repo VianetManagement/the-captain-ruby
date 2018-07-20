@@ -9,39 +9,38 @@ module TheCaptain
 
     module_function
 
-    def contains_any_required_fields?(options)
+    def contains_any_required_fields?(klass, options)
       unless (options.keys & COMBINED_REQUIREMENTS).any?
-        raise_argument_error!(COMBINED_REQUIREMENTS)
+        raise_argument_error!(klass, COMBINED_REQUIREMENTS)
       end
     end
 
-    def contains_required_fields?(options)
-      contains_required_content?(options)
-      contains_required_user?(options)
+    def contains_required_fields?(klass, options)
+      contains_required_content?(klass, options)
+      contains_required_user?(klass, options)
     end
 
-    def contains_required_content?(options)
+    def contains_required_content?(klass, options)
       unless (options.keys & REQUIRED_CONTENT).any?
-        raise_argument_error!(REQUIRED_CONTENT)
+        raise_argument_error!(klass, REQUIRED_CONTENT)
       end
     end
 
-    def contains_required_user?(options)
+    def contains_required_user?(klass, options)
       unless (options.keys & REQUIRED_USER).any?
-        raise_argument_error!(REQUIRED_USER)
+        raise_argument_error!(klass, REQUIRED_USER)
       end
     end
 
-    def contains_required_list?(options)
+    def contains_required_list?(klass, options)
       unless (options.keys & REQUIRED_LIST_FIELDS).count > 1
-        raise_argument_error!(REQUIRED_LIST_FIELDS)
+        raise_argument_error!(klass, REQUIRED_LIST_FIELDS)
       end
     end
 
-    def raise_argument_error!(fields)
+    def raise_argument_error!(klass, fields)
       raise TheCaptain::Error::APIError.client_error(
-        class_name,
-        "You are required to submit one of the following fields: #{fields.join(', ')}",
+        klass, "You are required to submit one of the following fields: #{fields.join(', ')}"
       )
     end
   end

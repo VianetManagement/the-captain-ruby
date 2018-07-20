@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require "http"
+require "ostruct"
 require "oj"
-require "hashie"
 
 # Gem Version
 require "the_captain/version"
@@ -11,6 +11,13 @@ require "the_captain/error/exceptions"
 
 require "the_captain/utility/validation"
 require "the_captain/utility/configuration"
+
+require "the_captain/response/captain_container"
+require "the_captain/response/captain_object"
+require "the_captain/captain_client"
+
+require "the_captain/api_resource"
+require "the_captain/user"
 
 module TheCaptain
   @enabled            = true
@@ -26,7 +33,7 @@ module TheCaptain
     end
 
     def api_key
-      @api_key            ||= configuration.server_api_token
+      @api_key            ||= configuration.api_key
     end
 
     def api_version
@@ -59,10 +66,6 @@ module TheCaptain
 
     def api_base_url
       @api_base_url ||= "#{base_url}/#{api_version}"
-    end
-
-    def api_url(url = "")
-      "#{api_base_url}#{url}"
     end
   end
 
