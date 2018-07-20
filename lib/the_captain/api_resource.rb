@@ -6,16 +6,16 @@ module TheCaptain
       name.split("::")[-1]
     end
 
-    def self.api_path(path = nil)
-      @api_path ||= path
+    def self.api_paths(**paths)
+      @api_paths ||= paths
     end
 
-    def self.request(method, api_destination: api_path, params: {})
+    def self.request(method, api_dest: :base, params: {})
       validate_params!(params)
       params = normalize_params(params)
 
       CaptainClient.active_client
-                   .request(method, api_destination, params)
+                   .request(method, api_paths[api_dest], params)
                    .decode_response
     end
 

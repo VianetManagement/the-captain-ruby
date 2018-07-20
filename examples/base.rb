@@ -8,7 +8,7 @@ require "pp"
 Dotenv.load!("../development.env")
 
 TheCaptain.configure do |config|
-  config.retry_attempts   = 2
+  config.retry_attempts = 2
 end
 
 def pretty_json(label, data)
