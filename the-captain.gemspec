@@ -17,7 +17,6 @@ Gem::Specification.new do |spec|
 
   spec.files         = `git ls-files`.split("\n").reject { |file| file.start_with?("bin/") }
   spec.test_files    = `git ls-files -- spec/*`.split("\n")
-  spec.executables   = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
   spec.add_dependency("http", "~> 3.0")

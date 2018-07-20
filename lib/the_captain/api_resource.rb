@@ -12,15 +12,18 @@ module TheCaptain
 
     def self.request(method, api_destination: api_path, params: {})
       validate_params!(params)
-      params = normalize_params!(params)
-      CaptainClient.active_client.request(method, api_destination, params).decode_response
+      params = normalize_params(params)
+
+      CaptainClient.active_client
+                   .request(method, api_destination, params)
+                   .decode_response
     end
 
     def self.validate_params!(_params)
       true
     end
 
-    def self.normalize_params!(params)
+    def self.normalize_params(params)
       params
     end
   end
