@@ -4,20 +4,27 @@ require "http"
 require "ostruct"
 require "oj"
 
-# Gem Version
 require "the_captain/version"
 
+# Exception Classes Container
 require "the_captain/error/exceptions"
 
+# Utility Helper classes
+require "the_captain/utility/helper"
 require "the_captain/utility/validation"
 require "the_captain/utility/configuration"
 
+# Net and responses classes
 require "the_captain/response/captain_container"
 require "the_captain/response/captain_object"
 require "the_captain/captain_client"
 
+# Query Classes
 require "the_captain/api_resource"
 require "the_captain/user"
+require "the_captain/ip_address"
+require "the_captain/message"
+require "the_captain/stats"
 
 module TheCaptain
   @enabled            = true
