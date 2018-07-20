@@ -2,6 +2,8 @@
 
 module TheCaptain
   module Validation
+    REQUIRED_STATS_KEYS   = %i[stats_type value].freeze
+    REQUIRED_STATS_VALUES = %i[user ip_address content email_address].freeze
     REQUIRED_CONTENT      = %i[ip_address email_address credit_card content].freeze
     REQUIRED_USER         = %i[user user_id session_id].freeze
     REQUIRED_LIST_FIELDS  = %i[value items].freeze
@@ -38,9 +40,21 @@ module TheCaptain
       end
     end
 
+    def contains_required_stats?(klass, options)
+      unless (options.keys & REQUIRED_STATS_KEYS).count.zero?
+        raise_argument_error!(klass, REQUIRED_STATS_KEYS)
+      end
+
+      unless REQUIRED_STATS_VALUES.include?(options[:value])
+        raise TheCaptain::Error::APIError.client_error(
+          klass, "You must have a value that matches any of the following: #{REQUIRED_STATS_VALUES.join(', ')}"
+        )
+      end
+    end
+
     def raise_argument_error!(klass, fields)
       raise TheCaptain::Error::APIError.client_error(
-        klass, "You are required to submit one of the following fields: #{fields.join(', ')}"
+        klass, "You are required to submit some of the following fields: #{fields.join(', ')}"
       )
     end
   end
