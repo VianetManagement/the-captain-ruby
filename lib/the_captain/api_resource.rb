@@ -12,7 +12,7 @@ module TheCaptain
 
     def self.request(method, api_dest: :base, params: {})
       validate_params!(params)
-      params = normalize_params(params)
+      Utility::Helper.normalize_params!(params)
 
       CaptainClient.active_client
                    .request(method, api_paths[api_dest], params)
@@ -21,10 +21,6 @@ module TheCaptain
 
     def self.validate_params!(_params)
       true
-    end
-
-    def self.normalize_params(params)
-      params
     end
   end
 end
