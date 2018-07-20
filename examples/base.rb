@@ -8,8 +8,6 @@ require "pp"
 Dotenv.load!("../development.env")
 
 TheCaptain.configure do |config|
-  config.api_key          = ENV["CAPTAIN_API_KEY"]
-  config.api_version      = "v2"
   config.retry_attempts   = 2
 end
 

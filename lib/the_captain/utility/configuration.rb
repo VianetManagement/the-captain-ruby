@@ -6,8 +6,9 @@ module TheCaptain
       attr_accessor :base_url, :api_version, :api_key, :retry_attempts
 
       def initialize
-        @api_version = "v2"
-        @base_url    = "https://thecaptain.elevatorup.com"
+        @api_version = ENV.fetch("CAPTAIN_API_VERSION", "v2")
+        @api_key     = ENV.fetch("CAPTAIN_API_KEY", "")
+        @base_url    = ENV.fetch("CAPTAIN_API_URL", "https://thecaptain.elevatorup.com")
       end
 
       def to_h

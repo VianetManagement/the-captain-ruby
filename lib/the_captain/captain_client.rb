@@ -47,11 +47,10 @@ module TheCaptain
     protected
 
     def capture_response!(retry_count = TheCaptain.retry_attempts)
-      @response = begin
-        yield
-      rescue StandardError
-        (retry_count -= 1).positive? ? retry : raise
-      end
+      @response = yield
+    rescue StandardError
+      retry_count -= 1
+      retry_count.positive? ? retry : raise
     end
 
     def get(url, params = {})

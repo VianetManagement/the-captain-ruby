@@ -33,7 +33,7 @@ module TheCaptain
     end
 
     def api_key
-      @api_key            ||= configuration.api_key
+      @api_key            ||= configuration.api_key.strip
     end
 
     def api_version
