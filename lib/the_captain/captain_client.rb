@@ -78,7 +78,7 @@ module TheCaptain
     end
 
     def destination_url(path)
-      path = path.start_with?("/") ? path : "/#{path}"
+      path = path.start_with?("/") || path.empty? ? path : "/#{path}"
       "#{@captain_url}#{path}"
     end
   end
