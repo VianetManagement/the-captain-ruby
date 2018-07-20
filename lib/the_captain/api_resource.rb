@@ -7,7 +7,7 @@ module TheCaptain
     end
 
     def self.api_paths(**paths)
-      @api_paths ||= paths
+      @api_paths ||= paths.tap { |hash| hash[:base] ||= "" }
     end
 
     def self.request(method, api_dest: :base, params: {})
