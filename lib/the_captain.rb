@@ -67,6 +67,10 @@ module TheCaptain
       @enabled
     end
 
+    def raise_http_errors?
+      configuration.raise_http_errors
+    end
+
     def ssl?
       @ssl ||= configuration.base_url.include?("https")
     end

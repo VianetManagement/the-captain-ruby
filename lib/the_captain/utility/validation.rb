@@ -46,14 +46,14 @@ module TheCaptain
       end
 
       unless REQUIRED_STATS_VALUES.include?(options[:value])
-        raise TheCaptain::Error::APIError.client_error(
+        raise TheCaptain::Error::ClientError.client_error(
           klass, "You must have a value that matches any of the following: #{REQUIRED_STATS_VALUES.join(', ')}"
         )
       end
     end
 
     def raise_argument_error!(klass, fields)
-      raise TheCaptain::Error::APIError.client_error(
+      raise TheCaptain::Error::ClientError.client_error(
         klass, "You are required to submit some of the following fields: #{fields.join(', ')}"
       )
     end

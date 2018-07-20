@@ -36,11 +36,12 @@ module TheCaptain
       verify_api_key_header!
       verify_request_method!(verb_method)
       capture_response! { send(verb_method.to_sym, destination_url(path), params) }
+      raise_status_error! unless @response.status.success?
       self
     end
 
     def decode_response
-      raise Error::MissingClientResponse.no_response unless @response
+      raise Error::ClientError.missing_response_object unless @response
       Response::CaptainContainer.new(@response)
     end
 
@@ -67,10 +68,23 @@ module TheCaptain
 
     private
 
+    def raise_status_error!
+      return unless TheCaptain.raise_http_errors?
+
+      case @status.code
+      when 401
+        raise Error::APIAuthorizationError, "Authorization Error", @response
+      when 500..502
+        raise Error::APIConnectionError, "Problem with server response", @response
+      else
+        false
+      end
+    end
+
     def verify_api_key_header!
       api_key = @conn.default_options.headers["X-API-KEY"]
       return unless api_key.nil? || api_key.empty?
-      raise Error::AuthenticationError.no_key_provided
+      raise Error::ClientAuthenticationError.no_key_provided
     end
 
     def verify_request_method!(verb_method)
