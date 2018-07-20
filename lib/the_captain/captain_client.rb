@@ -71,7 +71,7 @@ module TheCaptain
     def raise_status_error!
       return unless TheCaptain.raise_http_errors?
 
-      case @status.code
+      case @response.status.code
       when 401
         raise Error::APIAuthorizationError, "Authorization Error", @response
       when 500..502

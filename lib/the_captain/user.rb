@@ -33,7 +33,7 @@ module TheCaptain
     end
 
     def self.validate_params!(params)
-      Validation.contains_required_user?(class_name, params)
+      Utility::Validation.contains_required_user?(class_name, params)
     end
   end
 end
