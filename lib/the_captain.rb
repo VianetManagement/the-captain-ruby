@@ -33,7 +33,15 @@ module TheCaptain
   @connection_timeout = 5
 
   class << self
-    attr_accessor :write_timeout, :read_timeout, :connection_timeout, :last_response, :enabled
+    attr_accessor :enabled, :write_timeout, :read_timeout, :connection_timeout
+
+    def enabled?
+      @enabled
+    end
+
+    def configure
+      yield configuration
+    end
 
     def configuration
       @configuration      ||= Utility::Configuration.new
@@ -43,40 +51,16 @@ module TheCaptain
       @api_key            ||= configuration.api_key.strip
     end
 
-    def api_version
-      @api_version        ||= configuration.api_version
-    end
-
-    def base_url
-      @base_url           ||= configuration.base_url.chomp("/")
-    end
-
-    def connection_adapter
-      @connection_adapter ||= configuration.connection_adapter
+    def api_url
+      @api_url            ||= configuration.api_url.chomp("/")
     end
 
     def retry_attempts
       @retry_attempts     ||= configuration.retry_attempts.to_i
     end
 
-    def configure
-      yield configuration
-    end
-
-    def enabled?
-      @enabled
-    end
-
     def raise_http_errors?
-      configuration.raise_http_errors
-    end
-
-    def ssl?
-      @ssl ||= configuration.base_url.include?("https")
-    end
-
-    def api_base_url
-      @api_base_url ||= "#{base_url}/#{api_version}"
+      @raise_http_errors  ||= configuration.raise_http_errors
     end
   end
 
