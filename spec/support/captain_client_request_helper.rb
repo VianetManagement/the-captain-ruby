@@ -14,8 +14,8 @@ module CaptainClientRequestHelper
     Thread.current[:captain_default_conn] = mock_http_conn
   end
 
-  def mock_http_request!(verb)
-    send(:"mock_client_#{verb}!")
+  def mock_http_request!(verb, **options)
+    send(:"mock_client_#{verb}!", **options)
   end
 
   def mock_client_get!(payload: :get_request, status_code: 200)
@@ -36,4 +36,8 @@ end
 
 RSpec.configure do |config|
   config.include(CaptainClientRequestHelper)
+  config.before(:each) do
+    Thread.current[:captain_default_client] = nil
+    Thread.current[:captain_default_conn]
+  end
 end
