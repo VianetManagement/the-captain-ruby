@@ -38,6 +38,6 @@ RSpec.configure do |config|
   config.include(CaptainClientRequestHelper)
   config.before(:each) do
     Thread.current[:captain_default_client] = nil
-    Thread.current[:captain_default_conn]
+    Thread.current[:captain_default_conn] = nil
   end
 end

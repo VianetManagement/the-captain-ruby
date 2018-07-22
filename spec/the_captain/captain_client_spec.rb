@@ -4,11 +4,6 @@ require "spec_helper"
 
 module TheCaptain
   RSpec.describe CaptainClient, :auto_auth do
-    before do
-      Thread.current[:captain_default_client] = nil
-      Thread.current[:captain_default_conn]   = nil
-    end
-
     describe ".default_conn" do
       context "Headers" do
         subject { described_class.default_conn.default_options.headers }
