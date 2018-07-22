@@ -16,9 +16,6 @@ branches:
 before_install:
   - gem update --system
 
-notifications:
-  slack: elevatorup:hmhUg4Td6NqIGGBW18JltQ79
-
 addons:
   code_climate:
     repo_token: 70bb855d43fd2084977765ba11cac1df593df4bc4085fcb9bf39a2d321a20cde

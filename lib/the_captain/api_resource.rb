@@ -11,14 +11,15 @@ module TheCaptain
     end
 
     def self.request(method, api_dest: :base, params: {})
-      validate_params!(params)
       Utility::Helper.normalize_params!(params)
+      validate_params!(params)
 
       CaptainClient.active_client
                    .request(method, api_paths[api_dest], params)
                    .decode_response
     end
 
+    # To be overwritten in inherited klasses
     def self.validate_params!(_params)
       true
     end
