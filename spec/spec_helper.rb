@@ -10,6 +10,18 @@ Dotenv.load("test.env") unless ENV["CI"]
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require File.expand_path(f) }
 Dir["#{File.dirname(__FILE__)}/**/*examples.rb"].each { |f| require f }
 
+module TheCaptain
+  class << self
+    def reset_configurations!
+      @api_key           = nil
+      @api_url           = nil
+      @configuration     = nil
+      @retry_attempts    = nil
+      @raise_http_errors = nil
+    end
+  end
+end
+
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
   config.example_status_persistence_file_path = ".rspec_status"

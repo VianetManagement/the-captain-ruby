@@ -2,19 +2,8 @@
 
 require "spec_helper"
 
-module TheCaptain
-  def self.reset
-    @api_key           = nil
-    @api_url           = nil
-    @configuration     = nil
-    @retry_attempts    = nil
-    @raise_http_errors = nil
-  end
-end
-
-RSpec.describe TheCaptain, manual_auth: true do
+RSpec.describe TheCaptain do
   subject { described_class }
-  before  { described_class.reset }
 
   it "has a version number" do
     expect(subject::VERSION).not_to be nil

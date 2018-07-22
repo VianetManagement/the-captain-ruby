@@ -5,7 +5,7 @@ module TheCaptain
     class StandardException < StandardError
       attr_reader :message, :http_status, :http_body, :http_headers
 
-      def initialize(message, http_response = nil)
+      def initialize(message = "", http_response = nil)
         @message = message
 
         if http_response

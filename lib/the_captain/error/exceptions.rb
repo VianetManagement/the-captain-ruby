@@ -6,9 +6,10 @@ module TheCaptain
   module Error
     class APIAuthorizationError < StandardException; end
     class APIConnectionError < StandardException; end
+    class APIInvalidRequestError < StandardException; end
 
-    class InvalidResourceError < StandardException; end
-    class InvalidRequestError < StandardException; end
+    class ClientInvalidRequestError < StandardException; end
+    class ClientInvalidResourceError < StandardException; end
 
     class ClientError < StandardException
       def self.client_error(class_name, message)

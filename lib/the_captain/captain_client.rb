@@ -16,20 +16,20 @@ module TheCaptain
     end
 
     def self.default_conn
-      Thread.current[:captain_default_client] ||= begin
+      Thread.current[:captain_default_conn] ||= begin
         HTTP.headers("X-API-KEY" => TheCaptain.api_key)
             .accept("application/json")
             .timeout(
-              read:       TheCaptain.read_timeout,
-              write:      TheCaptain.write_timeout,
-              connection: TheCaptain.connection_timeout,
+              read:    TheCaptain.read_timeout,
+              write:   TheCaptain.write_timeout,
+              connect: TheCaptain.connect_timeout,
             )
       end
     end
 
     def initialize(conn = nil)
       @conn        = conn || self.class.default_conn
-      @captain_url = TheCaptain.api_base_url
+      @captain_url = TheCaptain.api_url
     end
 
     def request(verb_method, path, params = {})
@@ -42,7 +42,7 @@ module TheCaptain
 
     def decode_response
       raise Error::ClientError.missing_response_object unless @response
-      Response::CaptainContainer.new(@response)
+      Response::CaptainVessel.new(@response)
     end
 
     protected
@@ -73,9 +73,9 @@ module TheCaptain
 
       case @response.status.code
       when 401
-        raise Error::APIAuthorizationError, "Authorization Error", @response
+        raise Error::APIAuthorizationError.new("Authorization Error", @response)
       when 500..502
-        raise Error::APIConnectionError, "Problem with server response", @response
+        raise Error::APIConnectionError.new("Problem with server response", @response)
       else
         false
       end
@@ -88,7 +88,7 @@ module TheCaptain
     end
 
     def verify_request_method!(verb_method)
-      raise Error::InvalidRequestError unless REQUEST_METHODS.include?(verb_method.to_sym)
+      raise Error::ClientInvalidRequestError unless REQUEST_METHODS.include?(verb_method.to_sym)
     end
 
     def destination_url(path)
