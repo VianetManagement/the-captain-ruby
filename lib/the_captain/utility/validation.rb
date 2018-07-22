@@ -4,10 +4,9 @@ module TheCaptain
   module Utility
     module Validation
       REQUIRED_STATS_KEYS   = %i[stats_type value].freeze
-      REQUIRED_STATS_VALUES = %i[user ip_address content email_address].freeze
+      REQUIRED_STATS_TYPE   = %i[user ip_address content email_address].freeze
       REQUIRED_CONTENT      = %i[ip_address email_address credit_card content].freeze
       REQUIRED_USER         = %i[user user_id session_id].freeze
-      REQUIRED_LIST_FIELDS  = %i[value items].freeze
       COMBINED_REQUIREMENTS = (REQUIRED_CONTENT + REQUIRED_USER).freeze
 
       module_function
@@ -16,11 +15,6 @@ module TheCaptain
         unless (options.keys & COMBINED_REQUIREMENTS).any?
           raise_argument_error!(klass, COMBINED_REQUIREMENTS)
         end
-      end
-
-      def contains_required_fields?(klass, options)
-        contains_required_content?(klass, options)
-        contains_required_user?(klass, options)
       end
 
       def contains_required_content?(klass, options)
@@ -35,18 +29,12 @@ module TheCaptain
         end
       end
 
-      def contains_required_list?(klass, options)
-        unless (options.keys & REQUIRED_LIST_FIELDS).count > 1
-          raise_argument_error!(klass, REQUIRED_LIST_FIELDS)
-        end
-      end
-
       def contains_required_stats?(klass, options)
-        unless (options.keys & REQUIRED_STATS_KEYS).count.zero?
+        unless (options.keys & REQUIRED_STATS_KEYS).count == REQUIRED_STATS_KEYS.count
           raise_argument_error!(klass, REQUIRED_STATS_KEYS)
         end
 
-        unless REQUIRED_STATS_VALUES.include?(options[:value])
+        unless REQUIRED_STATS_TYPE.include?(options[:stats_type])
           raise TheCaptain::Error::ClientError.client_error(
             klass, "You must have a value that matches any of the following: #{REQUIRED_STATS_VALUES.join(', ')}"
           )

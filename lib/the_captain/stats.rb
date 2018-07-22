@@ -35,7 +35,7 @@ module TheCaptain
     end
 
     def self.validate_params!(params)
-      Utility::Validation.contains_required_stats?(params)
+      Utility::Validation.contains_required_stats?(class_name, params)
     end
   end
 end
