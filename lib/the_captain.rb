@@ -15,7 +15,7 @@ require "the_captain/utility/validation"
 require "the_captain/utility/configuration"
 
 # Net and responses classes
-require "the_captain/response/captain_container"
+require "the_captain/response/captain_vessel"
 require "the_captain/response/captain_object"
 require "the_captain/captain_client"
 
@@ -27,13 +27,13 @@ require "the_captain/message"
 require "the_captain/stats"
 
 module TheCaptain
-  @enabled            = true
-  @write_timeout      = 5
-  @read_timeout       = 5
-  @connection_timeout = 5
+  @enabled         = true
+  @write_timeout   = 5
+  @read_timeout    = 5
+  @connect_timeout = 5
 
   class << self
-    attr_accessor :enabled, :write_timeout, :read_timeout, :connection_timeout
+    attr_accessor :enabled, :write_timeout, :read_timeout, :connect_timeout
 
     def enabled?
       @enabled
@@ -52,7 +52,7 @@ module TheCaptain
     end
 
     def api_url
-      @api_url            ||= configuration.api_url.chomp("/")
+      @api_url            ||= configuration.api_url.strip.chomp("/")
     end
 
     def retry_attempts
