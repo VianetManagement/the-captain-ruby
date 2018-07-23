@@ -25,6 +25,7 @@ require "the_captain/user"
 require "the_captain/ip_address"
 require "the_captain/message"
 require "the_captain/stats"
+require "the_captain/content"
 
 module TheCaptain
   @enabled         = true
