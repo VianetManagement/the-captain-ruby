@@ -64,6 +64,4 @@ module TheCaptain
       @raise_http_errors  ||= configuration.raise_http_errors
     end
   end
-
-  require "the_captain/model_adapters/railtie" if defined?(Rails)
 end
