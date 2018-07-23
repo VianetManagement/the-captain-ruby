@@ -15,13 +15,13 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/VianetManagement/the-captain-ruby"
   spec.license       = "MIT"
 
-  spec.files         = `git ls-files`.split("\n").reject { |file| file.start_with?("bin/") }
-  spec.test_files    = `git ls-files -- spec/*`.split("\n")
+  spec.files         = Dir["README.md", "lib/**/*"]
   spec.require_paths = ["lib"]
 
   spec.add_dependency("http", "~> 3.0")
   spec.add_dependency("oj", "~> 3.0")
 
+  spec.add_development_dependency("rake", "~> 10.0")
   spec.add_development_dependency("rspec", "~> 3.4")
   spec.add_development_dependency("rspec-its", "~> 1.2")
 end

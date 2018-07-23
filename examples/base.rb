@@ -2,8 +2,6 @@
 
 require "dotenv/load"
 require "the_captain"
-require "faker"
-require "pp"
 
 Dotenv.load!("../development.env")
 
