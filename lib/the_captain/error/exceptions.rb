@@ -16,10 +16,6 @@ module TheCaptain
         new("It looks like our client raised an #{class_name} error with message:  #{message}")
       end
 
-      def self.invalid_response(body_inspect, status)
-        new("Invalid response object from API: #{body_inspect} (HTTP response code was #{status})")
-      end
-
       def self.missing_response_object
         new("No response was provided prior to decoding."\
             "Ensure that you make a request before attempting to decode the returning messages.")

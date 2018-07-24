@@ -24,6 +24,11 @@ module TheCaptain
         !valid?
       end
 
+      def inspect
+        "#<#{self.class}:0x#{object_id.to_s(16)}> @status=#{@status.inspect} @data=#{@data.inspect}"
+      end
+      alias to_s inspect
+
       class CaptainObjectParser < ::Oj::ScHandler
         # OJ callback when a hash is initialized,
         def hash_start
