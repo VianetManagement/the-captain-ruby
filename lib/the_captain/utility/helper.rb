@@ -12,7 +12,7 @@ module TheCaptain
       # Formats the destination path
       # Ex: normalize_path("/foo/%<path_id>s/bar", 101) #=> "/foo/101/bar"
       def normalize_path(api_path, resource_id, resource_key: :resource_id)
-        return api_path unless path_id
+        return api_path unless resource_id
         format(api_path, resource_key => resource_id)
       end
 
