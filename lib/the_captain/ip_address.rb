@@ -2,29 +2,22 @@
 
 module TheCaptain
   class IPAddress < APIResource
-    api_paths base: "",
-              users: "/users",
-              stats: "/stats",
-              usage: "/usage"
+    api_paths base:            "ip_addresses/%<resource_id>s",
+              lists:           "ip_addresses/%<resource_id>s/related/lists",
+              payments:        "ip_addresses/%<resource_id>s/related/payments",
+              content:         "ip_addresses/%<resource_id>s/related/content",
+              credit_cards:    "ip_addresses/%<resource_id>s/related/credit_cards",
+              email_addresses: "ip_addresses/%<resource_id>s/related/email_addresses"
 
-    def retrieve(**params)
-      request(:get, params: params)
+    api_paths.each_key do |path_key|
+      next if %i[base collect].include?(path_key)
+      define_singleton_method("related_#{path_key}".to_sym) do |ip_address, **params|
+        request(:get, resource_id: ip_address, api_dest: path_key, params: params)
+      end
     end
 
-    def submit(**params)
-      request(:post, params: params)
-    end
-
-    def retrieve_users(**params)
-      request(:get, api_dest: :users, params: params)
-    end
-
-    def retrieve_stats(**params)
-      request(:get, api_dest: :stats, params: params)
-    end
-
-    def retrieve_usage(**params)
-      request(:get, api_dest: :usage, params: params)
+    def self.retrieve(ip_address, **params)
+      request(:get, resource_id: ip_address, params: params)
     end
   end
 end
