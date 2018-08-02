@@ -5,7 +5,7 @@ module TheCaptain
     attr_accessor :conn
     attr_reader   :response
 
-    REQUEST_METHODS = %i[get post patch].freeze
+    REQUEST_METHODS = %i[get post].freeze
 
     def self.active_client
       Thread.current[:captain_client] || default_client
@@ -60,10 +60,6 @@ module TheCaptain
 
     def post(url, params = {})
       @conn.post(url, form: params)
-    end
-
-    def patch(url, params = {})
-      @conn.patch(url, form: params)
     end
 
     private

@@ -49,12 +49,6 @@ module TheCaptain
           its(:body)   { is_expected.to eq("\"post_request\"") }
           its(:status) { is_expected.to be_success }
         end
-
-        context "PATCH" do
-          let(:verb)   { :patch }
-          its(:body)   { is_expected.to eq("\"patch_request\"") }
-          its(:status) { is_expected.to be_success }
-        end
       end
 
       describe "Raising Exceptions" do
@@ -85,7 +79,7 @@ module TheCaptain
       end
 
       context "Validation Errors" do
-        let(:verb) { :put }
+        let(:verb) { [:put, :patch].sample }
 
         it "Should raise an error when a api key empty" do
           reset_configurations!

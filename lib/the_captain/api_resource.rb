@@ -14,9 +14,10 @@ module TheCaptain
       Utility::Helper.normalize_params!(params)
       validate_params!(params)
 
-      CaptainClient.active_client
-                   .request(method, api_paths[api_dest], params)
-                   .decode_response
+      CaptainClient
+        .active_client
+        .request(method, api_paths[api_dest], params)
+        .decode_response
     end
 
     # To be overwritten in inherited klasses

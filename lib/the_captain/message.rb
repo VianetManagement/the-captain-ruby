@@ -7,9 +7,5 @@ module TheCaptain
     def submit(**params)
       request(:post, params: params)
     end
-
-    def update(**params)
-      request(:patch, params: params)
-    end
   end
 end
