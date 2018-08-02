@@ -13,8 +13,8 @@ module TheCaptain
       end.freeze
     end
 
-    def self.request(method, api_dest: :base, path_id: nil, params: {})
-      api_path = Utility::Helper.normalize_path(api_paths[api_dest], path_id)
+    def self.request(method, api_dest: :base, resource_id: nil, params: {})
+      api_path = Utility::Helper.normalize_path(api_paths[api_dest], resource_id)
       params   = Utility::Helper.normalize_params(params)
 
       CaptainClient.active_client.request(method, api_path, params).decode_response

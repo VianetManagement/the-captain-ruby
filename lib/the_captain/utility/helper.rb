@@ -6,16 +6,15 @@ module TheCaptain
       module_function
 
       def normalize_params(params)
-       symbolize_names(params)
+        symbolize_names(params)
       end
 
       # Formats the destination path
       # Ex: normalize_path("/foo/%<path_id>s/bar", 101) #=> "/foo/101/bar"
-      def normalize_path(api_path, path_id, path_key: :path_id)
+      def normalize_path(api_path, resource_id, resource_key: :resource_id)
         return api_path unless path_id
-        format(api_path, path_key => path_id)
+        format(api_path, resource_key => resource_id)
       end
-
 
       # Recursively traverses a Hash table to ensure keys are symbolized.
       # A necessary evil to ensure data is handled correctly throughout the library processing.
