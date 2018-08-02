@@ -79,7 +79,7 @@ module TheCaptain
       end
 
       context "Validation Errors" do
-        let(:verb) { [:put, :patch].sample }
+        let(:verb) { %i[put patch].sample }
 
         it "Should raise an error when a api key empty" do
           reset_configurations!

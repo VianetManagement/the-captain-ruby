@@ -7,22 +7,19 @@ module TheCaptain
     end
 
     def self.api_paths(**paths)
-      @api_paths ||= paths.tap { |hash| hash[:base] ||= "" }
+      @api_paths ||= paths.tap do |hash|
+        hash[:base]    ||= ""
+        hash[:collect] ||= "/collect"
+      end.freeze
     end
 
-    def self.request(method, api_dest: :base, params: {})
-      Utility::Helper.normalize_params!(params)
-      validate_params!(params)
+    def self.request(method, api_dest: :base, path_id: nil, params: {})
+      api_path = Utility::Helper.normalize_path(api_paths[api_dest], path_id)
+      params   = Utility::Helper.normalize_params(params)
 
-      CaptainClient
-        .active_client
-        .request(method, api_paths[api_dest], params)
-        .decode_response
+      CaptainClient.active_client.request(method, api_path, params).decode_response
     end
 
-    # To be overwritten in inherited klasses
-    def self.validate_params!(_params)
-      true
-    end
+    private_class_method :request
   end
 end

@@ -11,7 +11,6 @@ require "the_captain/error/exceptions"
 
 # Utility Helper classes
 require "the_captain/utility/helper"
-require "the_captain/utility/validation"
 require "the_captain/utility/configuration"
 
 # Net and responses classes
