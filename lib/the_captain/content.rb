@@ -9,15 +9,6 @@ module TheCaptain
               email_addresses: "content/%<resource_id>s/related/email_addresses",
               ip_addresses:    "content/%<resource_id>s/related/ip_addresses"
 
-    api_paths.each_key do |path_key|
-      next if %i[base collect].include?(path_key)
-      define_singleton_method("related_#{path_key}".to_sym) do |content, **params|
-        request(:get, resource_id: content, api_dest: path_key, params: params)
-      end
-    end
-
-    def self.retrieve(content, **params)
-      request(:get, resource_id: content, params: params)
-    end
+    define_path_methods!
   end
 end

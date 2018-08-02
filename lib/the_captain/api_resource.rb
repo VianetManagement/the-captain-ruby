@@ -7,10 +7,7 @@ module TheCaptain
     end
 
     def self.api_paths(**paths)
-      @api_paths ||= paths.tap do |hash|
-        hash[:base]    ||= ""
-        hash[:collect] ||= "/collect"
-      end.freeze
+      @api_paths ||= paths.tap { |hash| hash[:base] ||= "" }.freeze
     end
 
     def self.request(method, api_dest: :base, resource_id: nil, params: {})
@@ -21,5 +18,21 @@ module TheCaptain
     end
 
     private_class_method :request
+
+    def self.define_path_methods!
+      api_paths.each_key do |path_key|
+        if path_key == :base
+          define_singleton_method(:receive) do |resource_id, **params|
+            request(:get, resource_id: resource_id, params: params)
+          end
+        else
+          define_singleton_method("related_#{path_key}".to_sym) do |resource_id, **params|
+            request(:get, resource_id: resource_id, api_dest: path_key, params: params)
+          end
+        end
+      end
+    end
+
+    private_class_method :define_path_methods!
   end
 end

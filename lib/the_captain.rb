@@ -22,8 +22,6 @@ require "the_captain/captain_client"
 require "the_captain/api_resource"
 require "the_captain/user"
 require "the_captain/ip_address"
-require "the_captain/message"
-require "the_captain/stats"
 require "the_captain/content"
 
 module TheCaptain
