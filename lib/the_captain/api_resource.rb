@@ -19,7 +19,7 @@ module TheCaptain
 
     private_class_method :request
 
-    def self.define_path_methods!
+    def self.define_get_path_methods!
       api_paths.each_key do |path_key|
         if path_key == :base
           define_singleton_method(:receive) do |resource_id, **params|
@@ -33,6 +33,6 @@ module TheCaptain
       end
     end
 
-    private_class_method :define_path_methods!
+    private_class_method :define_get_path_methods!
   end
 end

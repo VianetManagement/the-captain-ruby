@@ -9,6 +9,6 @@ module TheCaptain
               ip_addresses:    "credit_cards/%<resource_id>s/related/ip_addresses",
               email_addresses: "credit_cards/%<resource_id>s/related/email_addresses"
 
-    define_path_methods!
+    define_get_path_methods!
   end
 end

@@ -9,6 +9,6 @@ module TheCaptain
               email_addresses: "content/%<resource_id>s/related/email_addresses",
               ip_addresses:    "content/%<resource_id>s/related/ip_addresses"
 
-    define_path_methods!
+    define_get_path_methods!
   end
 end

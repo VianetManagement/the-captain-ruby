@@ -9,6 +9,6 @@ module TheCaptain
               credit_cards:    "/users/%<resource_id>s/related/credit_cards",
               email_addresses: "/users/%<resource_id>s/related/email_addresses"
 
-    define_path_methods!
+    define_get_path_methods!
   end
 end
