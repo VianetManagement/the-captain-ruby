@@ -30,7 +30,7 @@ module TheCaptain
       alias to_s inspect
 
       class CaptainObjectParser < ::Oj::ScHandler
-        # OJ callback when a hash is initialized,
+        # OJ callback when a hash is initialized.
         def hash_start
           CaptainObject.new
         end
@@ -45,7 +45,7 @@ module TheCaptain
           hash[key] = value.freeze
         end
 
-        # OJ callback when an Array is initialized,
+        # OJ callback when an Array is initialized.
         def array_start
           []
         end
