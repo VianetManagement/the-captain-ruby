@@ -8,53 +8,30 @@ module TheCaptain
 
     describe ".api_paths" do
       subject { described_class.api_paths }
-      its([:base])         { is_expected.to eq("/user") }
-      its([:action])       { is_expected.to eq("/user/action") }
-      its([:stats])        { is_expected.to eq("/user/stats") }
-      its([:usage])        { is_expected.to eq("/user/usage") }
-      its([:verification]) { is_expected.to eq("/user/verification") }
+
+      it { is_expected.to be_frozen }
+      its([:base])            { is_expected.to eq("/users/%<resource_id>s") }
+      its([:payments])        { is_expected.to eq("/users/%<resource_id>s/related/payments") }
+      its([:content])         { is_expected.to eq("/users/%<resource_id>s/related/content") }
+      its([:ip_addresses])    { is_expected.to eq("/users/%<resource_id>s/related/ip_addresses") }
+      its([:credit_cards])    { is_expected.to eq("/users/%<resource_id>s/related/credit_cards") }
+      its([:email_addresses]) { is_expected.to eq("/users/%<resource_id>s/related/email_addresses") }
     end
 
     context "Request Methods" do
-      describe ".retrieve" do
+      let(:resource_id) { "apples-to-oranges" }
+
+      describe ".receive" do
         it_behaves_like "it succeeds and fails" do
-          let(:verb_method) { :get }
-          subject { described_class.retrieve(params) }
+          subject { described_class.receive(resource_id, params) }
         end
       end
 
-      describe ".submit" do
-        it_behaves_like "it succeeds and fails" do
-          let(:verb_method) { :post }
-          subject { described_class.submit(params) }
-        end
-      end
-
-      describe ".submit_action" do
-        it_behaves_like "it succeeds and fails" do
-          let(:verb_method) { :post }
-          subject { described_class.submit_action(params) }
-        end
-      end
-
-      describe ".submit_verification" do
-        it_behaves_like "it succeeds and fails" do
-          let(:verb_method) { :post }
-          subject { described_class.submit_verification(params) }
-        end
-      end
-
-      describe ".retrieve_verification" do
-        it_behaves_like "it succeeds and fails" do
-          let(:verb_method) { :get }
-          subject { described_class.retrieve_verification(params) }
-        end
-      end
-
-      describe ".retrieve_usage" do
-        it_behaves_like "it succeeds and fails" do
-          let(:verb_method) { :get }
-          subject { described_class.retrieve_usage(params) }
+      %i[payments content ip_addresses credit_cards email_addresses].each do |method|
+        describe ".related_#{method}" do
+          it_behaves_like "it succeeds and fails" do
+            subject { described_class.send("related_#{method}".to_sym, resource_id, params) }
+          end
         end
       end
     end

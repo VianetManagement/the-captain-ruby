@@ -5,9 +5,9 @@ require "spec_helper"
 shared_examples_for "it succeeds and fails" do
   let(:params)      { { user: "abc123" } }
   let(:payload)     { { user: "test" } }
+  let(:verb_method) { :get }
 
   before { mock_http_request!(verb_method, payload: payload, status_code: status_code) }
-  before { expect(described_class).to receive(:validate_params!).and_call_original }
 
   context "Success" do
     let(:status_code) { 200 }
