@@ -19,3 +19,22 @@ shared_examples_for "it succeeds and fails" do
     it { is_expected.to be_an_instance_of(TheCaptain::Response::CaptainVessel).and(be_invalid) }
   end
 end
+
+shared_examples_for "it has request methods" do
+  let(:resource_id) { "apples-to-oranges" }
+
+  describe ".receive" do
+    it_behaves_like "it succeeds and fails" do
+      subject { described_class.receive(resource_id, params) }
+    end
+  end
+
+  described_class.api_paths.each_key do |method|
+    next if method == :base
+    describe ".related_#{method}" do
+      it_behaves_like "it succeeds and fails" do
+        subject { described_class.send("related_#{method}".to_sym, resource_id, params) }
+      end
+    end
+  end
+end
