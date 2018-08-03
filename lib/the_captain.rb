@@ -20,9 +20,11 @@ require "the_captain/captain_client"
 
 # Query Classes
 require "the_captain/api_resource"
+require "the_captain/collect"
 require "the_captain/user"
 require "the_captain/ip_address"
 require "the_captain/content"
+require "the_captain/credit_card"
 
 module TheCaptain
   @enabled         = true
