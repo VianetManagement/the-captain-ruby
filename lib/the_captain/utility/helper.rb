@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "cgi/util"
+
 module TheCaptain
   module Utility
     module Helper
@@ -11,9 +13,10 @@ module TheCaptain
 
       # Formats the destination path
       # Ex: normalize_path("/foo/%<resource_id>s/bar", 101) #=> "/foo/101/bar"
+      #     normalize_path("/foo/%<resource_id>s/bar", "user@example.com") #=> "/foo/user%40example.com/bar"
       def normalize_path(api_path, resource_id)
         return api_path unless resource_id
-        format(api_path, resource_id: resource_id)
+        format(api_path, resource_id: CGI.escape(resource_id))
       end
 
       # Recursively traverses a Hash table to ensure keys are symbolized.

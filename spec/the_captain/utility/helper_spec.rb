@@ -25,6 +25,18 @@ module TheCaptain
           let(:resource_id) { nil }
           it { is_expected.to eq(api_path) }
         end
+
+        context "It URI escapes resource IDs that contains special symbols" do
+          let(:api_path)    { "/foo/%<resource_id>s/bar" }
+          let(:resource_id) { "user@example.com" }
+          it { is_expected.to eq("/foo/user%40example.com/bar") }
+        end
+
+        context "It URI resource IDs that contain spaces" do
+          let(:api_path)    { "/foo/%<resource_id>s/bar" }
+          let(:resource_id) { "Hello BOB" }
+          it { is_expected.to eq("/foo/Hello+BOB/bar") }
+        end
       end
 
       describe ".symbolize_names/1" do
