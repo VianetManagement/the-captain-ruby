@@ -11,6 +11,8 @@ module TheCaptain
     end
 
     def self.request(method, api_dest: :base, resource_id: nil, params: {})
+      return unless TheCaptain.enabled?
+
       api_path = Utility::Helper.normalize_path(api_paths[api_dest], resource_id)
       params   = Utility::Helper.normalize_params(params)
 
