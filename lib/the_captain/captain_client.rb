@@ -59,7 +59,7 @@ module TheCaptain
     end
 
     def post(url, params = {})
-      @conn.post(url, form: params)
+      @conn.post(url, json: params)
     end
 
     private
