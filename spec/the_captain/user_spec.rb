@@ -8,6 +8,7 @@ module TheCaptain
 
     describe ".api_paths" do
       subject { described_class.api_paths }
+
       it { is_expected.to be_frozen }
 
       its([:base])            { is_expected.to eq("/users/%<resource_id>s") }

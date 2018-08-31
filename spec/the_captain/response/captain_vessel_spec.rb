@@ -5,10 +5,10 @@ require "spec_helper"
 module TheCaptain
   module Response
     RSpec.describe CaptainVessel do
+      subject { described_class.new(response) }
+
       let(:response)    { http_response(payload: { hello: "world" }, status_code: status_code) }
       let(:status_code) { 200 }
-
-      subject { described_class.new(response) }
 
       describe ".new" do
         it { is_expected.to be_frozen }
@@ -23,13 +23,14 @@ module TheCaptain
       end
 
       describe "#valid?" do
-        context "Good 2XX status code" do
+        context "when Good 2XX status code" do
           its(:valid?)   { is_expected.to be_truthy }
           its(:invalid?) { is_expected.to be_falsey }
         end
 
-        context "Bad 4XX status code" do
+        context "when Bad 4XX status code" do
           let(:status_code) { 400 }
+
           its(:valid?)      { is_expected.to be_falsey }
           its(:invalid?)    { is_expected.to be_truthy }
         end

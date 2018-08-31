@@ -9,6 +9,7 @@ module TheCaptain
 
       describe "#[method]? - check if hash key exists in table" do
         subject { described_class.new(should_be_true: "this exists") }
+
         its(:should_be_true?)  { is_expected.to be_truthy }
         its(:should_be_false?) { is_expected.to be_falsey }
       end

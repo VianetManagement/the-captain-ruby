@@ -6,29 +6,31 @@ RSpec.describe TheCaptain do
   subject { described_class }
 
   it "has a version number" do
-    expect(subject::VERSION).not_to be nil
+    expect(described_class::VERSION).not_to be nil
   end
 
   describe ".enabled?" do
+    subject(:enabled?) { described_class }
+
     it "is enabled by default" do
-      expect(subject.enabled?).to be_truthy
+      expect(enabled?).to be_enabled
     end
 
     it "can be disabled" do
       described_class.enabled = false
-      expect(subject.enabled?).to be_falsey
+      expect(enabled?).not_to be_enabled
     end
   end
 
   describe ".configuration" do
-    context "Defaults" do
+    context "with Defaults" do
       its(:api_key)            { is_expected.to be_empty }
-      its(:api_url)            { is_expected.to_not be_empty }
+      its(:api_url)            { is_expected.not_to be_empty }
       its(:retry_attempts)     { is_expected.to be_zero }
       its(:raise_http_errors?) { is_expected.to be_falsey }
     end
 
-    context "Environmental Variables" do
+    context "with Environmental Variables" do
       let(:api_key)     { "secret-key" }
       let(:api_url)     { "https://google.com/v5" }
 
