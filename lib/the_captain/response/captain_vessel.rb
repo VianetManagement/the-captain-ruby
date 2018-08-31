@@ -6,7 +6,7 @@ module TheCaptain
       extend Forwardable
       attr_reader :raw_response, :data, :status
 
-      def_delegators :@data, :method_missing
+      def_delegators :@data, :dig, :method_missing
 
       def initialize(captain_response)
         raise Error::ClientInvalidResourceError unless captain_response.is_a?(HTTP::Response)
