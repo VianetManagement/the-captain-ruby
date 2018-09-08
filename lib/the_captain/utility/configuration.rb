@@ -3,24 +3,22 @@
 module TheCaptain
   module Utility
     class Configuration
-      attr_accessor :base_url
-      attr_accessor :api_version
-      attr_accessor :server_api_token
-      attr_accessor :retry_attempts
-      attr_accessor :connection_adapter
+      attr_accessor :api_url, :api_key, :retry_attempts, :raise_http_errors
 
       def initialize
-        @api_version        = "v2"
-        @connection_adapter = Faraday.default_adapter
+        @api_key           = ENV.fetch("CAPTAIN_API_KEY", "")
+        @api_url           = ENV.fetch("CAPTAIN_API_URL", "https://api.trustcaptain.com/v3")
+        @retry_attempts    = 0
+        @raise_http_errors = false
       end
 
       def to_h
         {
-          server_api_token: server_api_token,
-          api_version: api_version,
-          base_url: base_url,
-          connection_adapter: connection_adapter,
-          retry_attempts: retry_attempts,
+          api_key:           api_key,
+          api_url:           api_url,
+          api_version:       api_version,
+          retry_attempts:    retry_attempts,
+          raise_http_errors: raise_http_errors,
         }.freeze
       end
     end

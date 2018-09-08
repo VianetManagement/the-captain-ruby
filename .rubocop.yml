@@ -1,5 +1,7 @@
+require: rubocop-rspec
+
 AllCops:
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.4
   DisplayStyleGuide: true
   DisplayCopNames: true
 
@@ -34,6 +36,9 @@ BracesAroundHashParameters:
 StringLiterals:
   EnforcedStyle: double_quotes
 
+Metrics/AbcSize:
+  Max: 18
+
 #################
 # Disabled cops #
 #################
@@ -62,7 +67,11 @@ Style/Lambda:
 Style/IfUnlessModifier:
   Enabled: false
 
-Style/TrailingCommaInLiteral:
+Style/TrailingCommaInArrayLiteral:
+  Enabled: true
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInHashLiteral:
   Enabled: true
   EnforcedStyleForMultiline: comma
 
@@ -76,8 +85,3 @@ Style/GuardClause:
 Lint/AmbiguousBlockAssociation:
   Exclude:
     - spec/**/*
-
-# Increase minsize to prevent rubocop throwing warning on ActiveRecord/ActiveController Callbacks
-# Ex after_action :some_action, on: [:update, :create]
-Style/SymbolArray:
-  MinSize: 4

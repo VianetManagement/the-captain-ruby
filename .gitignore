@@ -17,3 +17,6 @@ coverage/
 *.gem
 
 .rvmrc
+
+/legacy
+.rspec_status

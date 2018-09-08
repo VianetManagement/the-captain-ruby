@@ -2,38 +2,23 @@
 
 require "spec_helper"
 
-RSpec.describe "TheCaptain::User/s" do
-  before { authenticate! }
-  let(:ip_address)  { "206.181.8.242" }
-  let(:user)        { 999_999_999_999_999 }
-  let(:email)       { "user@example.com" }
-  let(:credit_card) { "abc1234567" }
-  let(:content)     { "Hello World!" }
+module TheCaptain
+  RSpec.describe User, :auto_auth do
+    it { is_expected.to be_a_kind_of(APIResource) }
 
-  describe ".call" do
-    context "Success" do
-      it "should return information about a given user" do
-        results = TheCaptain::User.call(user)
-        expect(results.status).to eq(200)
-        expect(results.value).to eq(user)
-      end
+    describe ".api_paths" do
+      subject { described_class.api_paths }
 
-      it "should return all users that have a matching ip" do
-        results = TheCaptain::UserCollection.call(ip_address: ip_address)
-        expect(results.status).to eq(200)
-        expect(results.ip_address).to_not be_nil
-        expect(results.ip_address.users).to_not be_nil
-      end
+      it { is_expected.to be_frozen }
+
+      its([:base])            { is_expected.to eq("/users/%<resource_id>s") }
+      its([:payments])        { is_expected.to eq("/users/%<resource_id>s/related/payments") }
+      its([:content])         { is_expected.to eq("/users/%<resource_id>s/related/content") }
+      its([:ip_addresses])    { is_expected.to eq("/users/%<resource_id>s/related/ip_addresses") }
+      its([:credit_cards])    { is_expected.to eq("/users/%<resource_id>s/related/credit_cards") }
+      its([:email_addresses]) { is_expected.to eq("/users/%<resource_id>s/related/email_addresses") }
     end
 
-    context "failure" do
-      it "should fail if a content type is blank" do
-        expect { TheCaptain::User.call("") }.to raise_exception(TheCaptain::Error::APIError)
-      end
-
-      it "should fail if content type is missing" do
-        expect { TheCaptain::UserCollection.call }.to raise_exception(TheCaptain::Error::APIError)
-      end
-    end
+    it_behaves_like "it has request methods"
   end
 end

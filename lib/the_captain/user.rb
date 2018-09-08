@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
 module TheCaptain
-  class User < ApiResource
-    api_path "/user"
+  class User < APIResource
+    api_paths base:            "/users/%<resource_id>s",
+              payments:        "/users/%<resource_id>s/related/payments",
+              content:         "/users/%<resource_id>s/related/content",
+              ip_addresses:    "/users/%<resource_id>s/related/ip_addresses",
+              credit_cards:    "/users/%<resource_id>s/related/credit_cards",
+              email_addresses: "/users/%<resource_id>s/related/email_addresses"
 
-    def self.call(value)
-      raise_argument_error!(["value"]) if value.blank?
-      retrieve(value: user_id_extract(value)) # TheCaptain::APIOperations::Crud.retrieve
-    end
+    define_get_path_methods!
   end
 end
