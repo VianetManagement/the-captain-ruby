@@ -25,6 +25,7 @@ require "the_captain/user"
 require "the_captain/ip_address"
 require "the_captain/content"
 require "the_captain/credit_card"
+require "the_captain/email_address"
 
 module TheCaptain
   @enabled         = true

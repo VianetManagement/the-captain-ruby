@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    the_captain (3.0.0.pre.beta)
+    the_captain (3.0.0)
       http (~> 3.0)
       oj (~> 3.0)
 
@@ -84,4 +84,4 @@ DEPENDENCIES
   the_captain!
 
 BUNDLED WITH
-   1.16.3
+   1.16.4
