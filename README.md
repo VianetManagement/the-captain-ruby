@@ -5,8 +5,12 @@
 ## Installation
 
 ```
-gem 'the_captain', :git => 'git@github.com:VianetManagement/the-captain-ruby.git', tag: "v1.0.0-RC6"
+gem "the_captain"
 ```
+
+## Rails Integration
+
+[The Captain Rails](https://github.com/VianetManagement/the-captain-rails)
 
 ## Examples
 You can find more examples in `/examples` and at [our documentation site](https://captain.readme.io/docs)
