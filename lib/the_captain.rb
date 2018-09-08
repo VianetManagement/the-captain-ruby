@@ -48,11 +48,11 @@ module TheCaptain
     end
 
     def api_key
-      @api_key            ||= configuration.api_key.strip
+      @api_key            ||= configuration.api_key.to_s.strip
     end
 
     def api_url
-      @api_url            ||= configuration.api_url.strip.chomp("/")
+      @api_url            ||= configuration.api_url.to_s.strip.chomp("/")
     end
 
     def retry_attempts
