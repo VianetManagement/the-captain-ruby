@@ -22,6 +22,6 @@ end
 
 RSpec.configure do |config|
   config.include(AuthenticationHelper)
-  config.before(:each)             { AuthenticationHelper.reset_configurations! }
+  config.before { AuthenticationHelper.reset_configurations! }
   config.before(:each, :auto_auth) { AuthenticationHelper.reset_authentication! }
 end

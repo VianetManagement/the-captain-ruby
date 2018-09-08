@@ -11,7 +11,6 @@ require "the_captain/error/exceptions"
 
 # Utility Helper classes
 require "the_captain/utility/helper"
-require "the_captain/utility/validation"
 require "the_captain/utility/configuration"
 
 # Net and responses classes
@@ -21,11 +20,11 @@ require "the_captain/captain_client"
 
 # Query Classes
 require "the_captain/api_resource"
+require "the_captain/collect"
 require "the_captain/user"
 require "the_captain/ip_address"
-require "the_captain/message"
-require "the_captain/stats"
 require "the_captain/content"
+require "the_captain/credit_card"
 
 module TheCaptain
   @enabled         = true
@@ -49,11 +48,11 @@ module TheCaptain
     end
 
     def api_key
-      @api_key            ||= configuration.api_key.strip
+      @api_key            ||= configuration.api_key.to_s.strip
     end
 
     def api_url
-      @api_url            ||= configuration.api_url.strip.chomp("/")
+      @api_url            ||= configuration.api_url.to_s.strip.chomp("/")
     end
 
     def retry_attempts

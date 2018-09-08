@@ -7,7 +7,7 @@ module TheCaptain
 
       def initialize
         @api_key           = ENV.fetch("CAPTAIN_API_KEY", "")
-        @api_url           = ENV.fetch("CAPTAIN_API_URL", "https://thecaptain.elevatorup.com/v2")
+        @api_url           = ENV.fetch("CAPTAIN_API_URL", "https://api.trustcaptain.com/v3")
         @retry_attempts    = 0
         @raise_http_errors = false
       end

@@ -2,34 +2,13 @@
 
 module TheCaptain
   class Content < APIResource
-    api_paths base: "",
-              users: "/users",
-              stats: "/stats",
-              usage: "/usage"
+    api_paths base:            "content/%<resource_id>s",
+              lists:           "content/%<resource_id>s/related/lists",
+              payments:        "content/%<resource_id>s/related/payments",
+              credit_cards:    "content/%<resource_id>s/related/credit_cards",
+              email_addresses: "content/%<resource_id>s/related/email_addresses",
+              ip_addresses:    "content/%<resource_id>s/related/ip_addresses"
 
-    def self.retrieve(**params)
-      request(:get, params: params)
-    end
-
-    def self.submit(**params)
-      request(:post, params: params)
-    end
-
-    def self.retrieve_users(**params)
-      request(:get, api_dest: :users, params: params)
-    end
-
-    def self.retrieve_stats(**params)
-      request(:get, api_dest: :stats, params: params)
-    end
-
-    def self.retrieve_usage(**params)
-      request(:get, api_dest: :usage, params: params)
-    end
-
-    def self.validate_params!(params)
-      Utility::Validation.contains_required_content?(class_name, params)
-      Utility::Validation.valid_content_parameter?(class_name, params)
-    end
+    define_get_path_methods!
   end
 end

@@ -2,29 +2,13 @@
 
 module TheCaptain
   class IPAddress < APIResource
-    api_paths base: "",
-              users: "/users",
-              stats: "/stats",
-              usage: "/usage"
+    api_paths base:            "ip_addresses/%<resource_id>s",
+              lists:           "ip_addresses/%<resource_id>s/related/lists",
+              payments:        "ip_addresses/%<resource_id>s/related/payments",
+              content:         "ip_addresses/%<resource_id>s/related/content",
+              credit_cards:    "ip_addresses/%<resource_id>s/related/credit_cards",
+              email_addresses: "ip_addresses/%<resource_id>s/related/email_addresses"
 
-    def retrieve(**params)
-      request(:get, params: params)
-    end
-
-    def submit(**params)
-      request(:post, params: params)
-    end
-
-    def retrieve_users(**params)
-      request(:get, api_dest: :users, params: params)
-    end
-
-    def retrieve_stats(**params)
-      request(:get, api_dest: :stats, params: params)
-    end
-
-    def retrieve_usage(**params)
-      request(:get, api_dest: :usage, params: params)
-    end
+    define_get_path_methods!
   end
 end

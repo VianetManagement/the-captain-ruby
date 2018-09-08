@@ -8,55 +8,17 @@ module TheCaptain
 
     describe ".api_paths" do
       subject { described_class.api_paths }
-      its([:base])         { is_expected.to eq("/user") }
-      its([:action])       { is_expected.to eq("/user/action") }
-      its([:stats])        { is_expected.to eq("/user/stats") }
-      its([:usage])        { is_expected.to eq("/user/usage") }
-      its([:verification]) { is_expected.to eq("/user/verification") }
+
+      it { is_expected.to be_frozen }
+
+      its([:base])            { is_expected.to eq("/users/%<resource_id>s") }
+      its([:payments])        { is_expected.to eq("/users/%<resource_id>s/related/payments") }
+      its([:content])         { is_expected.to eq("/users/%<resource_id>s/related/content") }
+      its([:ip_addresses])    { is_expected.to eq("/users/%<resource_id>s/related/ip_addresses") }
+      its([:credit_cards])    { is_expected.to eq("/users/%<resource_id>s/related/credit_cards") }
+      its([:email_addresses]) { is_expected.to eq("/users/%<resource_id>s/related/email_addresses") }
     end
 
-    context "Request Methods" do
-      describe ".retrieve" do
-        it_behaves_like "it succeeds and fails" do
-          let(:verb_method) { :get }
-          subject { described_class.retrieve(params) }
-        end
-      end
-
-      describe ".submit" do
-        it_behaves_like "it succeeds and fails" do
-          let(:verb_method) { :post }
-          subject { described_class.submit(params) }
-        end
-      end
-
-      describe ".submit_action" do
-        it_behaves_like "it succeeds and fails" do
-          let(:verb_method) { :post }
-          subject { described_class.submit_action(params) }
-        end
-      end
-
-      describe ".submit_verification" do
-        it_behaves_like "it succeeds and fails" do
-          let(:verb_method) { :post }
-          subject { described_class.submit_verification(params) }
-        end
-      end
-
-      describe ".retrieve_verification" do
-        it_behaves_like "it succeeds and fails" do
-          let(:verb_method) { :get }
-          subject { described_class.retrieve_verification(params) }
-        end
-      end
-
-      describe ".retrieve_usage" do
-        it_behaves_like "it succeeds and fails" do
-          let(:verb_method) { :get }
-          subject { described_class.retrieve_usage(params) }
-        end
-      end
-    end
+    it_behaves_like "it has request methods"
   end
 end
