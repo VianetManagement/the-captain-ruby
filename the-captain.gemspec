@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.files         = Dir["README.md", "lib/**/*"]
   spec.require_paths = ["lib"]
 
-  spec.add_dependency("http", "~> 3.0")
+  spec.add_dependency("http", "~> 4.0")
   spec.add_dependency("oj", "~> 3.0")
 
   spec.add_development_dependency("rake", "~> 10.0")
