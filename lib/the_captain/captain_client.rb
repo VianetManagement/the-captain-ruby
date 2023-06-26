@@ -51,7 +51,7 @@ module TheCaptain
 
     def send_to_snowplow(params)
       url = ENV.fetch("CAPTAIN_SNOWPLOW_URL", "sp.trustcaptain.com")
-      schema = ENV.fetch("CAPTAIN_SNOWPLOW_SCHEMA", "iglu:com.trustcaptain/captain_general_event/jsonschema/1-0-3")
+      schema = ENV.fetch("CAPTAIN_SNOWPLOW_SCHEMA", "")
       env = ENV.fetch("RAILS_ENV", "development")
       emitter = SnowplowTracker::AsyncEmitter.new(endpoint: url, options: { method: 'post', protocol: 'https', port: 443 })
       tracker = SnowplowTracker::Tracker.new(emitters: emitter, namespace: "roommates-captain-web", "roommates-#{env}", encode_base64: true)
