@@ -58,8 +58,8 @@ module TheCaptain
       tracker.set_platform("app")
       tracker.set_user_id(params[:user][:id]) if params.key?(:user) && params[:user].key?(:id)
       tracker.set_useragent(params[:context][:user_agent]) if params.key?(:context) && params[:context].key?(:user_agent)
-      tracker.set_user_ipaddress(params[:context][:ip_address]) if params.key?(:context) && params[:context].key?(:ip_address)
-      tracker.set_user_fingerprint(params[:user][:browser_fingerprint]) if params.key?(:user) && params[:user].key?(:browser_fingerprint)
+      tracker.set_ip_address(params[:context][:ip_address]) if params.key?(:context) && params[:context].key?(:ip_address)
+      tracker.set_fingerprint(params[:user][:browser_fingerprint]) if params.key?(:user) && params[:user].key?(:browser_fingerprint)
       self_desc_json = SnowplowTracker::SelfDescribingJson.new(schema,params)
       tracker.track_self_describing_event(event_json: self_desc_json)
     end
