@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    the_captain (3.0.1)
+    the_captain (3.0.2.2)
       http (~> 4.0)
       oj (~> 3.0)
 
