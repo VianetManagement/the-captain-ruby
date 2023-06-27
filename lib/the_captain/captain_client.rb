@@ -54,7 +54,7 @@ module TheCaptain
       schema = ENV.fetch("CAPTAIN_SNOWPLOW_SCHEMA", "")
       env = ENV.fetch("RAILS_ENV", "development")
       emitter = SnowplowTracker::AsyncEmitter.new(endpoint: url, options: { method: 'post', protocol: 'https', port: 443 })
-      tracker = SnowplowTracker::Tracker.new(emitters: emitter, namespace: "roommates-captain-web", "roommates-#{env}", encode_base64: true)
+      tracker = SnowplowTracker::Tracker.new(emitters: emitter, namespace: "roommates-captain-web", app_id: "roommates-#{env}", encode_base64: true)
       tracker.set_platform("app")
       tracker.set_user_id(params[:user][:id]) if params.key?(:user) && params[:user].key?(:id)
       tracker.set_useragent(params[:context][:user_agent]) if params.key?(:context) && params[:context].key?(:user_agent)
