@@ -54,7 +54,7 @@ module TheCaptain
       puts "Attempting to track to snowplow"
       puts "params are: #{params}"
       puts "*************************************"
-      snowplow_params = params.to_h.deep_dup
+      snowplow_params = params.dup
       url = ENV.fetch("CAPTAIN_SNOWPLOW_URL", "sp.trustcaptain.com")
       schema = ENV.fetch("CAPTAIN_SNOWPLOW_SCHEMA", "")
       env = ENV.fetch("RAILS_ENV", "development")
