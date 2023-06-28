@@ -50,12 +50,16 @@ module TheCaptain
     protected
 
     def send_to_snowplow(params)
+      puts "*************************************"
+      puts "Attempting to track to snowplow"
+      puts "params are: #{params}"
+      puts "*************************************"
       url = ENV.fetch("CAPTAIN_SNOWPLOW_URL", "sp.trustcaptain.com")
       schema = ENV.fetch("CAPTAIN_SNOWPLOW_SCHEMA", "")
       env = ENV.fetch("RAILS_ENV", "development")
       api_key = ENV.fetch("CAPTAIN_SNOWPLOW_API_KEY", "")
       params["api_key"] = api_key
-      emitter = SnowplowTracker::Emitter.new(endpoint: url, options: { method: 'post', protocol: 'https', port: 443, path: "/com.snowplowanalytics.iglu/v1" })
+      emitter = SnowplowTracker::Emitter.new(endpoint: url, options: { method: 'post', protocol: 'https', port: 443, path: "/com.snowplowanalytics.iglu/v1", buffer_size: 1 })
       tracker = SnowplowTracker::Tracker.new(emitters: emitter, namespace: "roommates-captain-web", app_id: "roommates-#{env}", encode_base64: true)
       tracker.set_platform("app")
       tracker.set_user_id(params[:user][:id]) if params.key?(:user) && params[:user].key?(:id)
@@ -63,7 +67,13 @@ module TheCaptain
       tracker.set_ip_address(params[:context][:ip_address]) if params.key?(:context) && params[:context].key?(:ip_address)
       tracker.set_fingerprint(params[:user][:browser_fingerprint]) if params.key?(:user) && params[:user].key?(:browser_fingerprint)
       self_desc_json = SnowplowTracker::SelfDescribingJson.new(schema,params)
-      tracker.track_self_describing_event(event_json: self_desc_json)
+      puts "*************************************"
+      puts "self_desc_json is: #{self_desc_json}"
+      puts "*************************************"
+      res = tracker.track_self_describing_event(event_json: self_desc_json)
+      puts "*************************************"
+      puts "Snowplow tracker response is: #{res}"
+      puts "*************************************"
       tracker.flush
     end
 
