@@ -53,7 +53,9 @@ module TheCaptain
       url = ENV.fetch("CAPTAIN_SNOWPLOW_URL", "sp.trustcaptain.com")
       schema = ENV.fetch("CAPTAIN_SNOWPLOW_SCHEMA", "")
       env = ENV.fetch("RAILS_ENV", "development")
-      emitter = SnowplowTracker::Emitter.new(endpoint: url, options: { method: 'post', protocol: 'https', port: 443 })
+      api_key = ENV.fetch("CAPTAIN_SNOWPLOW_API_KEY", "")
+      params["api_key"] = api_key
+      emitter = SnowplowTracker::Emitter.new(endpoint: url, options: { method: 'post', protocol: 'https', port: 443, path: "/com.snowplowanalytics.iglu/v1" })
       tracker = SnowplowTracker::Tracker.new(emitters: emitter, namespace: "roommates-captain-web", app_id: "roommates-#{env}", encode_base64: true)
       tracker.set_platform("app")
       tracker.set_user_id(params[:user][:id]) if params.key?(:user) && params[:user].key?(:id)
@@ -62,6 +64,7 @@ module TheCaptain
       tracker.set_fingerprint(params[:user][:browser_fingerprint]) if params.key?(:user) && params[:user].key?(:browser_fingerprint)
       self_desc_json = SnowplowTracker::SelfDescribingJson.new(schema,params)
       tracker.track_self_describing_event(event_json: self_desc_json)
+      tracker.flush
     end
 
     def capture_response!(retry_count = TheCaptain.retry_attempts)
