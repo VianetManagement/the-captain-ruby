@@ -67,6 +67,9 @@ module TheCaptain
       tracker.set_useragent(snowplow_params[:context][:user_agent]) if snowplow_params.key?(:context) && snowplow_params[:context].key?(:user_agent)
       tracker.set_ip_address(snowplow_params[:context][:ip_address]) if snowplow_params.key?(:context) && snowplow_params[:context].key?(:ip_address)
       tracker.set_fingerprint(snowplow_params[:user][:browser_fingerprint]) if snowplow_params.key?(:user) && snowplow_params[:user].key?(:browser_fingerprint)
+      puts "******************************************"
+      puts "tracker is: #{tracker.inspect}"
+      puts "******************************************"
       self_desc_json = SnowplowTracker::SelfDescribingJson.new(schema, snowplow_params)
       puts "*************************************"
       puts "self_desc_json is: #{self_desc_json}"
