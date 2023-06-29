@@ -60,9 +60,8 @@ module TheCaptain
       env = ENV.fetch("RAILS_ENV", "development")
       api_key = ENV.fetch("CAPTAIN_SNOWPLOW_API_KEY", "")
       snowplow_params["api_key"] = api_key
-      emitter = SnowplowTracker::Emitter.new(endpoint: url, options: { method: 'post', protocol: 'https', port: 443, path: "/com.snowplowanalytics.iglu/v1", buffer_size: 1 })
+      emitter = SnowplowTracker::Emitter.new(endpoint: url, options: { method: 'post', protocol: 'https', port: 443, buffer_size: 1 })
       tracker = SnowplowTracker::Tracker.new(emitters: emitter, namespace: "roommates-captain-web", app_id: "roommates-#{env}", encode_base64: true)
-      tracker.set_platform("app")
       tracker.set_user_id(snowplow_params[:user][:id]) if snowplow_params.key?(:user) && snowplow_params[:user].key?(:id)
       tracker.set_useragent(snowplow_params[:context][:user_agent]) if snowplow_params.key?(:context) && snowplow_params[:context].key?(:user_agent)
       tracker.set_ip_address(snowplow_params[:context][:ip_address]) if snowplow_params.key?(:context) && snowplow_params[:context].key?(:ip_address)
