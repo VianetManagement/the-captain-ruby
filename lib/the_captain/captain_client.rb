@@ -50,33 +50,19 @@ module TheCaptain
     protected
 
     def send_to_snowplow(params)
-      puts "*************************************"
-      puts "Attempting to track to snowplow"
-      puts "params are: #{params}"
-      puts "*************************************"
       snowplow_params = params.dup
       url = ENV.fetch("CAPTAIN_SNOWPLOW_URL", "sp.trustcaptain.com")
       schema = ENV.fetch("CAPTAIN_SNOWPLOW_SCHEMA", "")
       env = ENV.fetch("RAILS_ENV", "development")
-      api_key = ENV.fetch("CAPTAIN_SNOWPLOW_API_KEY", "")
-      snowplow_params["api_key"] = api_key
+      snowplow_params["api_key"] = TheCaptain.api_key
       emitter = SnowplowTracker::Emitter.new(endpoint: url, options: { method: 'post', protocol: 'https', port: 443, buffer_size: 1 })
       tracker = SnowplowTracker::Tracker.new(emitters: emitter, namespace: "roommates-captain-web", app_id: "roommates-#{env}", encode_base64: true)
       tracker.set_user_id(snowplow_params[:user][:id]) if snowplow_params.key?(:user) && snowplow_params[:user].key?(:id)
       tracker.set_useragent(snowplow_params[:context][:user_agent]) if snowplow_params.key?(:context) && snowplow_params[:context].key?(:user_agent)
       tracker.set_ip_address(snowplow_params[:context][:ip_address]) if snowplow_params.key?(:context) && snowplow_params[:context].key?(:ip_address)
       tracker.set_fingerprint(snowplow_params[:user][:browser_fingerprint]) if snowplow_params.key?(:user) && snowplow_params[:user].key?(:browser_fingerprint)
-      puts "******************************************"
-      puts "tracker is: #{tracker.inspect}"
-      puts "******************************************"
       self_desc_json = SnowplowTracker::SelfDescribingJson.new(schema, snowplow_params)
-      puts "*************************************"
-      puts "self_desc_json is: #{self_desc_json}"
-      puts "*************************************"
       res = tracker.track_self_describing_event(event_json: self_desc_json)
-      puts "*************************************"
-      puts "Snowplow tracker response is: #{res}"
-      puts "*************************************"
       tracker.flush
     end
 
