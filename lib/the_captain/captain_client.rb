@@ -36,7 +36,7 @@ module TheCaptain
     def request(verb_method, path, params = {})
       verify_api_key_header!
       verify_request_method!(verb_method)
-      capture_response! { send(verb_method.to_sym, destination_url(path), params) }
+      # capture_response! { send(verb_method.to_sym, destination_url(path), params) }
       send_to_snowplow(params)
       raise_status_error! unless @response.status.success?
       self
