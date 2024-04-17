@@ -37,6 +37,7 @@ module TheCaptain
       verify_api_key_header!
       verify_request_method!(verb_method)
       # capture_response! { send(verb_method.to_sym, destination_url(path), params) }
+      send_to_vianet_admin(params)
       send_to_snowplow(params)
       raise_status_error! unless @response.status.success?
       self
@@ -48,6 +49,22 @@ module TheCaptain
     end
 
     protected
+
+    def send_to_vianet_admin(params)
+      user_id = if params.key?(:user) && params[:user].key?(:id)
+        params[:user][:id]
+      else
+        nil
+      end
+      return if user_id == nil
+
+      begin
+        url = ENV.fetch("VIANET_ADMIN_URL", "")
+        post(url, {site: "roommates", user_id: user_id})
+      catch StandardError => e
+        Rails.logger.error e
+      end
+    end
 
     def send_to_snowplow(params)
       snowplow_params = params.dup
