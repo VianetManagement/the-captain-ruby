@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    the_captain (3.0.2.2)
+    the_captain (3.0.5.0)
       http (~> 4.0)
       oj (~> 3.0)
 
@@ -86,6 +86,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  bundler (~> 2.4.22)
   dotenv (~> 2.2)
   pry (~> 0.11.3)
   rake (~> 10.0)
@@ -97,4 +98,4 @@ DEPENDENCIES
   the_captain!
 
 BUNDLED WITH
-   2.4.14
+   2.4.22
