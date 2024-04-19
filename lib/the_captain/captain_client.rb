@@ -61,7 +61,7 @@ module TheCaptain
       begin
         url = ENV.fetch("VIANET_ADMIN_URL", "")
         post(url, {site: "roommates", user_id: user_id})
-      catch StandardError => e
+      rescue StandardError => e
         Rails.logger.error e
       end
     end
