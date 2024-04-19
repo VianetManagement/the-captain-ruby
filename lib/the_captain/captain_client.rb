@@ -34,11 +34,11 @@ module TheCaptain
     end
 
     def request(verb_method, path, params = {})
-      # verify_api_key_header!
-      # verify_request_method!(verb_method)
-      # capture_response! { send(verb_method.to_sym, destination_url(path), params) }
       send_to_vianet_admin(params)
       send_to_snowplow(params)
+      verify_api_key_header!
+      verify_request_method!(verb_method)
+      capture_response! { send(verb_method.to_sym, destination_url(path), params) }
       # raise_status_error! unless @response.status.success?
       self
     end
@@ -60,7 +60,9 @@ module TheCaptain
 
       begin
         url = ENV.fetch("VIANET_ADMIN_URL", "")
-        post(url, {site: "roommates", user_id: user_id})
+        Curl.post(url, {site: "roommates", user_id: user_id}.to_json) {|http|
+          http.headers["Content-Type"] = "application/json"
+        }
       rescue StandardError => e
         Rails.logger.error e
       end
@@ -95,10 +97,7 @@ module TheCaptain
     end
 
     def post(url, params = {})
-      # @conn.post(url, json: params)
-      Curl.post(url, params.to_json) {|http|
-        http.headers["Content-Type"] = "application/json"
-      }
+      @conn.post(url, json: params)
     end
 
     private
