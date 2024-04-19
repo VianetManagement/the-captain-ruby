@@ -95,7 +95,10 @@ module TheCaptain
     end
 
     def post(url, params = {})
-      @conn.post(url, json: params)
+      # @conn.post(url, json: params)
+      Curl.post(url, params.to_json) {|http|
+        http.headers["Content-Type"] = "application/json"
+      }
     end
 
     private

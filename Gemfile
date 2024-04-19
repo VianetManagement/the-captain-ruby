@@ -3,6 +3,7 @@
 source "https://rubygems.org"
 
 gem "bundler", "~> 2.4.22"
+gem "curb"
 gem "snowplow-tracker"
 
 group :development, :test do
