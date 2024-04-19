@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require "snowplow-tracker"
+require "curb"
 
 module TheCaptain
   class CaptainClient
